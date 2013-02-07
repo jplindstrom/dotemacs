@@ -1,0 +1,19 @@
+#name : new test file
+# --
+
+=head1 DESCRIPTION
+
+Tests for ${1:module_name}
+
+=cut
+
+use strict;
+use warnings;
+
+use PIPs::Test::More tests => 1;
+
+use $1;
+
+$0
+
+

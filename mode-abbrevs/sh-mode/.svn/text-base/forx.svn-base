@@ -1,0 +1,3 @@
+for <field "variable"> in <field "list">; do
+    <endpoint>
+done

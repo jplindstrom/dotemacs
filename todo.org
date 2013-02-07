@@ -1,0 +1,28 @@
+* Refactor .emacs
+** DONE Git
+** DONE Stub to load a file
+** Dirs
+*** config
+**** Included from main
+*** lib
+** Go through .emacs file
+*** Replace a chunk
+**** DONE Load config
+**** Move .el to lib
+*** TODO Rename appropriately
+** Env setup
+** DONE Reorganize
+** Replace ordering with ordered/numberd config files
+** Auto-load all in lib
+* Elisp
+** region active?
+  (interactive "@")
+  (cond
+   ;; read-only buffer
+   (buffer-read-only
+    (whitespace-warn-read-only "cleanup"))
+   ;; region active
+   ((and (or transient-mark-mode
+	     current-prefix-arg)
+	 mark-active)
+**

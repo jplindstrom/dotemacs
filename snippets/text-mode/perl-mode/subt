@@ -1,0 +1,6 @@
+#name : test method -- sub x : Test( no_plan ) { }
+# --
+sub $1 : Test( no_plan ) {
+  my $self = shift;
+  $0
+}

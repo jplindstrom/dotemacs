@@ -1,0 +1,6 @@
+if (<field "condition">) {
+    <field "action">
+}
+else {
+    <endpoint>
+}

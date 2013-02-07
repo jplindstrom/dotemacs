@@ -1,0 +1,3 @@
+for (( i = <field "i start">; i <field "i condition">; i <field "i modifier"> )); do
+    <endpoint>
+done

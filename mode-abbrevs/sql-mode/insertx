@@ -1,0 +1,2 @@
+INSERT INTO <field "table">
+    VALUES (<field "values">)

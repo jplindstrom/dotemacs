@@ -1,0 +1,7 @@
+sub ${1:name} {
+    my \$self = shift;
+    my (${2:params}) = @_;
+
+    $0
+}
+
