@@ -1,0 +1,6 @@
+
+
+(savehist-mode 1)
+
+
+

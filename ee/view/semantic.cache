@@ -1,0 +1,14 @@
+;; Object view/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "view/"
+  :tables (list 
+   (semanticdb-table "menubar.ee"
+    :major-mode 'emacs-lisp-mode
+    :tags 'nil
+    :file "menubar.ee"
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0beta3"
+  :semanticdb-version "2.0beta3"
+  )

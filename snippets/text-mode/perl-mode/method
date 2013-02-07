@@ -1,0 +1,16 @@
+#name : =head2 method_name, sub declaration
+# --
+=head2 $1($2)
+
+${3:Description}
+
+Return ${4:value}.
+
+=cut
+sub ${1:name} {
+    my \$self = shift;
+    my (${2:params}) = @_;
+
+    $0
+}
+

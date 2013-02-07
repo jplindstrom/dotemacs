@@ -1,0 +1,2 @@
+SELECT <field "expression">
+    FROM <field "table">

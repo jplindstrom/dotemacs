@@ -1,0 +1,3 @@
+#name : Data::Printer p -- p $var; use Data::Printer;
+# --
+&p([${0:`(buffer-substring (point) (mark))}]); use Data::Printer;

@@ -1,0 +1,3 @@
+for (i = 0; i < <field "condition">; i++) {
+    <endpoint>
+}

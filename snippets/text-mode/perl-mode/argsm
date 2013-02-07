@@ -1,0 +1,4 @@
+#name : methods args -- my $self = shift; my () = @_;
+# --
+my \$self = shift;
+my ($0) = @_;

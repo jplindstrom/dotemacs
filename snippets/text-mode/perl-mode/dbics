@@ -1,0 +1,5 @@
+#name : DBIC ... dbh->selectall_arrayref
+# --
+warn Data::Dumper->new([
+  $rs->result_source->storage->dbh->selectall_arrayref("$0select database()"),
+])->Maxdepth(2)->Dump(); use Data::Dumper;

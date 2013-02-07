@@ -1,0 +1,15 @@
+=head2 <field "name">(<field "args">) : 1
+
+<field "POD">
+
+=cut
+sub <field "name"> {
+    my $self = shift;
+    my (<field "args">) = @_
+    
+    <cursor>
+
+    return 1;
+}
+
+

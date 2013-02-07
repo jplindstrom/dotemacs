@@ -1,0 +1,40 @@
+#name : new Perl script file
+# --
+#!/usr/bin/env perl -w
+
+=head1 NAME
+
+$0
+
+=head1 SYNOPSIS
+
+
+=cut
+
+use strict;
+use Getopt::Long;
+use Pod::Usage;
+
+
+
+main();
+sub main {
+    GetOptions(
+        "string:s" => \( my \$string = "" ),
+        "flag"     => \( my \$flag ),
+    );
+    \$flag or syntax();
+
+    return 0;
+}
+
+
+
+sub syntax {
+    my (\$message) = @_;
+    pod2usage(\$message);
+    exit(1);
+}
+
+
+__END__

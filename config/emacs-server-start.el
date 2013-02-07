@@ -1,0 +1,7 @@
+
+; Emacs Server
+(server-start)
+
+
+
+

@@ -1,0 +1,35 @@
+#name : new Perl module file
+# --
+
+=head1 NAME
+
+${1:module_name} - ${2:brief_description}
+
+=head1 DESCRIPTION
+
+$0
+
+=cut
+
+use strict;
+use warnings;
+
+package $1;
+
+
+
+use Data::Dumper;
+
+
+
+=head1 SUBROUTINES
+
+=cut
+
+
+
+1;
+
+
+
+__END__
