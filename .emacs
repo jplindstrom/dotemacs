@@ -101,8 +101,8 @@
 ;; Languages
 (jpl/load "lang-perl")
 (jpl/load "lang-perl-productivity")
-(jpl/load "lang-perl-productivity-keys")
 (jpl/load "lang-perl-perlysense")
+(jpl/load "lang-perl-productivity-keys")
 (jpl/load "lang-perl-perltidy")
 (jpl/load "lang-perl-prove")
 (jpl/load "lang-perl-obsolete")
