@@ -22,6 +22,7 @@
 (global-set-key (kbd "\C-c \C-d") 'jpl/extract-dotemacs-chunk)
 
 
+(jpl/load "emacs-packages")
 (jpl/load "emacs-load-path")
 (jpl/load "emacs-set-path-from-env")
 (jpl/load "emacs-with-library") ;; used by irc, move up
