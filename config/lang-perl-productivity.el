@@ -87,7 +87,7 @@ If there is a region, wrap the block around the region.
 
 
 
-(jpl/add-to-load-path "lib/lang-refactor-perl")
-(require 'lang-refactor-perl)
+;; (jpl/add-to-load-path "lib/lang-refactor-perl")
+;; (require 'lang-refactor-perl)
 
 
