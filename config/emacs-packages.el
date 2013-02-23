@@ -3,4 +3,7 @@
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
+(package-initialize)
+(setq package-enable-at-startup nil)
+
 
