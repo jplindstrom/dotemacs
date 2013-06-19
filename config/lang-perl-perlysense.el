@@ -32,33 +32,34 @@
                         (format "%s/%s" ps/external-dir "emacs")
                         ) load-path))
       (load "perly-sense")
+
+      ;; ** Flymake Config **
+
+      ;; If you only want syntax check whenever you save, not continously
+      (setq flymake-no-changes-timeout 9999)
+      (setq flymake-start-syntax-check-on-newline nil)
+
+      ;; ** Code Coverage Visualization **
+      ;; If you have a Devel::CoverX::Covered database handy and want to
+      ;; display the sub coverage in the source, set this to t
+      (setq ps/enable-test-coverage-visualization nil)
+
+      ;; Emacs named colors: http://www.geocities.com/kensanata/colors.html
+      ;; These colors work fine with a white X11 background. They may not look
+      ;; that great on a console with the default color scheme.
+      (set-face-background 'flymake-errline "AntiqueWhite2")
+      (set-face-background 'flymake-warnline "lavender")
+      (set-face-background 'dropdown-list-face "lightgrey")
+      (set-face-foreground 'dropdown-list-face "black")
+      (set-face-background 'dropdown-list-selection-face "grey")
+      (set-face-foreground 'dropdown-list-selection-face "black")
+
       )
   (message "Could not identify PerlySense install dir.
 Is Devel::PerlySense installed properly?
 Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-dir)
   )
 
-
-;; ** Flymake Config **
-
-;; If you only want syntax check whenever you save, not continously
-(setq flymake-no-changes-timeout 9999)
-(setq flymake-start-syntax-check-on-newline nil)
-
-;; ** Code Coverage Visualization **
-;; If you have a Devel::CoverX::Covered database handy and want to
-;; display the sub coverage in the source, set this to t
-(setq ps/enable-test-coverage-visualization nil)
-
-;; Emacs named colors: http://www.geocities.com/kensanata/colors.html
-;; These colors work fine with a white X11 background. They may not look
-;; that great on a console with the default color scheme.
-(set-face-background 'flymake-errline "AntiqueWhite2")
-(set-face-background 'flymake-warnline "lavender")
-(set-face-background 'dropdown-list-face "lightgrey")
-(set-face-foreground 'dropdown-list-face "black")
-(set-face-background 'dropdown-list-selection-face "grey")
-(set-face-foreground 'dropdown-list-selection-face "black")
 
 
 ;; ;; ** Misc Config **
@@ -90,9 +91,6 @@ string. Surround it with end-quote and string concatenation."
     )
   )
 (global-set-key (kbd "\C-o e \"") 'jpl/perl-string-quote-from-interpolation)
-
-
-
 
 
 
