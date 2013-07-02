@@ -1,9 +1,10 @@
 
 
 (setq inhibit-startup-message t)
-(set-variable 'tool-bar-mode nil)
-(set-variable 'menu-bar-mode nil)
-
+(set-variable 'tool-bar-mode -1)
+(tool-bar-mode -1)
+(set-variable 'menu-bar-mode -1)
+(menu-bar-mode -1)
 
 ;; Show the line-number of point at the mode line
 (setq line-number-mode t)
