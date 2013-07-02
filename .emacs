@@ -27,6 +27,7 @@
 (jpl/load "emacs-set-path-from-env")
 (jpl/load "emacs-with-library") ;; used by irc, move up
 
+(jpl/load "emacs-mac")
 (jpl/load "emacs-display")
 (jpl/load "emacs-global-unset-keys")
 
