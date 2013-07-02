@@ -31,7 +31,8 @@
   (rcirc-track-minor-mode)
   (set-fill-column 170)
 
-  (server-force-delete)  ;; Assume we run IRC in its own Emacs instance
+  ;; (server-force-delete)  ;; Assume we run IRC in its own Emacs instance
   )
+
 
 
