@@ -22,8 +22,12 @@
 (global-set-key (kbd "<delete>") 'delete-char)
 
 
+
 ;; Ctrl-tab to change docs
 (global-set-key [C-tab] 'other-window)
+
+;; Ctrl-Meta-tab to change frames
+(global-set-key [C-M-tab] 'other-frame)
 
 
 
