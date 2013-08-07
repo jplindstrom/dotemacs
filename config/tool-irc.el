@@ -27,7 +27,15 @@
 
 (defun irc ()
   (interactive)
-  (rcirc-connect "grunt.net-a-porter.com" 6667 rcirc-default-nick rcirc-default-nick rcirc-default-nick (assoc "10.161.39.130" rcirc-startup-channels-alist))
+  (rcirc-connect
+   "grunt.net-a-porter.com"
+   ;; "localhost"
+   6667
+   rcirc-default-nick
+   rcirc-default-nick
+   rcirc-default-nick
+   (assoc "10.161.39.130" rcirc-startup-channels-alist)
+   )
   (rcirc-track-minor-mode)
   (set-fill-column 170)
 
