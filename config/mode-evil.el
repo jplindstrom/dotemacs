@@ -117,7 +117,7 @@ already there, to the beginning of the line."
 
 
 (define-key evil-normal-state-map "\C-r" 'isearch-backward)
-(define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-normal-state-map "\C-a" 'evil-first-non-blank)
 (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
 
 (add-hook 'cperl-mode-hook
