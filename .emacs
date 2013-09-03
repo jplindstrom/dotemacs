@@ -118,6 +118,7 @@
 (jpl/load "lang-C++-boss")
 (jpl/load "lang-haskell")
 (jpl/load "lang-elisp-eval-and-replace")
+(jpl/load "lang-scala")
 
 ;; Markup language
 (jpl/load "lang-sql")
