@@ -120,6 +120,8 @@ already there, to the beginning of the line."
 (define-key evil-normal-state-map "\C-a" 'evil-first-non-blank)
 (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
 
+(define-key evil-normal-state-map " " 'ace-jump-mode)
+
 (add-hook 'cperl-mode-hook
           (lambda () (setq evil-word "[:word:]_$@%")))
 
