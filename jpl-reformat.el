@@ -206,7 +206,7 @@ formatted multiple lines. Line breaks after each parameter."
     (newline-and-indent)
 
     ;; Possibly add trailing ,
-    (previous-line-nomark)
+    (previous-line)
     (cperl-to-comment-or-eol)
     (if (not (search-backward-regexp ",\\ *" (point-at-bol) t))
         (progn
