@@ -6,6 +6,7 @@
 (require 'helm-files)
 (require 'helm-regexp)
 (require 'helm-ls-git)
+(require 'helm-projectile)
 (helm-occur-init-source)
 
 (setq helm-ff-transformer-show-only-basename nil)
@@ -22,7 +23,7 @@
                        ;; Default sources
                        helm-source-buffers-list
                        helm-source-recentf
-                       helm-source-files-in-current-dir
+                       ;; helm-source-files-in-current-dir ;; Not that interesting
 
                        ;; Additional sources
                        helm-c-source-locate
@@ -36,6 +37,12 @@
   (helm-other-buffer '(
                        helm-c-source-occur
                        helm-c-source-moccur
+
+                       ;; Full file search
+                       helm-source-buffers-list
+                       helm-source-recentf
+                       helm-source-files-in-current-dir
+                       helm-c-source-locate
                        )
                      "*my helm search*"))
 
