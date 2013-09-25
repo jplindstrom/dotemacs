@@ -85,7 +85,7 @@
 (jpl/load "mode-ee") ;; disabled, unused
 (jpl/load "mode-highlight-tail") ;; Disabled. Useless, but cool
 (jpl/load "mode-graphviz")
-(jpl/load "project-root")
+(jpl/load "mode-projectile")
 (jpl/load "mode-evil")
 (jpl/load "mode-ansi-term")
 (jpl/load "mode-anything")
