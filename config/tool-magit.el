@@ -22,6 +22,19 @@
 (ad-activate 'magit-revert-buffers)
 
 
+;; Expire Projectile cache when checking out a new branch
+(require 'projectile)
+(defun jpl-projectile-invalidate-project-cache ()
+  (projectile-invalidate-cache nil)
+  (message "")
+  )
+(defadvice magit-revert-buffers (after magit-invalidate-projectile-cache)
+  (jpl-projectile-invalidate-project-cache))
+(ad-activate 'magit-revert-buffers)
+
+
+
+
 
 (defun magit-commit-message-ticket-number ()
   (interactive)
