@@ -8,10 +8,12 @@
         (match-string 1)
       "")))
 
-(setq load-path (cons (expand-file-name (concat emacs-home-directory "elisp/yasnippet")) load-path))
 (require 'yasnippet)
-(yas/initialize)
+(yas-minor-mode t)
 (yas/load-directory (concat emacs-home-directory "elisp/snippets"))
+
+;; (yas-global-mode 1)
+;; (setq yas/also-auto-indent-first-line t)
 
 
 

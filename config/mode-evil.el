@@ -51,6 +51,7 @@ this."
 
 ;; (defun evil-undefine ()
 ;;  (interactive)
+
 ;;  (let* ((evil-mode-map-alist)
 ;;         (command-keys (this-command-keys))
 ;;         (dummy (prin1 command-keys))
@@ -64,6 +65,10 @@ this."
 
 
 (define-key evil-normal-state-map "\C-o" nil)
+
+
+;; Yasnippet
+(define-key evil-insert-state-map (kbd "TAB") 'yas/expand)
 
 
 (require 'surround)

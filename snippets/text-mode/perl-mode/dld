@@ -1,3 +1,0 @@
-#name : Dynamite log debug
-# --
-Dynamite->log->debug("JPL: $0" . Data::Dumper->new([])->Maxdepth(2)->Dump()); use Data::Dumper;
