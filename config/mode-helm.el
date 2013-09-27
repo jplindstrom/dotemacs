@@ -1,5 +1,5 @@
 
-;; JPL: remove anything.el etc
+
 
 (require 'helm-config)
 (require 'helm-buffers)
@@ -45,6 +45,30 @@
                        helm-c-source-locate
                        )
                      "*my helm search*"))
+
+
+
+;; Copy-pasted, except remove the ridiculous 15 limit which can easily
+;; hide actual matches
+;; TODO: fork and fix
+(setq helm-c-source-projectile-files-list
+  `((name . "Projectile files list")
+    ;; Needed for filenames with capitals letters.
+    (disable-shortcuts)
+    (init . (lambda ()
+              (with-current-buffer (helm-candidate-buffer 'local)
+                (insert
+                 (helm-c-projectile-candidate-buffer-content)))))
+    (candidates-in-buffer)
+    (candidate-number-limit . 150)
+    (keymap . ,helm-generic-files-map)
+    (help-message . helm-generic-file-help-message)
+    (mode-line . helm-generic-file-mode-line-string)
+    (type . file)
+    (action . (lambda (candidate)
+                (find-file (projectile-expand-root candidate))))))
+
+
 
 
 (global-set-key (kbd "s-SPC") 'my-helm-goto)
