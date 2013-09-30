@@ -67,9 +67,6 @@ this."
 (define-key evil-normal-state-map "\C-o" nil)
 
 
-;; Yasnippet
-(define-key evil-insert-state-map (kbd "TAB") 'yas/expand)
-
 
 (require 'surround)
 (global-surround-mode 1)

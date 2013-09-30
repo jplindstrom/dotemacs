@@ -9,7 +9,7 @@
       "")))
 
 (require 'yasnippet)
-(yas-minor-mode t)
+(yas-global-mode t)
 (yas/load-directory (concat emacs-home-directory "elisp/snippets"))
 
 ;; (yas-global-mode 1)
