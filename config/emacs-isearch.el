@@ -22,5 +22,8 @@
 (define-key isearch-mode-map (kbd "C-k") 'isearch-kill-string)
 
 
+;; Display isearch info in the modeline
+(global-anzu-mode)
+
 
 
