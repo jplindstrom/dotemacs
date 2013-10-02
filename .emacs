@@ -178,3 +178,8 @@
  '(transient-mark-mode (quote identity))
  )
 
+
+
+;; Automatically added to .emacs
+
+(put 'narrow-to-region 'disabled nil)
