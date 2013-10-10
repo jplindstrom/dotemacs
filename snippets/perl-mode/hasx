@@ -1,0 +1,12 @@
+#name : has => () Moose attribute
+# --
+has ${1:name} => (
+    is      => "ro",
+    lazy    => 1,
+    default => sub {
+        my \$self = shift;
+        my () = @_;
+        $0
+    },
+);
+
