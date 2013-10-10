@@ -1,0 +1,7 @@
+#name : pod above sub -- =head2 name() :
+# --
+=head2 ${1:`(my-yas-perl-next-sub-name)`}($2) :$3
+
+$0
+
+=cut
