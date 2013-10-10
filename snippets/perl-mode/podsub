@@ -1,7 +1,0 @@
-#name : =head1 DESCRIPTION
-# --
-=head2 $1($2) : $3
-
-$0
-
-=cut
