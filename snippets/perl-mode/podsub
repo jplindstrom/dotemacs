@@ -1,6 +1,6 @@
 #name : =head1 DESCRIPTION
 # --
-=head1 $1($2) : $3
+=head2 $1($2) : $3
 
 $0
 
