@@ -164,22 +164,30 @@
 
 ;;; JPL: break this out
 (custom-set-variables
-  ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
-  ;; Your init file should contain only one such instance.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(auto-revert-interval 1)
+ '(custom-safe-themes (quote ("75d4ccc5e912b93f722e57cca3ca1a15e079032cd69fd9bc67268b4c85639663" default)))
  '(emacs-wiki-create-backlinks t)
  '(indent-tabs-mode nil)
  '(recentf-menu-filter nil)
  '(revert-without-query (quote (".*")))
- '(tab-width 4)
- '(truncate-lines t)
  '(scroll-bar-mode (quote right))
  '(size-indication-mode t)
+ '(tab-width 4)
  '(transient-mark-mode (quote identity))
- )
+ '(truncate-lines t))
 
 
 
 ;; Automatically added to .emacs
 
 (put 'narrow-to-region 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
