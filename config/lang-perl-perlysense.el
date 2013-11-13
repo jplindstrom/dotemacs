@@ -48,7 +48,11 @@
       ;; These colors work fine with a white X11 background. They may not look
       ;; that great on a console with the default color scheme.
       (set-face-background 'flymake-errline "AntiqueWhite2")
+      (set-face-foreground 'flymake-errline "black")
+
       (set-face-background 'flymake-warnline "lavender")
+      (set-face-foreground 'flymake-warnline "black")
+
       (set-face-background 'dropdown-list-face "lightgrey")
       (set-face-foreground 'dropdown-list-face "black")
       (set-face-background 'dropdown-list-selection-face "grey")
