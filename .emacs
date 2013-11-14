@@ -98,6 +98,7 @@
 (jpl/load "mode-auto-complete") ;; disabled
 (jpl/load "jpl-s5")
 (jpl/load "jpl-jira")
+(jpl/load "mode-markdown")
 
 
 ;; Languages
