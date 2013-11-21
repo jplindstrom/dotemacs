@@ -124,8 +124,12 @@ already there, to the beginning of the line."
 
 (define-key evil-normal-state-map " " 'ace-jump-mode)
 
+(define-key evil-normal-state-map (kbd "zd") 'lp/recenter-top-of-defun)
+
+
 (add-hook 'cperl-mode-hook
           (lambda () (setq evil-word "[:word:]_$@%")))
+
 
 (evil-set-initial-state 'compilation-mode 'emacs) ;; Or make tab work
 (evil-set-initial-state 'help-mode 'emacs) ;; Or make tab work
