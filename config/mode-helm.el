@@ -74,7 +74,7 @@
 (global-set-key (kbd "s-SPC") 'my-helm-goto)
 (global-set-key (kbd "C-s-SPC") 'my-helm-search)
 
-(helm-mode 1)
+;; (helm-mode 1)
 
 
 
