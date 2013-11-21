@@ -5,8 +5,11 @@
 
 
 (setq emacs-home-directory (concat (getenv "HOME") "/"))
+(setq elisp-home-directory (expand-file-name (concat emacs-home-directory "elisp")))
+(byte-recompile-directory elisp-home-directory)
+
 (defun jpl/add-to-load-path (dir)
-  (add-to-list 'load-path (expand-file-name (concat emacs-home-directory "elisp" "/" dir)))
+  (add-to-list 'load-path (concat elisp-home-directory "/" dir))
   )
 (jpl/add-to-load-path "config")
 (jpl/add-to-load-path "lib")
