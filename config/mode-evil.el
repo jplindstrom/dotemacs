@@ -92,7 +92,7 @@ already there, to the beginning of the line."
     (let ((current-point (point)))
       (evil-first-non-blank)
       (when (= (point) current-point)
-        (beginning-of-line-nomark)
+        (beginning-of-line)
         ))))
 
 
