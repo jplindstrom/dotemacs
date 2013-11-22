@@ -145,8 +145,8 @@ already there, to the beginning of the line."
 ;; Remap org-mode meta keys for convenience
 (mapcar (lambda (state)
     (evil-declare-key state org-mode-map
-      (kbd "M-j") 'org-forward-same-level
-      (kbd "M-k") 'org-backward-same-level
+      (kbd "M-j") 'org-forward-heading-same-level
+      (kbd "M-k") 'org-backward-heading-same-level
       (kbd "M-h") 'outline-up-heading
       (kbd "M-l") 'outline-next-visible-heading
 
