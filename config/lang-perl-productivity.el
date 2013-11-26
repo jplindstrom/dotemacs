@@ -172,5 +172,63 @@ at the top of the window."
   )
 
 
+(defun lr-extract-method (beg end &optional arg-variable-name)
+  "Do refactoring 'extract Perl method (or sub)' of active region.
+
+Ask the user for a mehhod name to extract the active region
+into.
+
+Replace all occurences in the current defun with the method call
+and insert a new method above the current sub with the code in
+the region text.
+
+Push the mark and then leave point at the new method
+declaration (you shoud ensure this is a reasonable location
+before jumping back)."
+  (interactive "r")
+  (unless (and transient-mark-mode mark-active)
+    (error "Select a self-contained piece of code to extract"))
+  (when (< (point) (mark)) (exchange-point-and-mark t))
+  ;; (let ( (the-point (min (point) (mark) ))
+  ;;        (the-mark (max (mark) (point))) )
+  (let ( (the-point (point))
+         (the-mark (mark )) )
+    (set-mark-command nil)
+    (save-restriction
+      (shell-command-on-region
+       the-point the-mark
+       "perl_extract" nil t)
+      (deactivate-mark)
+
+      (let ( (point-at-end (point)) )
+        ;; Kill the entire sub
+        (backward-sexp)
+        (beginning-of-line)
+        (prin1 point-at-end)
+        (kill-region (point) point-at-end)
+
+        ;; ;; Move up to the metod call and indent the line
+        (forward-line -1)
+        (indent-according-to-mode)
+
+        ;; Move up to before the current sub
+        (backward-up-list)
+        (forward-line -1)
+
+        ;; Insert killed sub, with whitespace
+        (insert "\n\n")
+        (forward-line -1)
+        (yank)
+
+        ;; Position point at sub name
+        (backward-sexp)
+        (beginning-of-line)
+        (forward-word) (forward-char)
+        )
+      )
+    )
+  )
+
+
 ;; (jpl/add-to-load-path "lib/lang-refactor-perl")
 ;; (require 'lang-refactor-perl)

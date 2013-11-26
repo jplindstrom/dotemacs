@@ -68,3 +68,8 @@
 (global-set-key (kbd "\C-o e e v") 'lr-extract-variable)
 
 
+
+;; From productivity
+(global-set-key (format "%seem" ps/key-prefix) 'lr-extract-method)
+
+
