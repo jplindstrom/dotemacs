@@ -41,7 +41,7 @@
       cperl-auto-newline nil
       cperl-close-paren-offset -4
       cperl-continued-brace-offset 0
-      cperl-continued-statement-offset 8
+      cperl-continued-statement-offset 4
       cperl-electric-parens nil
       cperl-electric-parens-string "{[]}<"
       cperl-indent-level 4
