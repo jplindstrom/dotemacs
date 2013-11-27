@@ -10,7 +10,7 @@
 
 (require 'yasnippet)
 (yas-global-mode t)
-(yas/load-directory (concat emacs-home-directory "elisp/snippets"))
+(yas-load-directory (concat emacs-home-directory "elisp/snippets"))
 
 ;; (yas-global-mode 1)
 ;; (setq yas/also-auto-indent-first-line t)
