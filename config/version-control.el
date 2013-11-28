@@ -11,9 +11,15 @@
 
 
 ;; git-gutter
+
 (load "git-gutter-fringe") ;; require doesn't work for some reason
 (setq git-gutter-fr:side 'right-fringe)
 (global-git-gutter-mode +1)
+
+(set-face-foreground 'git-gutter-fr:added "light green")
+(set-face-foreground 'git-gutter-fr:deleted "pink")
+(set-face-foreground 'git-gutter-fr:modified "light blue")
+
 
 ;; Jump to next/previous hunk
 (global-set-key (kbd "C-x v [") 'git-gutter:previous-hunk)
