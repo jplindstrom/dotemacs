@@ -8,3 +8,25 @@
 
 
 
+
+
+;; git-gutter
+(load "git-gutter-fringe") ;; require doesn't work for some reason
+(setq git-gutter-fr:side 'right-fringe)
+(global-git-gutter-mode +1)
+
+;; Jump to next/previous hunk
+(global-set-key (kbd "C-x v [") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x v ]") 'git-gutter:next-hunk)
+
+;; Display Diff
+(global-set-key (kbd "C-x v d") 'git-gutter:popup-diff)
+;; Display Hunk
+(global-set-key (kbd "C-x v h") 'git-gutter:popup-hunk)
+
+
+;; Stage current hunk
+(global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
+;; Revert (kill) current hunk
+(global-set-key (kbd "C-x v k") 'git-gutter:revert-hunk)
+
