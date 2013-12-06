@@ -16,12 +16,12 @@
 (setq git-gutter-fr:side 'right-fringe)
 (global-git-gutter-mode +1)
 
-(set-face-foreground 'git-gutter-fr:added "light green")
-(set-face-foreground 'git-gutter-fr:deleted "pink")
-(set-face-foreground 'git-gutter-fr:modified "light blue")
+(set-face-foreground 'git-gutter-fr:added "royal blue")
+(set-face-foreground 'git-gutter-fr:deleted "OrangeRed2")
+(set-face-foreground 'git-gutter-fr:modified "royal blue")
 
 
-;; Jump to next/previous hunk
+;; Jump to next/previous hunklight
 (global-set-key (kbd "C-x v [") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-x v ]") 'git-gutter:next-hunk)
 
@@ -38,6 +38,3 @@
 
 
 (global-set-key (kbd "C-x v c") 'magit-log-edit)
-
-
-
