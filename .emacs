@@ -150,6 +150,7 @@
 (jpl/load "htmlize")
 (jpl/load "tool-subversion")
 (jpl/load "tool-magit")
+(jpl/load "git-productivity")
 (jpl/load "version-control")
 (jpl/load "tool-irc")
 (jpl/load "tool-browse-kill-ring")
