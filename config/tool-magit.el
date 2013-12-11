@@ -15,11 +15,13 @@
 
 ;; Avoid re-flymaking all open buffers when checking out a new branch
 (require 'flymake)
-(defadvice magit-revert-buffers (around magit-disable-flymake-during-revert)
+(defadvice magit-refresh-wrapper (around magit-disable-flymake-during-revert)
   (setq flymake-start-syntax-check-on-find-file nil)
   ad-do-it
-  (setq flymake-start-syntax-check-on-find-file t))
-(ad-activate 'magit-revert-buffers)
+  (setq flymake-start-syntax-check-on-find-file t)
+  (message "JPL: revert no flymake")
+  )
+(ad-activate 'magit-refresh-wrapper)
 
 
 ;; Expire Projectile cache when checking out a new branch
@@ -28,9 +30,9 @@
   (projectile-invalidate-cache nil)
   (message "")
   )
-(defadvice magit-revert-buffers (after magit-invalidate-projectile-cache)
+(defadvice magit-refresh-wrapper (after magit-invalidate-projectile-cache)
   (jpl-projectile-invalidate-project-cache))
-(ad-activate 'magit-revert-buffers)
+(ad-activate 'magit-refresh-wrapper)
 
 
 
@@ -44,13 +46,13 @@
                 (ticket-number (upcase match)) )
           ticket-number))))
 
-(define-key magit-log-edit-mode-map (kbd "C-c n")
+(define-key git-commit-mode-map (kbd "C-c n")
   (lambda ()
     (interactive)
     (goto-char (point-at-bol))
     (insert (concat (magit-commit-message-ticket-number) ": "))))
 
-(define-key magit-log-edit-mode-map (kbd "C-c b")
+(define-key git-commit-mode-map (kbd "C-c b")
   (lambda ()
     (interactive)
     (goto-char (point-at-bol))
