@@ -37,4 +37,4 @@
 (global-set-key (kbd "C-x v k") 'git-gutter:revert-hunk)
 
 
-(global-set-key (kbd "C-x v c") 'magit-log-edit)
+(global-set-key (kbd "C-x v c") 'magit-commit)
