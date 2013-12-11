@@ -66,11 +66,3 @@
 (setq magit-default-tracking-name-function 'magit-tracking-name-branch-name-only)
 
 
-;; (require 'vc-git)
-;; (when (featurep 'vc-git) (add-to-list 'vc-handled-backends 'git))
-;; (require 'git-emacs)
-;; ;(require 'git)
-;; (autoload 'git-blame-mode "git-blame"
-;;   "Minor mode for incremental blame for Git." t)
-
-
