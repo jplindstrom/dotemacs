@@ -59,21 +59,11 @@
     (insert (concat (magit-get-current-branch) ": "))))
 
 
-;; Avoid using / in local tracking branch names
-;; TODO: set the magit-default-tracking-name-function var instead!
-;; (defun magit-get-tracking-name (remote branch)
-;;   "Given a REMOTE and a BRANCH name, ask the user for a local
-;; tracking brach name suggesting a sensible default."
-;;   (when (yes-or-no-p
-;;          (format "Create local tracking branch for %s? " branch))
-;;     (let* ((default-name (concat (replace-regexp-in-string "[/]" "-" branch)))
-;;            (chosen-name (read-string (format "Call local branch (%s): " default-name)
-;;                                      nil
-;;                                      nil
-;;                                      default-name)))
-;;       (when (magit-ref-exists-p (concat "refs/heads/" chosen-name))
-;;         (error "'%s' already exists." chosen-name))
-;;       chosen-name)))
+(defun magit-tracking-name-branch-name-only (remote branch)
+  "Use local escapedbranch name only for tracking branches."
+  (magit-escape-branch-name branch))
+
+(setq magit-default-tracking-name-function 'magit-tracking-name-branch-name-only)
 
 
 ;; (require 'vc-git)
