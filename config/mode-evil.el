@@ -5,7 +5,6 @@
 (setq evil-regexp-search nil) ;; Same as incremental-search, so they will share history
 (setq evil-find-skip-newlines t)
 (setq evil-cross-lines t)
-(add-to-list 'load-path "~/elisp/evil")
 (require 'evil)
 (evil-mode 1)
 
