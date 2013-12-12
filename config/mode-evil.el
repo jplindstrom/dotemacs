@@ -163,4 +163,8 @@ already there, to the beginning of the line."
   '(normal insert visual))
 
 
+(require 'evil-matchit)
+(global-evil-matchit-mode 1)
+
+
 
