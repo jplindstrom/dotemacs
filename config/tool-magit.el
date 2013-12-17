@@ -7,6 +7,10 @@
 ;; (require 'magit-svn)
 
 
+;; Use helm to complete branch names etc
+(setq magit-completing-read-function #'helm-completing-read-default)
+
+
 ;; change magit diff colors
 (set-face-foreground 'magit-diff-add "blue3")
 (set-face-foreground 'magit-diff-del "red3")
