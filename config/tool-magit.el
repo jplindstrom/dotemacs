@@ -8,7 +8,7 @@
 
 
 ;; Use helm to complete branch names etc
-(setq magit-completing-read-function #'helm-completing-read-default)
+;; (setq magit-completing-read-function #'helm-completing-read-default)
 
 
 ;; change magit diff colors
