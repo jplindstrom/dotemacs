@@ -74,7 +74,13 @@
 (global-set-key (kbd "s-SPC") 'my-helm-goto)
 (global-set-key (kbd "C-s-SPC") 'my-helm-search)
 
-;; Try turning it on and off again (to load and init all autoloads)
-(helm-mode 1)
-(helm-mode -1)
+;; ;; Try turning it on and off again (to load and init all autoloads)
+;; (autoload 'helm-completing-read-default "helm-mode" "An helm replacement of `completing-read'.
+;; This function should be used only as a `completing-read-function'.
+
+;; Don't use it directly, use instead `helm-comp-read' in your programs.
+
+;; See documentation of `completing-read' and `all-completions' for details." nil nil)
+;; (helm-completing-read-default)
+;; (helm-mode 1)
 
