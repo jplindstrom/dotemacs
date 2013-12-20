@@ -115,7 +115,7 @@ none."
 (defun lp/sub-name ()
   "Return the name of the sub at point, or nil if there isn't one"
   (save-excursion
-    (if (looking-at "\\ *sub\\ +\\(\\w+\\)")
+    (if (looking-at "\\ *sub\\ +\\(\\w+\\)") ;; Also include _
         (match-string 1)
       nil)
     ))
