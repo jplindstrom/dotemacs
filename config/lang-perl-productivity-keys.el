@@ -64,6 +64,9 @@
 
 (global-set-key (kbd "C-; C-;") 'cperl-insert-block-dwim)
 
+(global-set-key (kbd "C-; ;") 'cperl-add-semicolon)
+
+
 
 (global-set-key (kbd "\C-o e e v") 'lr-extract-variable)
 

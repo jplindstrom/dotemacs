@@ -85,6 +85,19 @@ If there is a region, wrap the block around the region.
      )
    )
 
+
+(defun cperl-add-semicolon ()
+  (interactive)
+  (save-excursion
+    (when (search-forward-regexp "[})]" nil t)
+      (while (looking-at "[})]")
+        (forward-char))
+      (insert ";")
+      )))
+
+
+
+
 (defun lp/point-of-previous-defun ()
   "Return point of the previous defun, or nil if there isn't one"
   (save-excursion
