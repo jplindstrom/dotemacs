@@ -48,6 +48,10 @@ this."
 ;; (define-key evil-window-state-map (kbd "C-o") nil)
 (define-key evil-insert-state-map (kbd "C-o") nil)
 
+;; Always indent in Insert-mode
+(define-key evil-insert-state-map (kbd "RET") 'evil-ret-and-indent)
+
+
 ;; (defun evil-undefine ()
 ;;  (interactive)
 
