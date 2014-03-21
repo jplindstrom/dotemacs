@@ -13,5 +13,8 @@
 ;; get rid of yes-or-no questions - y or n is enough
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(load-theme 'flatui t)
+(load-theme 'flatui-jpl t)
+
 
 
