@@ -8,9 +8,10 @@
 
 
 ;; change magit diff colors
-(set-face-foreground 'magit-diff-add "blue3")
-(set-face-foreground 'magit-diff-del "red3")
-(set-face-background 'magit-item-highlight "DarkSeaGreen1")
+;;;; Not used with flatui-theme
+;; (set-face-foreground 'magit-diff-add "blue3")
+;; (set-face-foreground 'magit-diff-del "red3")
+;; (set-face-background 'magit-item-highlight "DarkSeaGreen1")
 
 
 ;; Avoid re-flymaking all open buffers when checking out a new branch
