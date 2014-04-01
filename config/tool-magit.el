@@ -14,7 +14,12 @@
 ;; (set-face-background 'magit-item-highlight "DarkSeaGreen1")
 
 
-(setq git-commit-summary-max-length 80)
+(add-hook
+ 'git-commit-mode-hook
+ (lambda () (setq git-commit-summary-max-length 80))
+ )
+
+
 
 
 ;; Avoid re-flymaking all open buffers when checking out a new branch
