@@ -14,6 +14,9 @@
 ;; (set-face-background 'magit-item-highlight "DarkSeaGreen1")
 
 
+(setq git-commit-summary-max-length 80)
+
+
 ;; Avoid re-flymaking all open buffers when checking out a new branch
 (require 'flymake)
 (defadvice magit-refresh-wrapper (around magit-disable-flymake-during-revert)
