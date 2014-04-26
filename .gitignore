@@ -6,3 +6,4 @@ elpa/archives
 /projectile-bookmarks.eld
 /url/cookies
 /tramp
+*.elc
