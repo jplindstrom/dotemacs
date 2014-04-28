@@ -73,3 +73,54 @@ markup"
 
 
 
+
+()
+
+
+(defun org-export-subtree-as-simple-markup ()
+  "Export current subtreee."
+  (interactive)
+  (save-excursion
+    ;; Copy tree to temp buffer
+    (org-mark-subtree)
+    (let ((original-org-text (buffer-substring-no-properties (point) (mark))))
+    (with-temp-buffer
+      (org-mode)
+      (insert original-org-text)
+      (goto-char (point-min))
+
+      ;; Promote subtree to top level
+      (while (> (or (org-current-level) 1) 1)
+        (org-promote-subtree)
+        )
+
+      (goto-char (point-min))
+      (insert "
+")
+      ;; Rename * to h1.
+      (goto-char (point-min))
+      (replace-string "
+* " "
+
+
+h1. ")
+
+      ;; rename ** to h2.
+      (goto-char (point-min))
+      (replace-string "
+** " "
+
+h2. ")
+
+      ;; rename *** and below to * and below
+      (goto-char (point-min))
+      (replace-string "
+***" "
+*")
+
+      ;; Copy
+      (kill-new (buffer-substring-no-properties (point-min) (point-max)))
+      )
+      )
+    )
+  )
