@@ -99,24 +99,15 @@ markup"
 ")
       ;; Rename * to h1.
       (goto-char (point-min))
-      (replace-string "
-* " "
-
-
-h1. ")
+      (replace-string "\n* " "\n\n\nh1. ")
 
       ;; rename ** to h2.
       (goto-char (point-min))
-      (replace-string "
-** " "
-
-h2. ")
+      (replace-string "\n** " "\n\nh2. ")
 
       ;; rename *** and below to * and below
       (goto-char (point-min))
-      (replace-string "
-***" "
-*")
+      (replace-string "\n***" "\n*")
 
       ;; Copy
       (kill-new (buffer-substring-no-properties (point-min) (point-max)))
