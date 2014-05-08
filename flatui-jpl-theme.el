@@ -14,7 +14,7 @@
  '(cperl-array-face ((t (:foreground "Blue"))))
  '(cperl-hash-face ((t (:foreground "Red"))))
 
- '(compilation-mode-line-exit ((t (:inherit compilation-info :foreground "forest green" :weight bold)))))
+ '(compilation-mode-line-exit ((t (:inherit compilation-info :foreground "forest green" :weight bold))))
 
 '(font-lock-comment-face ((t (:foreground "dim gray")))))
 
