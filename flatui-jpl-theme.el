@@ -14,6 +14,9 @@
  '(cperl-array-face ((t (:foreground "Blue"))))
  '(cperl-hash-face ((t (:foreground "Red"))))
 
- '(font-lock-comment-face ((t (:foreground "dim gray")))))
+ '(compilation-mode-line-exit ((t (:inherit compilation-info :foreground "forest green" :weight bold)))))
+
+'(font-lock-comment-face ((t (:foreground "dim gray")))))
+
 
 (provide-theme 'flatui-jpl)
