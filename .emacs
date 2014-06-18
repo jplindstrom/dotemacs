@@ -74,6 +74,8 @@
 (jpl/load "emacs-printer")
 (jpl/load "emacs-win32-printing") ;; May work?
 (jpl/load "emacs-win32-shell-mode")
+(jpl/load "emacs-powerline")
+
 
 (jpl/load "fake-stdin-slurp")
 
