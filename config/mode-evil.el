@@ -179,11 +179,13 @@ already there, to the beginning of the line."
 (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
-;; ;; bind evil-forward/backward-args
-;; (define-key evil-normal-state-map "L" 'evil-forward-arg)
-;; (define-key evil-normal-state-map "H" 'evil-backward-arg)
-;; (define-key evil-motion-state-map "L" 'evil-forward-arg)
-;; (define-key evil-motion-state-map "H" 'evil-backward-arg)
+;; bind evil-args text objects
+(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
-;; ;; bind evil-jump-out-args
-;; (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+;; bind evil-forward/backward-args
+(define-key evil-normal-state-map (kbd "M-l") 'evil-forward-arg)
+(define-key evil-normal-state-map (kbd "M-h") 'evil-backward-arg)
+
+;; bind evil-jump-out-args
+(define-key evil-normal-state-map (kbd "M-k") 'evil-jump-out-args)
