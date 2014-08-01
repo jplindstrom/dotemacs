@@ -64,6 +64,7 @@
 (jpl/load "emacs-lines") ;; Longlines, truncate lines, etc
 (jpl/load "emacs-selection")
 (jpl/load "emacs-isearch") ;; Occur, kill
+(jpl/load "emacs-narrow") ;; narrow-or-widen-dwim
 (jpl/load "emacs-show-paren")
 (jpl/load "emacs-highlight-changes") ;; Not active, but cool
 (jpl/load "emacs-dabbrev-expand") ;; Alt-space completion
