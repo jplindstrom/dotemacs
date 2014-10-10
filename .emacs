@@ -103,6 +103,7 @@
 (jpl/load "jpl-s5")
 (jpl/load "jpl-jira")
 (jpl/load "mode-markdown")
+(jpl/load "mode-indent-guide")
 
 
 ;; Languages
