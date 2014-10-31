@@ -7,3 +7,6 @@
 
 
 (global-set-key (kbd "C-o d g t") 'jpl/git-timeline-on-buffer)
+
+
+(global-set-key (kbd "C-x v G") 'git-messenger:popup-message)
