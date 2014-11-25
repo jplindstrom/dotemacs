@@ -1,12 +1,18 @@
 #!/bin/bash
 
+REPO=git@github.com:jplindstrom/dotemacs.git
+if [ ! -z "$1" ]; then
+    REPO=https://github.com/jplindstrom/dotemacs.git
+fi
+
 mkdir -p ~/dev/dotemacs
 cd ~/dev/dotemacs
 
 if [ -d .git ]; then
     echo "dotemacs already cloned, run 'cd ~/dev/dotemacs && git pull' to update"
 else
-    git clone git@github.com:jplindstrom/dotemacs.git .
+    echo "Cloning $REPO"
+    git clone $REPO .
 fi
 
 mkdir ~/.emacs.d                     2>> /dev/null
