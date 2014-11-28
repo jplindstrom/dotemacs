@@ -1,5 +1,9 @@
 
 
+;; Clear out C-; in web-mode key map
+(eval-after-load 'web-mode
+  (define-key web-mode-map (kbd "C-;") nil))
+
 
 ;; (global-set-key (kbd "\C-p \C-p") 'insert-perl-block)  ; with electric parens, insert {} BLOCK
 
