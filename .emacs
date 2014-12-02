@@ -118,18 +118,20 @@
 (jpl/load "lang-pod")
 (jpl/load "template-toolkit")
 
+(jpl/load "lang-javascript")
+
 (jpl/load "lang-ruby")
 (jpl/load "lang-python")
-(jpl/load "javascript")
+;; (jpl/load "javascript")
 (jpl/load "lang-C++-boss")
 (jpl/load "lang-haskell")
 (jpl/load "lang-elisp-eval-and-replace")
 (jpl/load "lang-scala")
 
 ;; Markup language
+(jpl/load "lang-web")
 (jpl/load "lang-sql")
 (jpl/load "nxml")
-(jpl/load "css")
 (jpl/load "yaml")
 (jpl/load "rnc") ;; XML Relax NG schema
 (jpl/load "lang-csv")
