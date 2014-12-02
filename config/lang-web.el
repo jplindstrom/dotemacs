@@ -16,6 +16,10 @@
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
+
+  ;; Clear out C-; in web-mode key map
+  (define-key web-mode-map (kbd "C-;") nil)
+  (define-key web-mode-map (kbd "C-; c") 'web-mode-comment-or-uncomment)
   )
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
