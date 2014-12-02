@@ -9,10 +9,12 @@
          js3-expr-indent-offset 0
          js3-paren-indent-offset 0
          js3-square-indent-offset 0
-         ;; js3-indent-dots t
-         ;; js3-lazy-dots t
+         js3-indent-dots t
+         js3-lazy-dots t
          ;; js3-lazy-commas t
          ;; js3-lazy-operators t
+
+         evil-shift-width 2
          )))
 
 
