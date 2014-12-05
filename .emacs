@@ -151,6 +151,7 @@
 
 
 ;; Tools
+(jpl/load "jpl-make-executable")
 (jpl/load "htmlize")
 (jpl/load "tool-subversion")
 (jpl/load "tool-magit")
