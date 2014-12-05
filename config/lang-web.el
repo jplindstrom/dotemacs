@@ -11,6 +11,15 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
 
+
+(defun jpl/web-mode-element-close-and-indent ()
+  "Close element and indent line"
+  (interactive)
+  (web-mode-element-close)
+  (indent-according-to-mode)
+  ;; (beginning-of-line-text
+  )
+
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
@@ -20,6 +29,8 @@
   ;; Clear out C-; in web-mode key map
   (define-key web-mode-map (kbd "C-;") nil)
   (define-key web-mode-map (kbd "C-; c") 'web-mode-comment-or-uncomment)
+
+  (define-key web-mode-map (kbd "C-c /") 'jpl/web-mode-element-close-and-indent)
+
   )
 (add-hook 'web-mode-hook 'my-web-mode-hook)
-
