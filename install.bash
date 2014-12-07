@@ -19,7 +19,7 @@ mkdir ~/.emacs.d                     2>> /dev/null
 ln -s ~/dev/dotemacs ~/elisp         2>> /dev/null
 
 if [ -e ~/.emacs ]; then
-    echo "~/.emacs exists, run 'ln -s ~/dev/dotemacs/.emacs ~/.emacs' to overwrite it"
+    echo "~/.emacs exists, run 'ln -f -s ~/dev/dotemacs/.emacs ~/.emacs' to overwrite it"
 else
     ln -s ~/dev/dotemacs/.emacs ~/.emacs 2>> /dev/null
 fi
