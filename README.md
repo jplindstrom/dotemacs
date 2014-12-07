@@ -3,6 +3,17 @@ dotemacs
 
 .emacs and libs
 
+## Install git
+
+    sudo aptitude update
+
+    sudo aptitude -y install git
+    git config --global user.email my@email.com
+    git config --global user.name Johan Lindstrom
+
+
+## Install emacs config
+
 Assuming this is checked out in ~/dev/dotemacs
 
     mkdir ~/.emacs.d
