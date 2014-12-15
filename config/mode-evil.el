@@ -138,7 +138,6 @@ already there, to the beginning of the line."
 (evil-set-initial-state 'help-mode 'emacs) ;; Or make tab work
 (evil-set-initial-state 'grep-mode 'emacs) ;; Or make tab work
 (evil-set-initial-state 'rcirc-mode 'emacs)
-(evil-set-initial-state 'sql-mode 'emacs)
 (evil-set-initial-state 'sql-interactive-mode 'emacs)
 (evil-set-initial-state 'magit-branch-mode 'emacs)
 
