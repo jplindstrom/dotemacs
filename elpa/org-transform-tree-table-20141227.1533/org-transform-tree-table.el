@@ -6,7 +6,7 @@
 ;; URL: https://github.com/jplindstrom/emacs-org-transform-tree-table
 ;; Version: 20141227.1533
 ;; X-Original-Version: 0.1.2
-;; Package-Requires: ((dash "2.10.0") (s "1.3.0"))
+;; Package-Requires: ((dash "dash-20141220.1452") (s "1.3.0"))
 ;; Keywords: org-mode table org-table tree csv convert
 
 ;; This program is free software: you can redistribute it and/or modify
