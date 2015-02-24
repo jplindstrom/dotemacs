@@ -6,11 +6,11 @@
 ;; SQL stuff
 
 (setq sql-mysql-options (list "-P 3306"))
-(setq sql-server "desktop_vm_host")
+(setq sql-server "localhost")
 
-(setq sql-user "postgres")
-(setq sql-password "")
-(setq sql-database "xtracker_blank_xtdc1")
+(setq sql-user "batapp")
+(setq sql-password "batapp")
+(setq sql-database "bat")
 
 
 ;; Sybase stuff
