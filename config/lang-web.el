@@ -34,3 +34,8 @@
 
   )
 (add-hook 'web-mode-hook 'my-web-mode-hook)
+
+
+;; Use slim-mode to render emblem files (like haml for Ember)
+(add-to-list 'auto-mode-alist '("\\.emblem\\'" . slim-mode))
+
