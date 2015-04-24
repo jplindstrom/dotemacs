@@ -1,0 +1,7 @@
+#name : has => () Moose attribute with lazy builder
+# --
+has ${1:name} => ( is => "ro", lazy_build => 1 );
+sub _build_$1 {
+    my $self = shift;
+    $0
+}
