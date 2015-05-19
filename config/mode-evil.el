@@ -77,6 +77,7 @@ this."
 (setq evil-leader/leader ",")
 (setq evil-leader/in-all-states t)
 (require 'evil-leader)
+(global-evil-leader-mode)
 (evil-leader/set-key "," 'evil-repeat-find-char-reverse)
 
 
@@ -119,6 +120,7 @@ already there, to the beginning of the line."
 (evil-leader/set-key "a" 'evil-beginning-of-line) ;; Unused
 (evil-leader/set-key "c" 'jpl-evil-find-conflict-marker)
 (evil-leader/set-key "R" 'jpl-revert-buffer)
+
 
 
 (define-key evil-normal-state-map "\C-r" 'isearch-backward)
@@ -165,9 +167,14 @@ already there, to the beginning of the line."
   '(normal insert visual))
 
 
-(require 'evil-matchit)
-(global-evil-matchit-mode 1)
+;; (require 'evil-matchit)
+;; (global-evil-matchit-mode 1)
 
+
+
+(require 'expand-region)
+(evil-leader/set-key "a" 'er/expand-region)
+(evil-leader/set-key "s" 'er/contract-region)
 
 
 
