@@ -127,6 +127,7 @@
 (jpl/load "lang-haskell")
 (jpl/load "lang-elisp-eval-and-replace")
 (jpl/load "lang-scala")
+(jpl/load "lang-clojure")
 
 ;; Markup language
 (jpl/load "lang-web")
