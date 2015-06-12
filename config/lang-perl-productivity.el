@@ -172,15 +172,18 @@ at the top of the window."
     (when (save-excursion (beginning-of-defun)) ;; If we can move to sub {}
       (beginning-of-defun)))                    ;; Move to the sub {}
   (when (lp/sub-name)
-    (lp/beginning-of-sub-pod)
+    (let ((finish-pos (point)))
+      (lp/beginning-of-sub-pod)
 
-    ;; Nicked from window.el -- recenter-top-bottom
-    (let ((this-scroll-margin
-           (min (max 0 scroll-margin)
-                (truncate (/ (window-body-height) 4.0))))
-          )
+      ;; Nicked from window.el -- recenter-top-bottom
+      (let ((this-scroll-margin
+             (min (max 0 scroll-margin)
+                  (truncate (/ (window-body-height) 4.0))))
+            )
+        (recenter this-scroll-margin))
 
-      (recenter this-scroll-margin))
+      (goto-char finish-pos)
+      )
     )
   )
 
