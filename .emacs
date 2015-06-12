@@ -129,6 +129,8 @@
 (jpl/load "lang-scala")
 (jpl/load "lang-clojure")
 
+(jpl/load "mode-corral")
+
 ;; Markup language
 (jpl/load "lang-web")
 (jpl/load "lang-sql")
