@@ -246,5 +246,9 @@ before jumping back)."
   )
 
 
+(fset 'jpl/perl-test-convert-comment-to-note-evil
+   [?\C-a ?\C-s ?# ?\C-m ?b ?c ?w ?n ?o ?t ?e escape ?l ?v ?\C-e ?h ?s ?\" ?A ?\; escape ?\C-a])
+
+
 ;; (jpl/add-to-load-path "lib/lang-refactor-perl")
 ;; (require 'lang-refactor-perl)

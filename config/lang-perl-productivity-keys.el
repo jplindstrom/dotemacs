@@ -76,3 +76,6 @@
 (global-set-key (format "%seem" ps/key-prefix) 'lr-extract-method)
 
 
+(global-set-key (format "%setn" ps/key-prefix) 'jpl/perl-test-convert-comment-to-note-evil)
+
+
