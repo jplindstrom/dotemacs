@@ -21,3 +21,8 @@
 
 
 
+
+(require 'spaceline-config)
+(spaceline-spacemacs-theme)
+
+(setq powerline-default-separator 'wave)
