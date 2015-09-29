@@ -26,3 +26,15 @@
 (spaceline-spacemacs-theme)
 
 (setq powerline-default-separator 'wave)
+
+
+(require 'diminish)
+;; http://unicodelookup.com/#circled%20latin/1
+(diminish 'git-gutter-mode "")
+(diminish 'yas-minor-mode "ⓨ")
+(diminish 'projectile-mode "ⓟ")
+(diminish 'undo-tree-mode "ⓤ")
+(diminish 'autopair-mode "{")
+(diminish 'anzu-mode "")
+(diminish 'indent-guide-mode "|")
+
