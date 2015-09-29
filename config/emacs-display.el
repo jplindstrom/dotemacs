@@ -1,5 +1,7 @@
 
 
+(set-face-attribute 'default nil :height 100)
+
 (setq inhibit-startup-message t)
 (set-variable 'tool-bar-mode -1)
 (tool-bar-mode -1)
