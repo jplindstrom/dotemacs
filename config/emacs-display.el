@@ -31,10 +31,16 @@
 (require 'diminish)
 ;; http://unicodelookup.com/#circled%20latin/1
 (diminish 'git-gutter-mode "")
+(diminish 'isearch-mode "")
+(diminish 'anzu-mode "")
+(diminish 'autopair-mode "")
+(diminish 'indent-guide-mode "")
+
 (diminish 'yas-minor-mode "ⓨ")
 (diminish 'projectile-mode "ⓟ")
 (diminish 'undo-tree-mode "ⓤ")
-(diminish 'autopair-mode "{")
-(diminish 'anzu-mode "")
-(diminish 'indent-guide-mode "|")
+(diminish 'flymake-mode "ⓕ")
 
+(diminish 'server-buffer-clients "")
+(diminish 'flyspell-mode "ⓢ")
+(diminish 'auto-fill-function "㉠")
