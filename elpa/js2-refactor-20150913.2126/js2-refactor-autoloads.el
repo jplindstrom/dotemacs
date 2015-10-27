@@ -3,24 +3,30 @@
 ;;; Code:
 
 
-;;;### (autoloads (js2r-add-keybindings-with-modifier js2r-add-keybindings-with-prefix)
-;;;;;;  "js2-refactor" "js2-refactor.el" (21621 53935 507751 663000))
+;;;### (autoloads (js2r-add-keybindings-with-modifier js2r-add-keybindings-with-prefix
+;;;;;;  js2-refactor-mode) "js2-refactor" "js2-refactor.el" (22063
+;;;;;;  36218 940990 755000))
 ;;; Generated autoloads from js2-refactor.el
 
-(autoload 'js2r-add-keybindings-with-prefix "js2-refactor" "\
+(autoload 'js2-refactor-mode "js2-refactor" "\
+Minor mode providing JavaScript refactorings.
 
+\(fn &optional ARG)" t nil)
+
+(autoload 'js2r-add-keybindings-with-prefix "js2-refactor" "\
+Add js2r keybindings using the prefix PREFIX.
 
 \(fn PREFIX)" nil nil)
 
 (autoload 'js2r-add-keybindings-with-modifier "js2-refactor" "\
-
+Add js2r keybindings using the modifier MODIFIER.
 
 \(fn MODIFIER)" nil nil)
 
 ;;;***
 
-;;;### (autoloads (js2r-extract-var) "js2r-vars" "js2r-vars.el" (21621
-;;;;;;  53935 483751 662000))
+;;;### (autoloads (js2r-extract-var) "js2r-vars" "js2r-vars.el" (22063
+;;;;;;  36218 924982 956000))
 ;;; Generated autoloads from js2r-vars.el
 
 (autoload 'js2r-extract-var "js2r-vars" "\
@@ -33,7 +39,7 @@
 ;;;### (autoloads nil nil ("js2-refactor-pkg.el" "js2r-conditionals.el"
 ;;;;;;  "js2r-conveniences.el" "js2r-formatting.el" "js2r-functions.el"
 ;;;;;;  "js2r-helpers.el" "js2r-iife.el" "js2r-paredit.el" "js2r-wrapping.el")
-;;;;;;  (21621 53935 515516 287000))
+;;;;;;  (22063 36218 957833 435000))
 
 ;;;***
 
