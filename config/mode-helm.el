@@ -26,7 +26,7 @@
                        ;; helm-source-files-in-current-dir ;; Not that interesting
 
                        ;; Additional sources
-                       helm-c-source-locate
+                       ;; helm-c-source-locate
                        )
                      "*my helm goto*"))
 
@@ -35,14 +35,14 @@
   (interactive)
   (require 'helm-files)
   (helm-other-buffer '(
-                       helm-c-source-occur
-                       helm-c-source-moccur
+                       helm-source-occur
+                       helm-source-moccur
 
                        ;; Full file search
                        helm-source-buffers-list
                        helm-source-recentf
                        helm-source-files-in-current-dir
-                       helm-c-source-locate
+                       helm-source-locate
                        )
                      "*my helm search*"))
 
@@ -60,7 +60,7 @@
                 (insert
                  (helm-c-projectile-candidate-buffer-content)))))
     (candidates-in-buffer)
-    (candidate-number-limit . 150)
+    (candidate-number-limit . 100)
     (keymap . ,helm-generic-files-map)
     (help-message . helm-generic-file-help-message)
     (mode-line . helm-generic-file-mode-line-string)
