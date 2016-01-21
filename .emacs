@@ -186,6 +186,7 @@
  '(emacs-wiki-create-backlinks t)
  '(indent-tabs-mode nil)
  '(js2-basic-offset 2)
+ '(js2-strict-inconsistent-return-warning nil)
  '(js2-strict-trailing-comma-warning nil)
  '(js3-mode-show-strict-warnings nil)
  '(js3-strict-trailing-comma-warning nil)
