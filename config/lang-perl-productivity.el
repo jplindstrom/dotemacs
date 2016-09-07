@@ -97,6 +97,23 @@ If there is a region, wrap the block around the region.
 
 
 
+(defun perl/split-note-string ()
+  "For use on a line with a 'note' STRING where the string is too
+long. Wrap the double quoted STRING by wrapping it to the next
+line with a new 'note' call."
+  (interactive)
+  (when (<= (point-at-eol) (+ (point-at-bol) fill-column ))
+    (error "String doesn't need to be wrapped"))
+  (beginning-of-line)
+  (unless (looking-at " \*note ") (error "No test 'note' call on this line"))
+  (forward-char fill-column)
+  (search-backward " ")
+  (forward-char)
+  (insert "\";\nnote \"")
+  (indent-according-to-mode)
+  (back-to-indentation))
+
+
 
 (defun lp/point-of-previous-defun ()
   "Return point of the previous defun, or nil if there isn't one"

@@ -78,4 +78,6 @@
 
 (global-set-key (format "%setn" ps/key-prefix) 'jpl/perl-test-convert-comment-to-note-evil)
 
+(global-set-key (format "%saw" ps/key-prefix) 'perl/split-note-string)
 
+ 
