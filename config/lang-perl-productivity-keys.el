@@ -70,6 +70,9 @@
 
 (global-set-key (kbd "\C-o e e v") 'lr-extract-variable)
 
+(global-set-key (kbd "\C-o m n") 'align)
+(global-set-key (kbd "\C-o m N") 'align-all-strings)
+
 
 
 ;; From productivity
