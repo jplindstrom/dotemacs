@@ -280,3 +280,10 @@ before jumping back)."
 ;;     my $time_this = timer("Package::Name->sub_name");
 (fset 'jpl/insert-timer-guard
    [?o ?m ?y ?  ?$ ?t ?i ?m ?e ?_ ?t ?h ?i ?s ?  ?= ?  ?t ?i ?m ?e ?r ?\( ?\" escape ?\C-o ?e ?c ?p ?P ?a ?\C-\; ?\C-a escape ?\C-o ?e ?c ?s ?P ?A ?\; escape ?\C-a])
+
+
+
+(defun jpl/perl-goto-jpl-grep-buffer ()
+  (interactive)
+  (switch-to-buffer "*JPL-grep*")
+  )

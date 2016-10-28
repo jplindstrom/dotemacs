@@ -83,4 +83,7 @@
 
 (global-set-key (format "%saw" ps/key-prefix) 'perl/split-note-string)
 
- 
+
+(global-set-key (format "%sgj" ps/key-prefix) 'jpl/perl-goto-jpl-grep-buffer)
+
+
