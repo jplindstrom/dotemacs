@@ -5,7 +5,7 @@
 
 ;; SQL stuff
 
-(setq sql-mysql-options (list "-P 3306"))
+(setq sql-mysql-options (list "-P 3306" "-A"))
 (setq sql-server "localhost")
 
 (setq sql-user "batapp")
