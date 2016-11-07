@@ -39,15 +39,9 @@
       cperl-indent-level 4
       cperl-indent-parens-as-block t
       cperl-auto-newline nil
-      cperl-close-paren-offset -4
-      cperl-continued-brace-offset 0
-      cperl-continued-statement-offset 4
       cperl-electric-parens nil
       cperl-electric-parens-string "{[]}<"
-      cperl-indent-level 4
-      cperl-indent-parens-as-block t
       cperl-label-offset 0
-      perl-continued-statement-offset 4
       perl-tab-always-indent t
       )
 
