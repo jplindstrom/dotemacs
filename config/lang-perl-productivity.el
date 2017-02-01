@@ -287,3 +287,18 @@ before jumping back)."
   (interactive)
   (switch-to-buffer "*JPL-grep*")
   )
+
+
+
+
+(defun jpl/perl-disable-all-subtests ()
+  "Disable all lines which starts with 'subtest '"
+  (interactive)
+  (save-excursion
+    (replace-regexp "^subtest " "0 and subtest " nil (point-min) (point-max))))
+
+(defun jpl/perl-enable-all-subtests ()
+  "Enable all disabled subtests"
+  (interactive)
+  (save-excursion
+    (replace-regexp "^0 and subtest " "subtest " nil (point-min) (point-max))))
