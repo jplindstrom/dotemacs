@@ -87,3 +87,5 @@
 (global-set-key (format "%sgj" ps/key-prefix) 'jpl/perl-goto-jpl-grep-buffer)
 
 
+(global-set-key (format "%ses" ps/key-prefix) 'jpl/perl-disable-all-subtests)
+(global-set-key (format "%seS" ps/key-prefix) 'jpl/perl-enable-all-subtests)
