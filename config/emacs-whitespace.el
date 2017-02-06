@@ -6,3 +6,6 @@
 (set-face-background 'trailing-whitespace "bisque")
 
 
+(setq whitespace-style '(face tabs))
+(whitespace-mode)
+
