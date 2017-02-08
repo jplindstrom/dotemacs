@@ -1,0 +1,15 @@
+#name : =head1 NAME, SYNOPSIS, DESCRIPTION
+#key: podclass
+# --
+
+=head1 NAME
+
+$1
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+$0
+
+=cut
