@@ -2,8 +2,13 @@
 
 ;; ORG mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+
+;; Restore C-tab to other-window
+(org-defkey org-mode-map [(control tab)] nil)
+
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+
 (setq org-hide-leading-stars t)
 
 
