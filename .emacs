@@ -211,4 +211,7 @@
  ;; If there is more than one, they won't work right.
  '(org-block-begin-line ((t (:foreground "light gray" :height 0.8))))
  '(org-hide ((t (:foreground "#f0f0f0"))))
- '(org-special-keyword ((t (:inherit font-lock-keyword-face :foreground "light gray")))))
+ '(org-special-keyword ((t (:inherit font-lock-keyword-face :foreground "light gray"))))
+ '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "#16a085" :height 1.4))))
+ '(outline-2 ((t (:inherit font-lock-variable-name-face :foreground "#2980b9" :height 1.2))))
+ '(outline-4 ((t (:inherit font-lock-comment-face :foreground "dark slate gray")))))
