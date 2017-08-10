@@ -217,4 +217,5 @@
  '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "#16a085" :height 1.4))))
  '(outline-2 ((t (:inherit font-lock-variable-name-face :foreground "#2980b9" :height 1.2))))
  '(outline-4 ((t (:inherit font-lock-comment-face :foreground "dark slate gray"))))
- '(outline-6 ((t (:inherit font-lock-constant-face :foreground "#c0392b" :height 0.9)))))
+ '(outline-6 ((t (:inherit font-lock-constant-face :foreground "#c0392b" :height 0.9))))
+ '(outline-7 ((t (:inherit font-lock-builtin-face :height 0.9)))))
