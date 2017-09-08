@@ -56,11 +56,29 @@
                 (ticket-number (upcase match)) )
           ticket-number))))
 
-(define-key git-commit-mode-map (kbd "C-c n")
-  (lambda ()
-    (interactive)
-    (goto-char (point-at-bol))
-    (insert (concat (magit-commit-message-ticket-number) ": "))))
+
+(defun magit-commit-message-prefix ()
+  "Return the branch ticket number, or the branch name"
+  (or
+   (magit-commit-message-ticket-number)
+   (magit-get-current-branch)))
+
+
+(defun magit-insert-commit-message-prefix ()
+  (interactive)
+  (goto-char (point-at-bol))
+  (insert (concat (magit-commit-message-prefix) ": "))
+)
+
+(defun evil-magit-insert-commit-message-prefix ()
+  (interactive)
+  (magit-insert-commit-message-prefix)
+  (evil-insert 1)
+)
+
+(define-key git-commit-mode-map (kbd "C-c C-j")
+  'evil-magit-insert-commit-message-prefix)
+
 
 (define-key git-commit-mode-map (kbd "C-c b")
   (lambda ()
@@ -69,6 +87,7 @@
     (insert (concat (magit-get-current-branch) ": "))))
 
 
+;; JPL: check if this is needed / wanted anymore
 (defun magit-tracking-name-branch-name-only (remote branch)
   "Use local escapedbranch name only for tracking branches."
   (magit-escape-branch-name branch))
@@ -81,4 +100,3 @@
 ;; Override magit-mode.el magit-mode-map
 ; Restore C-tab to global setting, used to be cycle
 (define-key magit-mode-map [C-tab] nil)
-
