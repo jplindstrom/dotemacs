@@ -4,6 +4,13 @@
 ; C:\appl\util\emacs-21.3\bin\runemacs.exe -g 120x74+0+100
 
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq emacs-home-directory (concat (getenv "HOME") "/"))
 (setq elisp-home-directory (expand-file-name (concat emacs-home-directory "elisp")))
 (byte-recompile-directory elisp-home-directory)
