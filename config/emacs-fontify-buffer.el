@@ -83,6 +83,9 @@
 ;;           ((((class color) (background dark)) (:foreground "DarkOrange"))
 ;;            (((class color)) (:foreground "DarkOrange")))))
 ;; If possible set up a custom color scheme, otherwise turn colors off
+
+
+;; JPL: can be removed?
 (autoload 'custom-set-faces "font-lock" "Set the color scheme" t)
 (autoload 'font-lock-fontify-buffer "font-lock" "Fontify Buffer" t)
 (condition-case err

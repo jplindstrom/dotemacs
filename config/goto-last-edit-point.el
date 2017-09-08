@@ -1,4 +1,5 @@
 
+;; JPL: not needed with evil
 (defun goto-last-edit-point ()
     "Go to the last point where editing occured."
       (interactive)

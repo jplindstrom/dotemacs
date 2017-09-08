@@ -1,6 +1,7 @@
 
 
 
+;;JPL: investigate what this is
 ;; GlobRep
 (load "query" t)
 (autoload 'global-replace-lines "globrep" "Put back grepped lines" t)

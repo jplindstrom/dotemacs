@@ -1,4 +1,5 @@
 
+;;JPL: remove
 (defun shell-strip-ctrls (output)
   "Strip ^M, and treat ^H as backspace in comint output."
   (interactive (list ""))

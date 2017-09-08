@@ -142,6 +142,8 @@ already there, to the beginning of the line."
 (evil-set-initial-state 'rcirc-mode 'emacs)
 (evil-set-initial-state 'sql-interactive-mode 'emacs)
 (evil-set-initial-state 'magit-branch-mode 'emacs)
+;; Can't get this to work :/, using C-c C-j instead
+; (evil-set-initial-state 'git-commit-mode 'insert)
 
 
 (require 'org) ;; For the keymap binding below to work
