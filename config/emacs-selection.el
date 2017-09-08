@@ -3,6 +3,7 @@
 (delete-selection-mode 1)
 
 
+;;JPL: maybe remove this?
 ;; Delete selections on overtype or Del
 (setq cua-enable-cua-keys nil)           ;; don't add C-x,C-c,C-v
 (cua-mode t)                             ;; for rectangles, CUA is nice

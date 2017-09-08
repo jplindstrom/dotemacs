@@ -1,4 +1,7 @@
 
+
+
+;;JPL: check with magit upgrade
 ;; git-timeline on current buffer
 (defun jpl/git-timeline-on-buffer ()
   (interactive)

@@ -1,5 +1,6 @@
 
 
+;;JPL: investigate or remove
 ;; (defun jpl-set-font ()
 ;;   "Set the default font"
 ;;   (interactive)
