@@ -22,6 +22,7 @@
 
 
 
+;;JPL: does this still work?
 ;; Avoid re-flymaking all open buffers when checking out a new branch
 (require 'flymake)
 (defadvice magit-refresh-wrapper (around magit-disable-flymake-during-revert)
@@ -74,4 +75,10 @@
 
 (setq magit-default-tracking-name-function 'magit-tracking-name-branch-name-only)
 
+
+
+
+;; Override magit-mode.el magit-mode-map
+; Restore C-tab to global setting, used to be cycle
+(define-key magit-mode-map [C-tab] nil)
 
