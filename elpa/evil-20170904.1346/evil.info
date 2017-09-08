@@ -1,10 +1,9 @@
-This is /tmp/evil108836Jc/evil-20131204.1325/evil.info, produced by
-makeinfo version 4.13 from /home/melpa/melpa/working/evil/doc/evil.texi.
+This is evil.info, produced by makeinfo version 5.2 from evil.texi.
 
 This manual is for Evil (version 0.1 of 2011-07-30), an extensible vi
 layer for Emacs.
 
-   Copyright (C) 2011 Frank Fischer and Vegard Øye.
+   Copyright © 2011 Frank Fischer and Vegard Øye.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -15,7 +14,6 @@ layer for Emacs.
 
    The Evil team thanks everyone at gmane.emacs.vim-emulation for their
 feedback and contributions.
-
 INFO-DIR-SECTION Emacs
 START-INFO-DIR-ENTRY
 * Evil: (evil). Extensible vi layer for Emacs.
@@ -40,7 +38,7 @@ This is the manual for Evil, an extensible vi layer for Emacs.
 * GNU Free Documentation License::
 
 
-File: evil.info,  Node: Overview,  Next: Settings,  Prev: Top,  Up: Top
+File: evil.info,  Node: Overview,  Next: Settings,  Up: Top
 
 1 Overview
 **********
@@ -56,10 +54,10 @@ Evil is extensible in Emacs Lisp.
 
    ---------- Footnotes ----------
 
-   (1) Vim is the most popular version of "vi", a modal text editor
-with many implementations.  Vim also adds some functions of its own,
-like Visual selection and text objects.  For more information, see:
-`http://www.vim.org/'
+   (1) Vim is the most popular version of "vi", a modal text editor with
+many implementations.  Vim also adds some functions of its own, like
+Visual selection and text objects.  For more information, see:
+<http://www.vim.org/>
 
 
 File: evil.info,  Node: Installation,  Next: Modes and states,  Up: Overview
@@ -69,22 +67,22 @@ File: evil.info,  Node: Installation,  Next: Modes and states,  Up: Overview
 
 Evil lives in a Git repository.  To download Evil, do:
 
-     git clone git://gitorious.org/evil/evil.git
+     git clone https://github.com/emacs-evil/evil.git
 
-Move Evil to `~/.emacs.d/evil'.  Then add the following lines to
-`~/.emacs':
+Move Evil to '~/.emacs.d/evil'.  Then add the following lines to
+'~/.emacs':
 
      (add-to-list 'load-path "~/.emacs.d/evil")
      (require 'evil)
      (evil-mode 1)
 
-Evil requires `undo-tree.el' to provide linear undo and undo branches.
-It is available from EmacsWiki.(1) (A copy of `undo-tree.el' is also
+Evil requires 'undo-tree.el' to provide linear undo and undo branches.
+It is available from EmacsWiki.(1)  (A copy of 'undo-tree.el' is also
 included in the Git repository.)
 
    ---------- Footnotes ----------
 
-   (1) `http://www.emacswiki.org/emacs/UndoTree'
+   (1) <http://www.emacswiki.org/emacs/UndoTree>
 
 
 File: evil.info,  Node: Modes and states,  Prev: Installation,  Up: Overview
@@ -93,21 +91,21 @@ File: evil.info,  Node: Modes and states,  Prev: Installation,  Up: Overview
 ====================
 
 The next time Emacs is started, it will come up in "Normal state",
-denoted by `<N>' on the mode line.  This is where the main vi bindings
-are defined.  Note that you can always disable Normal state with `C-z',
-which switches to an "Emacs state" (denoted by `<E>') in which vi keys
-are completely disabled.  Press `C-z' again to switch back to Normal
+denoted by '<N>' on the mode line.  This is where the main vi bindings
+are defined.  Note that you can always disable Normal state with 'C-z',
+which switches to an "Emacs state" (denoted by '<E>') in which vi keys
+are completely disabled.  Press 'C-z' again to switch back to Normal
 state.
 
    Evil uses the term "state" for what is called a "mode" in vi, since
 "mode" already has its own meaning in Emacs.  Evil defines a number of
-states, such as Normal state (`<N>'), Insert state (`<I>'), Visual
-state (`<V>'), Replace state (`<R>'), Operator-Pending state (`<O>'),
-Motion state (`<M>') and Emacs state (`<E>').  Each state has its own
-keymaps and customization variables.
+states, such as Normal state ('<N>'), Insert state ('<I>'), Visual state
+('<V>'), Replace state ('<R>'), Operator-Pending state ('<O>'), Motion
+state ('<M>') and Emacs state ('<E>').  Each state has its own keymaps
+and customization variables.
 
    Meanwhile, a "mode" in Emacs is a set of key bindings for editing a
-certain sort of text, like `emacs-lisp-mode' for Emacs Lisp.  Modes may
+certain sort of text, like 'emacs-lisp-mode' for Emacs Lisp.  Modes may
 include custom bindings for Evil states.
 
 
@@ -117,66 +115,66 @@ File: evil.info,  Node: Settings,  Next: Keymaps,  Prev: Overview,  Up: Top
 **********
 
 Evil's behavior can be adjusted by setting various variables.  The
-current values may be inspected by doing `M-x customize-group RET evil
+current values may be inspected by doing 'M-x customize-group RET evil
 RET'.
 
-   To change the value of a variable, add a `setq' form to `~/.emacs',
+   To change the value of a variable, add a 'setq' form to '~/.emacs',
 preferably before Evil is loaded:(1)
 
      (setq evil-shift-width 8)
      ;; Load Evil
      (require 'evil) ...
 
-Note that if a variable is buffer-local, you must use `setq-default'
-instead of `setq' to change its global value.
+Note that if a variable is buffer-local, you must use 'setq-default'
+instead of 'setq' to change its global value.
 
  -- Variable: evil-auto-indent
      Whether the current line is indented when entering Insert state.
-     If `t' (the default), then the line is indented.  If `nil', then
+     If 't' (the default), then the line is indented.  If 'nil', then
      the line is not indented.  Buffer-local.
 
  -- Variable: evil-shift-width
-     The number of columns a line is shifted by the commands `>' and
-     `<'.
+     The number of columns a line is shifted by the commands '>' and
+     '<'.
 
  -- Variable: evil-repeat-move-cursor
-     If `t' (the default), then repeating a command with `.' may change
-     the position of the cursor.  If `nil', then the original position
+     If 't' (the default), then repeating a command with '.' may change
+     the position of the cursor.  If 'nil', then the original position
      is preserved.
 
  -- Variable: evil-find-skip-newlines
-     If `t', then `f', `F', `t' and `T' may skip over newlines to find
-     a character.  If `nil' (the default), then they are restricted to
-     the current line.
+     If 't', then 'f', 'F', 't' and 'T' may skip over newlines to find a
+     character.  If 'nil' (the default), then they are restricted to the
+     current line.
 
  -- Variable: evil-move-cursor-back
-     If `t' (the default), then the cursor moves backwards when exiting
-     Insert state.  If `nil', then the cursor does not move.
+     If 't' (the default), then the cursor moves backwards when exiting
+     Insert state.  If 'nil', then the cursor does not move.
 
  -- Variable: evil-want-fine-undo
-     If `t', then a change-based action like `cw' may be undone in
-     several steps.  If `nil' (the default), then it is undone in one
+     If 't', then a change-based action like 'cw' may be undone in
+     several steps.  If 'nil' (the default), then it is undone in one
      step.
 
  -- Variable: evil-regexp-search
-     If `t' (the default), then `/' and `?' use regular expressions for
-     searching.  If `nil', they use plain text.
+     If 't' (the default), then '/' and '?' use regular expressions for
+     searching.  If 'nil', they use plain text.
 
  -- Variable: evil-search-wrap
-     If `t' (the default), then `/' and `?' wrap the search around the
-     buffer.  If `nil', then they stop at buffer boundaries.
+     If 't' (the default), then '/' and '?' wrap the search around the
+     buffer.  If 'nil', then they stop at buffer boundaries.
 
  -- Variable: evil-flash-delay
-     The number of seconds to flash search matches when pressing `n'
-     and `N'.
+     The number of seconds to flash search matches when pressing 'n' and
+     'N'.
 
  -- Variable: evil-want-C-i-jump
-     If `t' (the default), then `C-i' jumps forwards in the jump list.
-     If `nil', then `C-i' inserts a tab.
+     If 't' (the default), then 'C-i' jumps forwards in the jump list.
+     If 'nil', then 'C-i' inserts a tab.
 
  -- Variable: evil-want-C-u-scroll
-     If `t', then `C-u' scrolls the buffer.  If `nil' (the default),
-     then `C-u' begins a numeric prefix argument.
+     If 't', then 'C-u' scrolls the buffer.  If 'nil' (the default),
+     then 'C-u' begins a numeric prefix argument.
 
 * Menu:
 
@@ -185,9 +183,9 @@ instead of `setq' to change its global value.
 
    ---------- Footnotes ----------
 
-   (1) Strictly speaking, the order only matters if the variable
-affects the way Evil is loaded.  This is the case with some of the
-`evil-want-' variables.
+   (1) Strictly speaking, the order only matters if the variable affects
+the way Evil is loaded.  This is the case with some of the 'evil-want-'
+variables.
 
 
 File: evil.info,  Node: The cursor,  Next: The initial state,  Up: Settings
@@ -197,14 +195,14 @@ File: evil.info,  Node: The cursor,  Next: The initial state,  Up: Settings
 
 A state may change the cursor's appearance.  The cursor settings are
 stored in the variables below, which may contain a cursor type as per
-the `cursor-type' variable, a color string as passed to the
-`set-cursor-color' function, a zero-argument function for changing the
+the 'cursor-type' variable, a color string as passed to the
+'set-cursor-color' function, a zero-argument function for changing the
 cursor, or a list of the above.  For example, the following changes the
 cursor in Replace state to a red box:
 
      (setq evil-replace-state-cursor '("red" box))
 
-If the state does not specify a cursor, `evil-default-cursor' is used.
+If the state does not specify a cursor, 'evil-default-cursor' is used.
 
  -- Variable: evil-default-cursor
      The default cursor.
@@ -237,11 +235,11 @@ File: evil.info,  Node: The initial state,  Prev: The cursor,  Up: Settings
 =====================
 
 By default, a new buffer comes up in Normal state.  This can be changed
-with the function `evil-set-initial-state'.
+with the function 'evil-set-initial-state'.
 
  -- Function: evil-set-initial-state mode state
      Set the initial state for a buffer in which MODE is active to
-     STATE.  MODE should be a major mode such as `text-mode', although
+     STATE.  MODE should be a major mode such as 'text-mode', although
      minor modes work as well.
 
 
@@ -253,15 +251,15 @@ File: evil.info,  Node: Keymaps,  Next: Hooks,  Prev: Settings,  Up: Top
 Evil's key bindings are stored in a number of keymaps.  Each state has a
 "global keymap", where the default key bindings for the state are
 stored.  For example, the global keymap for Normal state is
-`evil-normal-state-map', and the key bindings in this map are seen in
+'evil-normal-state-map', and the key bindings in this map are seen in
 all buffers that are currently in Normal state.
 
-   Keymaps are modified with the Emacs function `define-key':
+   Keymaps are modified with the Emacs function 'define-key':
 
      (define-key evil-normal-state-map "w" 'foo)
 
-This binds the key `w' to the command `foo' in Normal state.  The file
-`evil-maps.el' contains all the key bindings.
+This binds the key 'w' to the command 'foo' in Normal state.  The file
+'evil-maps.el' contains all the key bindings.
 
  -- Variable: evil-normal-state-map
      The global keymap for Normal state.
@@ -305,26 +303,26 @@ may be changed from a mode hook.
 
 * Menu:
 
-* `evil-define-key'::
+* 'evil-define-key'::
 
 
-File: evil.info,  Node: `evil-define-key',  Up: Keymaps
+File: evil.info,  Node: 'evil-define-key',  Up: Keymaps
 
-3.1 `evil-define-key'
+3.1 'evil-define-key'
 =====================
 
-Finally, Evil provides the function `evil-define-key' for adding state
+Finally, Evil provides the function 'evil-define-key' for adding state
 bindings to a regular keymap.
 
  -- Function: evil-define-key state keymap key def
-     In KEYMAP, create a binding from KEY to DEF in STATE.  STATE is
-     one of `normal', `insert', `visual', `replace', `operator' and
-     `motion'.  The other parameters are like those of `define-key'.
+     In KEYMAP, create a binding from KEY to DEF in STATE.  STATE is one
+     of 'normal', 'insert', 'visual', 'replace', 'operator' and
+     'motion'.  The other parameters are like those of 'define-key'.
 
-`evil-define-key' can be used to augment existing modes with state
+'evil-define-key' can be used to augment existing modes with state
 bindings, as well as create packages for custom bindings.  For example,
-the following will create a minor mode `foo-mode' with Normal state
-bindings for the keys `w' and `e':
+the following will create a minor mode 'foo-mode' with Normal state
+bindings for the keys 'w' and 'e':
 
      (define-minor-mode foo-mode
        "Foo mode."
@@ -336,9 +334,9 @@ bindings for the keys `w' and `e':
 This minor mode can then be enabled in any buffers where the custom
 bindings are desired:
 
-     (add-hook 'text-mode-hook 'foo-mode) ; enable alongside `text-mode'
+     (add-hook 'text-mode-hook 'foo-mode) ; enable alongside 'text-mode'
 
-If the minor mode is put into its own file `foo.el' with a `(provide
+If the minor mode is put into its own file 'foo.el' with a '(provide
 'foo)' statement, it becomes an Emacs package.
 
 
@@ -347,9 +345,9 @@ File: evil.info,  Node: Hooks,  Next: Macros,  Prev: Keymaps,  Up: Top
 4 Hooks
 *******
 
-A "hook" is a list of functions to execute.  Hooks are modified with
-the Emacs function `add-hook'.  Evil provides entry and exit hooks for
-all of its states.
+A "hook" is a list of functions to execute.  Hooks are modified with the
+Emacs function 'add-hook'.  Evil provides entry and exit hooks for all
+of its states.
 
  -- Variable: evil-normal-state-entry-hook
      Run when entering Normal state.
@@ -387,8 +385,8 @@ all of its states.
  -- Variable: evil-motion-state-exit-hook
      Run when exiting Motion state.
 
-When these hooks are run, the variables `evil-next-state' and
-`evil-previous-state' hold information about the states being switched
+When these hooks are run, the variables 'evil-next-state' and
+'evil-previous-state' hold information about the states being switched
 to and from.
 
  -- Variable: evil-next-state
@@ -420,34 +418,34 @@ File: evil.info,  Node: Motions,  Next: Operators,  Up: Macros
 5.1 Motions
 ===========
 
-A "motion" is a command which moves the cursor, such as `w' and `e'.
-Motions are defined with the macro `evil-define-motion'.  Motions not
-defined in this way should be declared with `evil-declare-motion'.
+A "motion" is a command which moves the cursor, such as 'w' and 'e'.
+Motions are defined with the macro 'evil-define-motion'.  Motions not
+defined in this way should be declared with 'evil-declare-motion'.
 
  -- Function: evil-declare-motion command
      Declare COMMAND to be a motion.  This ensures that it works
      properly in Visual state.
 
- -- Macro: evil-define-motion motion (count args...) doc
-          keyword-args... body...
+ -- Macro: evil-define-motion motion (count args...) doc keyword-args...
+          body...
      Define a movement command MOTION.  A motion can have any number of
-     arguments, but the first argument, if any, has a predefined
-     meaning as the COUNT. It is a positive or negative number, or
-     `nil'.  The argument list is followed by the documentation string
-     DOC, which is followed by optional keyword arguments:
+     arguments, but the first argument, if any, has a predefined meaning
+     as the COUNT.  It is a positive or negative number, or 'nil'.  The
+     argument list is followed by the documentation string DOC, which is
+     followed by optional keyword arguments:
 
-    `:type TYPE'
+     ':type TYPE'
           The TYPE determines how the motion works after an operator.
-          If TYPE is `inclusive', then the ending position is included
-          in the motion range.  If TYPE is `line', then the range is
-          expanded to linewise positions.  If TYPE is `block', then the
-          range is blockwise.  The default is `exclusive', which means
+          If TYPE is 'inclusive', then the ending position is included
+          in the motion range.  If TYPE is 'line', then the range is
+          expanded to linewise positions.  If TYPE is 'block', then the
+          range is blockwise.  The default is 'exclusive', which means
           that the range is used as-is.
 
-    `:jump JUMP'
-          If JUMP is `t', then the previous position is stored in the
-          jump list so it can be restored with `C-o'.  The default is
-          `nil'.
+     ':jump JUMP'
+          If JUMP is 't', then the previous position is stored in the
+          jump list so it can be restored with 'C-o'.  The default is
+          'nil'.
 
      The keyword arguments are followed by the BODY, which is where the
      motion's behavior is defined.  For instance:
@@ -458,8 +456,8 @@ defined in this way should be declared with `evil-declare-motion'.
             (forward-char (or count 1)))
 
      For more examples, you can view the source code for any command
-     with `C-h k'.  For instance, `evil-goto-line' may be viewed by
-     typing `C-h k G' and following the file link.
+     with 'C-h k'.  For instance, 'evil-goto-line' may be viewed by
+     typing 'C-h k G' and following the file link.
 
 
 File: evil.info,  Node: Operators,  Next: Text objects,  Prev: Motions,  Up: Macros
@@ -468,55 +466,55 @@ File: evil.info,  Node: Operators,  Next: Text objects,  Prev: Motions,  Up: Mac
 =============
 
 An "operator" is a command which acts on the text moved over by a
-motion, such as `c', `d' and `y'.  Operators are defined with the macro
-`evil-define-operator'.
+motion, such as 'c', 'd' and 'y'.  Operators are defined with the macro
+'evil-define-operator'.
 
  -- Macro: evil-define-operator operator (beg end type args...) doc
           keyword-args... body...
      Define an operator command OPERATOR.  An operator must have at
      least two or three arguments, which have predefined meanings.  BEG
-     is the beginning position, END is the ending position, and TYPE,
-     if given, is the type of the motion range.  The argument list is
+     is the beginning position, END is the ending position, and TYPE, if
+     given, is the type of the motion range.  The argument list is
      followed by the documentation string DOC, which is followed by
      optional keyword arguments:
 
-    `:type TYPE'
+     ':type TYPE'
           Make the input range be a certain TYPE.  For example, an
           operator which only works with whole lines may set TYPE to
-          `line'.
+          'line'.
 
-    `:motion MOTION'
+     ':motion MOTION'
           Use the motion MOTION instead of reading one from the
           keyboard.  This does not affect the behavior in Visual state,
           where the selection boundaries are used instead.
 
-    `:repeat REPEAT'
-          If REPEAT is `t' (the default), then `.' will repeat the
-          operator.  If REPEAT is `nil', then the operator will not be
+     ':repeat REPEAT'
+          If REPEAT is 't' (the default), then '.' will repeat the
+          operator.  If REPEAT is 'nil', then the operator will not be
           repeated.
 
-    `:move-point MOVE-POINT'
-          If MOVE-POINT is `t' (the default), then the cursor is
+     ':move-point MOVE-POINT'
+          If MOVE-POINT is 't' (the default), then the cursor is
           positioned at the beginning of the range.  If MOVE-POINT is
-          `nil', then the original position is preserved.
+          'nil', then the original position is preserved.
 
-    `:keep-visual KEEP-VISUAL'
-          If KEEP-VISUAL is `t', then the selection is not disabled
-          when the operator is run in Visual state; it is up to the
-          operator to do this.  The default is `nil', which means that
-          Visual state is exited automatically.
+     ':keep-visual KEEP-VISUAL'
+          If KEEP-VISUAL is 't', then the selection is not disabled when
+          the operator is run in Visual state; it is up to the operator
+          to do this.  The default is 'nil', which means that Visual
+          state is exited automatically.
 
      The keyword arguments are followed by the BODY, which is where the
      operator's actions on BEG and END are defined.  For example,
-     `evil-rot13', which is bound to `g?' and performs ROT13 encryption
+     'evil-rot13', which is bound to 'g?' and performs ROT13 encryption
      on the text, may be defined as:
 
           (evil-define-operator evil-rot13 (beg end)
             "ROT13 encrypt text."
             (rot13-region beg end))
 
-     Pressing `g?w' will encrypt a word by calling `rot13-region' on
-     the text moved over by the `w' motion.
+     Pressing 'g?w' will encrypt a word by calling 'rot13-region' on the
+     text moved over by the 'w' motion.
 
 
 File: evil.info,  Node: Text objects,  Next: Types,  Prev: Operators,  Up: Macros
@@ -525,63 +523,63 @@ File: evil.info,  Node: Text objects,  Next: Types,  Prev: Operators,  Up: Macro
 ================
 
 A "text object" is a special kind of motion which sets a beginning
-position as well as an ending position, such as `iw' and `a('.  In
+position as well as an ending position, such as 'iw' and 'a('.  In
 Visual state, text objects alter both ends of the selection.  Text
-objects are defined with the macro `evil-define-text-object'.
+objects are defined with the macro 'evil-define-text-object'.
 
  -- Macro: evil-define-text-object object (count args...) doc
           keyword-args... body...
      Define a text object OBJECT.  The first argument has a predefined
      meaning as the COUNT: it is a positive or negative number.  The
-     argument list is followed by the documentation string DOC, which
-     is followed by optional keyword arguments:
+     argument list is followed by the documentation string DOC, which is
+     followed by optional keyword arguments:
 
-    `:type TYPE'
-          Use the type TYPE after an operator.  In Visual state, this
-          is the type of the selection.
+     ':type TYPE'
+          Use the type TYPE after an operator.  In Visual state, this is
+          the type of the selection.
 
-    `:extend-selection EXTEND-SELECTION'
-          If EXTEND-SELECTION is `t' (the default), then the text
-          object always enlarges the current selection.  If `nil', then
-          the object replaces the selection.
+     ':extend-selection EXTEND-SELECTION'
+          If EXTEND-SELECTION is 't' (the default), then the text object
+          always enlarges the current selection.  If 'nil', then the
+          object replaces the selection.
 
      The keyword arguments are followed by the BODY, which should
-     evaluate to a list `(BEG END)' of two positions in the buffer.
-     For example, a text object which selects three characters
-     following the current position could be defined as:
+     evaluate to a list '(BEG END)' of two positions in the buffer.  For
+     example, a text object which selects three characters following the
+     current position could be defined as:
 
           (evil-define-text-object foo (count)
             "Select three characters."
             (list (point) (+ (point) 3)))
 
 Evil provides several functions which return a list of positions, for
-use in the definition of a text object.  These functions follow the
-rule that a positive COUNT selects text after the current position,
-while a negative COUNT selects text before it.
+use in the definition of a text object.  These functions follow the rule
+that a positive COUNT selects text after the current position, while a
+negative COUNT selects text before it.
 
  -- Function: evil-inner-object-range count forward backward
-     Return a text range `(BEG END)' of COUNT "inner" text objects
-     (e.g., `iw', `is').  FORWARD is a function which moves to the end
+     Return a text range '(BEG END)' of COUNT "inner" text objects
+     (e.g., 'iw', 'is').  FORWARD is a function which moves to the end
      of an object, and BACKWARD is a function which moves to the
      beginning.
 
  -- Function: evil-an-object-range count forward backward
-     Return a text range `(BEG END)' of COUNT text objects with
-     whitespace (e.g., `aw', `as').  FORWARD is a function which moves
+     Return a text range '(BEG END)' of COUNT text objects with
+     whitespace (e.g., 'aw', 'as').  FORWARD is a function which moves
      to the end of an object, and BACKWARD is a function which moves to
      the beginning.
 
  -- Function: evil-paren-range count open close &optional exclusive
-     Return a text range `(BEG END)' of COUNT delimited blocks (e.g.,
-     `i(', `a('). OPEN and CLOSE are characters.  If EXCLUSIVE is
+     Return a text range '(BEG END)' of COUNT delimited blocks (e.g.,
+     'i(', 'a(').  OPEN and CLOSE are characters.  If EXCLUSIVE is
      non-nil, then the delimiters are excluded from the range.  This
      function uses Emacs' syntax table and is only applicable for
-     single-character delimiters; use `evil-regexp-range' to match
+     single-character delimiters; use 'evil-regexp-range' to match
      multiple characters.
 
  -- Function: evil-regexp-range count open close &optional exclusive
-     Return a text range `(BEG END)' of COUNT delimited blocks (e.g.,
-     `it', `at'). OPEN and CLOSE are regular expressions.  If EXCLUSIVE
+     Return a text range '(BEG END)' of COUNT delimited blocks (e.g.,
+     'it', 'at').  OPEN and CLOSE are regular expressions.  If EXCLUSIVE
      is non-nil, then the delimiters are excluded from the range.
 
 
@@ -591,31 +589,31 @@ File: evil.info,  Node: Types,  Next: States,  Prev: Text objects,  Up: Macros
 =========
 
 A "type" is a transformation on a pair of buffer positions.  Evil
-defines the types `exclusive', `inclusive', `line' and `block', which
-are used for motion ranges and Visual selection.  Types are defined
-with the macro `evil-define-type'.
+defines the types 'exclusive', 'inclusive', 'line' and 'block', which
+are used for motion ranges and Visual selection.  Types are defined with
+the macro 'evil-define-type'.
 
  -- Macro: evil-define-type type doc keyword-args...
      Define a type TYPE, described by the documentation string DOC.
      Then follows keyword arguments:
 
-    `:expand EXPAND'
+     ':expand EXPAND'
           A function which takes two buffer positions and returns a list
-          `(BEG END)' of expanded positions.
+          '(BEG END)' of expanded positions.
 
-    `:contract CONTRACT'
+     ':contract CONTRACT'
           A function which takes two expanded buffer positions and
-          returns a list `(BEG END)' of unexpanded positions.  Optional.
+          returns a list '(BEG END)' of unexpanded positions.  Optional.
 
-    `:normalize NORMALIZE'
+     ':normalize NORMALIZE'
           A function which takes two unexpanded buffer positions and
-          returns a list `(BEG END)' of adjusted positions.  Optional.
+          returns a list '(BEG END)' of adjusted positions.  Optional.
 
-    `:injective INJECTIVE'
-          If `t' (the default), then expansion is one-to-one - i.e.,
+     ':injective INJECTIVE'
+          If 't' (the default), then expansion is one-to-one - i.e.,
           EXPAND followed by CONTRACT always returns the original
-          positions.  If `nil', then several positions may expand to
-          the same (for example, the `line' type is one-to-many as it
+          positions.  If 'nil', then several positions may expand to the
+          same (for example, the 'line' type is one-to-many as it
           expands to the containing lines).
 
      Further keywords and functions may be specified.  These are
@@ -628,26 +626,23 @@ File: evil.info,  Node: States,  Prev: Types,  Up: Macros
 5.5 States
 ==========
 
-States are defined with the macro `evil-define-state'.  The macro
+States are defined with the macro 'evil-define-state'.  The macro
 defines the necessary hooks, keymaps and variables for a state, as well
-as a toggle function `evil-STATE-state' for entering the state, and a
-predicate function `evil-STATE-state-p' which returns `t' when the
-state is active, and `nil' otherwise.
+as a toggle function 'evil-STATE-state' for entering the state, and a
+predicate function 'evil-STATE-state-p' which returns 't' when the state
+is active, and 'nil' otherwise.
 
  -- Macro: evil-define-state state doc keyword-args... body...
      Define an Evil state STATE, described by the documentation string
      DOC.  Then follows optional keyword arguments:
 
-    `:tag TAG'
-          Mode line indicitor, e.g., `"<T>"'.
-
-    `:message MESSAGE'
+     ':tag TAG'
+          Mode line indicitor, e.g., '"<T>"'.
+     ':message MESSAGE'
           String shown in the echo area.
-
-    `:cursor CURSOR'
+     ':cursor CURSOR'
           Cursor specification.
-
-    `:enable ENABLE'
+     ':enable ENABLE'
           List of other modes and states to enable.  A state may enable
           another state's keymaps in addition to its own.
 
@@ -673,16 +668,16 @@ File: evil.info,  Node: Command properties,  Up: Other internals
 
 Evil defines "command properties" to store information about commands,
 such as whether they should be repeated.  A command property is a
-`:KEYWORD' with an associated value, e.g., `:repeat nil'.
+':KEYWORD' with an associated value, e.g., ':repeat nil'.
 
  -- Function: evil-add-command-properties command &rest properties
-     Add PROPERTIES to COMMAND.  The properties should be specified as
-     a list of keywords and values:
+     Add PROPERTIES to COMMAND.  The properties should be specified as a
+     list of keywords and values:
 
           (evil-add-command-properties 'my-command :repeat t)
 
  -- Function: evil-set-command-properties command &rest properties
-     Like `evil-add-command-properties', but resets all previous
+     Like 'evil-add-command-properties', but resets all previous
      properties.
 
  -- Function: evil-get-command-property command property
@@ -712,8 +707,8 @@ Appendix A GNU Free Documentation License
 
                      Version 1.3, 3 November 2008
 
-     Copyright (C) 2000, 2001, 2002, 2007, 2008 Free Software Foundation, Inc.
-     `http://fsf.org/'
+     Copyright © 2000, 2001, 2002, 2007, 2008 Free Software Foundation, Inc.
+     <http://fsf.org/>
 
      Everyone is permitted to copy and distribute verbatim copies
      of this license document, but changing it is not allowed.
@@ -738,21 +733,21 @@ Appendix A GNU Free Documentation License
      free program should come with manuals providing the same freedoms
      that the software does.  But this License is not limited to
      software manuals; it can be used for any textual work, regardless
-     of subject matter or whether it is published as a printed book.
-     We recommend this License principally for works whose purpose is
+     of subject matter or whether it is published as a printed book.  We
+     recommend this License principally for works whose purpose is
      instruction or reference.
 
   1. APPLICABILITY AND DEFINITIONS
 
      This License applies to any manual or other work, in any medium,
-     that contains a notice placed by the copyright holder saying it
-     can be distributed under the terms of this License.  Such a notice
+     that contains a notice placed by the copyright holder saying it can
+     be distributed under the terms of this License.  Such a notice
      grants a world-wide, royalty-free license, unlimited in duration,
      to use that work under the conditions stated herein.  The
      "Document", below, refers to any such manual or work.  Any member
-     of the public is a licensee, and is addressed as "you".  You
-     accept the license if you copy, modify or distribute the work in a
-     way requiring permission under copyright law.
+     of the public is a licensee, and is addressed as "you".  You accept
+     the license if you copy, modify or distribute the work in a way
+     requiring permission under copyright law.
 
      A "Modified Version" of the Document means any work containing the
      Document or a portion of it, either copied verbatim, or with
@@ -770,12 +765,12 @@ Appendix A GNU Free Documentation License
      regarding them.
 
      The "Invariant Sections" are certain Secondary Sections whose
-     titles are designated, as being those of Invariant Sections, in
-     the notice that says that the Document is released under this
-     License.  If a section does not fit the above definition of
-     Secondary then it is not allowed to be designated as Invariant.
-     The Document may contain zero Invariant Sections.  If the Document
-     does not identify any Invariant Sections then there are none.
+     titles are designated, as being those of Invariant Sections, in the
+     notice that says that the Document is released under this License.
+     If a section does not fit the above definition of Secondary then it
+     is not allowed to be designated as Invariant.  The Document may
+     contain zero Invariant Sections.  If the Document does not identify
+     any Invariant Sections then there are none.
 
      The "Cover Texts" are certain short passages of text that are
      listed, as Front-Cover Texts or Back-Cover Texts, in the notice
@@ -786,27 +781,27 @@ Appendix A GNU Free Documentation License
      A "Transparent" copy of the Document means a machine-readable copy,
      represented in a format whose specification is available to the
      general public, that is suitable for revising the document
-     straightforwardly with generic text editors or (for images
-     composed of pixels) generic paint programs or (for drawings) some
-     widely available drawing editor, and that is suitable for input to
-     text formatters or for automatic translation to a variety of
-     formats suitable for input to text formatters.  A copy made in an
-     otherwise Transparent file format whose markup, or absence of
-     markup, has been arranged to thwart or discourage subsequent
-     modification by readers is not Transparent.  An image format is
-     not Transparent if used for any substantial amount of text.  A
-     copy that is not "Transparent" is called "Opaque".
+     straightforwardly with generic text editors or (for images composed
+     of pixels) generic paint programs or (for drawings) some widely
+     available drawing editor, and that is suitable for input to text
+     formatters or for automatic translation to a variety of formats
+     suitable for input to text formatters.  A copy made in an otherwise
+     Transparent file format whose markup, or absence of markup, has
+     been arranged to thwart or discourage subsequent modification by
+     readers is not Transparent.  An image format is not Transparent if
+     used for any substantial amount of text.  A copy that is not
+     "Transparent" is called "Opaque".
 
      Examples of suitable formats for Transparent copies include plain
      ASCII without markup, Texinfo input format, LaTeX input format,
-     SGML or XML using a publicly available DTD, and
-     standard-conforming simple HTML, PostScript or PDF designed for
-     human modification.  Examples of transparent image formats include
-     PNG, XCF and JPG.  Opaque formats include proprietary formats that
-     can be read and edited only by proprietary word processors, SGML or
-     XML for which the DTD and/or processing tools are not generally
-     available, and the machine-generated HTML, PostScript or PDF
-     produced by some word processors for output purposes only.
+     SGML or XML using a publicly available DTD, and standard-conforming
+     simple HTML, PostScript or PDF designed for human modification.
+     Examples of transparent image formats include PNG, XCF and JPG.
+     Opaque formats include proprietary formats that can be read and
+     edited only by proprietary word processors, SGML or XML for which
+     the DTD and/or processing tools are not generally available, and
+     the machine-generated HTML, PostScript or PDF produced by some word
+     processors for output purposes only.
 
      The "Title Page" means, for a printed book, the title page itself,
      plus such following pages as are needed to hold, legibly, the
@@ -844,8 +839,8 @@ Appendix A GNU Free Documentation License
      may not use technical measures to obstruct or control the reading
      or further copying of the copies you make or distribute.  However,
      you may accept compensation in exchange for copies.  If you
-     distribute a large enough number of copies you must also follow
-     the conditions in section 3.
+     distribute a large enough number of copies you must also follow the
+     conditions in section 3.
 
      You may also lend copies, under the same conditions stated above,
      and you may publicly display copies.
@@ -859,12 +854,11 @@ Appendix A GNU Free Documentation License
      these Cover Texts: Front-Cover Texts on the front cover, and
      Back-Cover Texts on the back cover.  Both covers must also clearly
      and legibly identify you as the publisher of these copies.  The
-     front cover must present the full title with all words of the
-     title equally prominent and visible.  You may add other material
-     on the covers in addition.  Copying with changes limited to the
-     covers, as long as they preserve the title of the Document and
-     satisfy these conditions, can be treated as verbatim copying in
-     other respects.
+     front cover must present the full title with all words of the title
+     equally prominent and visible.  You may add other material on the
+     covers in addition.  Copying with changes limited to the covers, as
+     long as they preserve the title of the Document and satisfy these
+     conditions, can be treated as verbatim copying in other respects.
 
      If the required texts for either cover are too voluminous to fit
      legibly, you should put the first ones listed (as many as fit
@@ -872,40 +866,39 @@ Appendix A GNU Free Documentation License
      adjacent pages.
 
      If you publish or distribute Opaque copies of the Document
-     numbering more than 100, you must either include a
-     machine-readable Transparent copy along with each Opaque copy, or
-     state in or with each Opaque copy a computer-network location from
-     which the general network-using public has access to download
-     using public-standard network protocols a complete Transparent
-     copy of the Document, free of added material.  If you use the
-     latter option, you must take reasonably prudent steps, when you
-     begin distribution of Opaque copies in quantity, to ensure that
-     this Transparent copy will remain thus accessible at the stated
-     location until at least one year after the last time you
-     distribute an Opaque copy (directly or through your agents or
-     retailers) of that edition to the public.
+     numbering more than 100, you must either include a machine-readable
+     Transparent copy along with each Opaque copy, or state in or with
+     each Opaque copy a computer-network location from which the general
+     network-using public has access to download using public-standard
+     network protocols a complete Transparent copy of the Document, free
+     of added material.  If you use the latter option, you must take
+     reasonably prudent steps, when you begin distribution of Opaque
+     copies in quantity, to ensure that this Transparent copy will
+     remain thus accessible at the stated location until at least one
+     year after the last time you distribute an Opaque copy (directly or
+     through your agents or retailers) of that edition to the public.
 
      It is requested, but not required, that you contact the authors of
-     the Document well before redistributing any large number of
-     copies, to give them a chance to provide you with an updated
-     version of the Document.
+     the Document well before redistributing any large number of copies,
+     to give them a chance to provide you with an updated version of the
+     Document.
 
   4. MODIFICATIONS
 
      You may copy and distribute a Modified Version of the Document
      under the conditions of sections 2 and 3 above, provided that you
-     release the Modified Version under precisely this License, with
-     the Modified Version filling the role of the Document, thus
-     licensing distribution and modification of the Modified Version to
-     whoever possesses a copy of it.  In addition, you must do these
-     things in the Modified Version:
+     release the Modified Version under precisely this License, with the
+     Modified Version filling the role of the Document, thus licensing
+     distribution and modification of the Modified Version to whoever
+     possesses a copy of it.  In addition, you must do these things in
+     the Modified Version:
 
        A. Use in the Title Page (and on the covers, if any) a title
-          distinct from that of the Document, and from those of
-          previous versions (which should, if there were any, be listed
-          in the History section of the Document).  You may use the
-          same title as a previous version if the original publisher of
-          that version gives permission.
+          distinct from that of the Document, and from those of previous
+          versions (which should, if there were any, be listed in the
+          History section of the Document).  You may use the same title
+          as a previous version if the original publisher of that
+          version gives permission.
 
        B. List on the Title Page, as authors, one or more persons or
           entities responsible for authorship of the modifications in
@@ -935,31 +928,30 @@ Appendix A GNU Free Documentation License
 
        I. Preserve the section Entitled "History", Preserve its Title,
           and add to it an item stating at least the title, year, new
-          authors, and publisher of the Modified Version as given on
-          the Title Page.  If there is no section Entitled "History" in
-          the Document, create one stating the title, year, authors,
-          and publisher of the Document as given on its Title Page,
-          then add an item describing the Modified Version as stated in
-          the previous sentence.
+          authors, and publisher of the Modified Version as given on the
+          Title Page.  If there is no section Entitled "History" in the
+          Document, create one stating the title, year, authors, and
+          publisher of the Document as given on its Title Page, then add
+          an item describing the Modified Version as stated in the
+          previous sentence.
 
        J. Preserve the network location, if any, given in the Document
           for public access to a Transparent copy of the Document, and
           likewise the network locations given in the Document for
-          previous versions it was based on.  These may be placed in
-          the "History" section.  You may omit a network location for a
-          work that was published at least four years before the
-          Document itself, or if the original publisher of the version
-          it refers to gives permission.
+          previous versions it was based on.  These may be placed in the
+          "History" section.  You may omit a network location for a work
+          that was published at least four years before the Document
+          itself, or if the original publisher of the version it refers
+          to gives permission.
 
        K. For any section Entitled "Acknowledgements" or "Dedications",
-          Preserve the Title of the section, and preserve in the
-          section all the substance and tone of each of the contributor
+          Preserve the Title of the section, and preserve in the section
+          all the substance and tone of each of the contributor
           acknowledgements and/or dedications given therein.
 
-       L. Preserve all the Invariant Sections of the Document,
-          unaltered in their text and in their titles.  Section numbers
-          or the equivalent are not considered part of the section
-          titles.
+       L. Preserve all the Invariant Sections of the Document, unaltered
+          in their text and in their titles.  Section numbers or the
+          equivalent are not considered part of the section titles.
 
        M. Delete any section Entitled "Endorsements".  Such a section
           may not be included in the Modified Version.
@@ -972,11 +964,11 @@ Appendix A GNU Free Documentation License
 
      If the Modified Version includes new front-matter sections or
      appendices that qualify as Secondary Sections and contain no
-     material copied from the Document, you may at your option
-     designate some or all of these sections as invariant.  To do this,
-     add their titles to the list of Invariant Sections in the Modified
-     Version's license notice.  These titles must be distinct from any
-     other section titles.
+     material copied from the Document, you may at your option designate
+     some or all of these sections as invariant.  To do this, add their
+     titles to the list of Invariant Sections in the Modified Version's
+     license notice.  These titles must be distinct from any other
+     section titles.
 
      You may add a section Entitled "Endorsements", provided it contains
      nothing but endorsements of your Modified Version by various
@@ -985,15 +977,15 @@ Appendix A GNU Free Documentation License
      definition of a standard.
 
      You may add a passage of up to five words as a Front-Cover Text,
-     and a passage of up to 25 words as a Back-Cover Text, to the end
-     of the list of Cover Texts in the Modified Version.  Only one
-     passage of Front-Cover Text and one of Back-Cover Text may be
-     added by (or through arrangements made by) any one entity.  If the
-     Document already includes a cover text for the same cover,
-     previously added by you or by arrangement made by the same entity
-     you are acting on behalf of, you may not add another; but you may
-     replace the old one, on explicit permission from the previous
-     publisher that added the old one.
+     and a passage of up to 25 words as a Back-Cover Text, to the end of
+     the list of Cover Texts in the Modified Version.  Only one passage
+     of Front-Cover Text and one of Back-Cover Text may be added by (or
+     through arrangements made by) any one entity.  If the Document
+     already includes a cover text for the same cover, previously added
+     by you or by arrangement made by the same entity you are acting on
+     behalf of, you may not add another; but you may replace the old
+     one, on explicit permission from the previous publisher that added
+     the old one.
 
      The author(s) and publisher(s) of the Document do not by this
      License give permission to use their names for publicity for or to
@@ -1003,8 +995,8 @@ Appendix A GNU Free Documentation License
 
      You may combine the Document with other documents released under
      this License, under the terms defined in section 4 above for
-     modified versions, provided that you include in the combination
-     all of the Invariant Sections of all of the original documents,
+     modified versions, provided that you include in the combination all
+     of the Invariant Sections of all of the original documents,
      unmodified, and list them all as Invariant Sections of your
      combined work in its license notice, and that you preserve all
      their Warranty Disclaimers.
@@ -1031,20 +1023,20 @@ Appendix A GNU Free Documentation License
      documents released under this License, and replace the individual
      copies of this License in the various documents with a single copy
      that is included in the collection, provided that you follow the
-     rules of this License for verbatim copying of each of the
-     documents in all other respects.
+     rules of this License for verbatim copying of each of the documents
+     in all other respects.
 
      You may extract a single document from such a collection, and
      distribute it individually under this License, provided you insert
-     a copy of this License into the extracted document, and follow
-     this License in all other respects regarding verbatim copying of
-     that document.
+     a copy of this License into the extracted document, and follow this
+     License in all other respects regarding verbatim copying of that
+     document.
 
   7. AGGREGATION WITH INDEPENDENT WORKS
 
      A compilation of the Document or its derivatives with other
-     separate and independent documents or works, in or on a volume of
-     a storage or distribution medium, is called an "aggregate" if the
+     separate and independent documents or works, in or on a volume of a
+     storage or distribution medium, is called an "aggregate" if the
      copyright resulting from the compilation is not used to limit the
      legal rights of the compilation's users beyond what the individual
      works permit.  When the Document is included in an aggregate, this
@@ -1089,8 +1081,8 @@ Appendix A GNU Free Documentation License
 
      However, if you cease all violation of this License, then your
      license from a particular copyright holder is reinstated (a)
-     provisionally, unless and until the copyright holder explicitly
-     and finally terminates your license, and (b) permanently, if the
+     provisionally, unless and until the copyright holder explicitly and
+     finally terminates your license, and (b) permanently, if the
      copyright holder fails to notify you of the violation by some
      reasonable means prior to 60 days after the cessation.
 
@@ -1102,33 +1094,33 @@ Appendix A GNU Free Documentation License
      after your receipt of the notice.
 
      Termination of your rights under this section does not terminate
-     the licenses of parties who have received copies or rights from
-     you under this License.  If your rights have been terminated and
-     not permanently reinstated, receipt of a copy of some or all of
-     the same material does not give you any rights to use it.
+     the licenses of parties who have received copies or rights from you
+     under this License.  If your rights have been terminated and not
+     permanently reinstated, receipt of a copy of some or all of the
+     same material does not give you any rights to use it.
 
- 10. FUTURE REVISIONS OF THIS LICENSE
+  10. FUTURE REVISIONS OF THIS LICENSE
 
      The Free Software Foundation may publish new, revised versions of
      the GNU Free Documentation License from time to time.  Such new
      versions will be similar in spirit to the present version, but may
      differ in detail to address new problems or concerns.  See
-     `http://www.gnu.org/copyleft/'.
+     <http://www.gnu.org/copyleft/>.
 
      Each version of the License is given a distinguishing version
      number.  If the Document specifies that a particular numbered
      version of this License "or any later version" applies to it, you
      have the option of following the terms and conditions either of
      that specified version or of any later version that has been
-     published (not as a draft) by the Free Software Foundation.  If
-     the Document does not specify a version number of this License,
-     you may choose any version ever published (not as a draft) by the
-     Free Software Foundation.  If the Document specifies that a proxy
-     can decide which future versions of this License can be used, that
+     published (not as a draft) by the Free Software Foundation.  If the
+     Document does not specify a version number of this License, you may
+     choose any version ever published (not as a draft) by the Free
+     Software Foundation.  If the Document specifies that a proxy can
+     decide which future versions of this License can be used, that
      proxy's public statement of acceptance of a version permanently
      authorizes you to choose that version for the Document.
 
- 11. RELICENSING
+  11. RELICENSING
 
      "Massive Multiauthor Collaboration Site" (or "MMC Site") means any
      World Wide Web server that publishes copyrightable works and also
@@ -1158,7 +1150,6 @@ Appendix A GNU Free Documentation License
      site under CC-BY-SA on the same site at any time before August 1,
      2009, provided the MMC is eligible for relicensing.
 
-
 ADDENDUM: How to use this License for your documents
 ====================================================
 
@@ -1175,7 +1166,7 @@ notices just after the title page:
        Free Documentation License''.
 
    If you have Invariant Sections, Front-Cover Texts and Back-Cover
-Texts, replace the "with...Texts." line with this:
+Texts, replace the "with...Texts."  line with this:
 
          with the Invariant Sections being LIST THEIR TITLES, with
          the Front-Cover Texts being LIST, and with the Back-Cover Texts
@@ -1186,35 +1177,35 @@ combination of the three, merge those two alternatives to suit the
 situation.
 
    If your document contains nontrivial examples of program code, we
-recommend releasing these examples in parallel under your choice of
-free software license, such as the GNU General Public License, to
-permit their use in free software.
+recommend releasing these examples in parallel under your choice of free
+software license, such as the GNU General Public License, to permit
+their use in free software.
 
 
 
 Tag Table:
-Node: Top895
-Node: Overview1168
-Ref: Overview-Footnote-11528
-Node: Installation1756
-Ref: Installation-Footnote-12354
-Node: Modes and states2404
-Node: Settings3457
-Ref: Settings-Footnote-15908
-Node: The cursor6065
-Node: The initial state7270
-Node: Keymaps7729
-Node: `evil-define-key'9593
-Node: Hooks10779
-Node: Macros12301
-Node: Motions12581
-Node: Operators14515
-Node: Text objects16843
-Node: Types19851
-Node: States21329
-Node: Other internals22427
-Node: Command properties22604
-Node: GNU Free Documentation License23931
+Node: Top819
+Node: Overview1092
+Ref: Overview-Footnote-11440
+Node: Installation1668
+Ref: Installation-Footnote-12272
+Node: Modes and states2322
+Node: Settings3375
+Ref: Settings-Footnote-15826
+Node: The cursor5983
+Node: The initial state7188
+Node: Keymaps7647
+Node: 'evil-define-key'9511
+Node: Hooks10697
+Node: Macros12219
+Node: Motions12499
+Node: Operators14436
+Node: Text objects16769
+Node: Types19782
+Node: States21264
+Node: Other internals22363
+Node: Command properties22540
+Node: GNU Free Documentation License23867
 
 End Tag Table
 

@@ -1,44 +1,66 @@
 ;;; evil.el --- extensible vi layer
 
-;; Authors:
-;;      Alessandro Piras <laynor@gmail.com>
+;; The following list of authors was kept up to date until the beginning of
+;; 2017, when evil moved under new maintainers. For authors since then, please
+;; consult the git logs.
+
+;;      Alessandro Piras <laynor at gmail.com>
+;;      Alexander Baier <alexander.baier at mailbox.org>
 ;;      Antono Vasiljev <antono.vasiljev at gmail.com>
+;;      Bailey Ling <bling at live.ca>
 ;;      Barry O'Reilly <gundaetiapo at gmail.com>
 ;;      Christoph Lange <langec at web.de>
+;;      Daniel Reiter <danieltreiter at gmail.com>
+;;      Eivind Fonn <evfonn at gmail.com>
+;;      Emanuel Evans <emanuel.evans at gmail.com>
+;;      Eric Siegel <siegel.eric at gmail.com>
+;;      Eugene Yaremenko <w3techplayground at gmail.com>
 ;;      Frank Fischer <frank-fischer at shadow-soft.de>
 ;;      Frank Terbeck <ft at bewatermyfriend.org>
+;;      Gordon Gustafson <gordon3.14 at gmail.com>
+;;      Herbert Jones <jones.herbert at gmail.com>
+;;      Jonas Bernoulli <jonas at bernoul.li>
 ;;      Jonathan Claggett <jclaggett at lonocloud.com>
-;;      José A. Romero L. <escherdragon@gmail.com>
+;;      José A. Romero L. <escherdragon at gmail.com>
+;;      Justin Burkett <justin at burkett.cc>
 ;;      Lars Andersen <expez at expez.com>
 ;;      Lintaro Ina <tarao.gnn at gmail.com>
-;;      Lukasz Wrzosek <wrzoski@gmail.com>
-;;      Marian Schubert <maio@netsafe.cz>
+;;      Lukasz Wrzosek <wrzoski at mail.com>
+;;      Marian Schubert <maio at netsafe.cz>
+;;      Matthew Malcomson <>
 ;;      Michael Markert <markert.michael at googlemail.com>
+;;      Mike Gerwitz <mikegerwitz at gnu.org>
 ;;      Nikolai Weibull <now at bitwi.se>
+;;      phaebz <phaebz at gmail.com>
+;;      ralesi <scio62 at gmail.com>
+;;      Rodrigo Setti <rodrigosetti at gmail.com>
 ;;      Sanel Zukan <sanelz at gmail.com>
 ;;      Sarah Brofeldt <sarah at thinkmonster.(none)>
 ;;      Simon Hafner <hafnersimon at gmail.com>
 ;;      Stefan Wehr <mail at stefanwehr.de>
 ;;      Sune Simonsen <sune.simonsen at jayway.com>
 ;;      Thomas Hisch <thomas at opentech.at>
+;;      Tim Harper <timcharper at gmail.com>
+;;      Tom Willemse <tom at ryuslash.org>
 ;;      Trevor Murphy <trevor.m.murphy at gmail.com>
 ;;      Ulrich Müller <ulm at gentoo.org>
+;;      Vasilij Schneidermann <v.schneidermann at gmail.com>
 ;;      Vegard Øye <vegard_oye at hotmail.com>
-;;      Winfred Lu <winfred.lu@gmail.com>
+;;      Winfred Lu <winfred.lu at gmail.com>
 ;;      Wolfgang Jenkner <wjenkner at inode.at>
 ;;      Xiao Hanyu <xiaohanyu1988 at gmail.com>
 ;;      York Zhao <yzhao at telecor.com>
 
-;; Maintainer: Vegard Øye <vegard_oye at hotmail.com>
+;; Maintainers: The emacs-evil team. <https://github.com/orgs/emacs-evil/people>
 ;;      To get in touch, please use the bug tracker or the
 ;;      mailing list (see below).
 ;; Created: 2011-03-01
-;; Version: 1.0.8
+;; Version: 1.2.12
 ;; Keywords: emulation, vim
-;; URL: http://gitorious.org/evil
-;;      Repository: git://gitorious.org/evil/evil.git
+;; URL: https://github.com/emacs-evil/evil
+;;      Repository: https://github.com/emacs-evil/evil.git
 ;;      EmacsWiki: http://www.emacswiki.org/emacs/Evil
-;; Bug tracker: https://bitbucket.org/lyro/evil/issues
+;; Bug tracker: https://github.com/emacs-evil/evil/issues
 ;;      If you have bug reports, suggestions or patches, please
 ;;      create an issue at the bug tracker (open for everyone).
 ;;      Other discussions (tips, extensions) go to the mailing list.
@@ -76,7 +98,7 @@
 ;;
 ;; Evil lives in a Git repository. To obtain Evil, do
 ;;
-;;      git clone git://gitorious.org/evil/evil.git
+;;      git clone git://github.com/emacs-evil/evil.git
 ;;
 ;; Move Evil to ~/.emacs.d/evil (or somewhere else in the `load-path').
 ;; Then add the following lines to ~/.emacs:
@@ -113,6 +135,7 @@
 (require 'evil-digraphs)
 (require 'evil-types)
 (require 'evil-commands)
+(require 'evil-jumps)
 (require 'evil-maps)
 (require 'evil-integration)
 
