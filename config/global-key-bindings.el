@@ -2,6 +2,16 @@
 
 
 
+;; Ctrl-tab to change docs
+(global-set-key [C-tab] 'other-window)
+
+;; Ctrl-Meta-tab to change frames
+(global-set-key [C-M-tab] 'other-frame)
+
+
+
+
+
 (global-set-key "\C-h" 'help-command)
 (global-set-key "\C-ha" 'apropos)	; B{ttre {n command-apropos
 
@@ -20,14 +30,6 @@
 ;; http://www.ocf.berkeley.edu/~tmtong/howto/delete.php
 ;; (global-set-key (kbd "<backspace>") 'backward-delete-char)
 (global-set-key (kbd "<delete>") 'delete-char)
-
-
-
-;; Ctrl-tab to change docs
-(global-set-key [C-tab] 'other-window)
-
-;; Ctrl-Meta-tab to change frames
-(global-set-key [C-M-tab] 'other-frame)
 
 
 
