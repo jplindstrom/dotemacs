@@ -7,3 +7,4 @@ elpa/archives
 /url/cookies
 /tramp
 *.elc
+/emacs-backup-files/
