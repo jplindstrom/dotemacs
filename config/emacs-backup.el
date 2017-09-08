@@ -9,6 +9,6 @@
 (setq
  kept-new-versions 10
  kept-old-versions 10
- backup-directory-alist (quote (("^m:" . "") ("." . "~/backup/emacs-backup")))
+ backup-directory-alist (quote (("^m:" . "") ("." . "~/elisp/emacs-backup-files")))
  )
 
