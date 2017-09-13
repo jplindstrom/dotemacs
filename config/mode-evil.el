@@ -154,13 +154,13 @@ already there, to the beginning of the line."
       (kbd "M-h") 'outline-up-heading
       (kbd "M-l") 'outline-next-visible-heading
 
-      (kbd "M-J") 'org-metadown
-      (kbd "M-K") 'org-metaup
+      (kbd "M-J") 'org-shiftmetadown
+      (kbd "M-K") 'org-shiftmetaup
       (kbd "M-H") 'org-metaleft
       (kbd "M-L") 'org-metaright
 
-      (kbd "C-M-j") 'org-shiftmetadown
-      (kbd "C-M-k") 'org-shiftmetaup
+      (kbd "C-M-j") 'org-metadown
+      (kbd "C-M-k") 'org-metaup
       (kbd "C-M-h") 'org-shiftmetaleft
       (kbd "C-M-l") 'org-shiftmetaright
       ))
