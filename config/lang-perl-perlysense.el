@@ -6,6 +6,7 @@
 ;; The PerlySense prefix key (unset only if needed)
 
 (define-key grep-mode-map "\C-o" nil)
+(define-key compilation-mode-map "\C-o" nil)
 (global-unset-key "\C-o")
 
 (setq ps/key-prefix "\C-o")
