@@ -3,6 +3,17 @@
 ;; ORG mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
+
+
+;; Performance workaround for large org files: slow if in overview
+;; mode, but fast with unfolded
+; So start unfolded to cache(?) all the lines
+(setq org-startup-folded nil)
+; but then restore overview display
+(add-hook 'org-mode-hook (function (lambda () (org-overview))))
+
+
+
 ;; Restore C-tab to other-window
 (org-defkey org-mode-map [(control tab)] nil)
 
