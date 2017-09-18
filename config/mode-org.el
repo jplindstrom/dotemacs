@@ -88,9 +88,65 @@ markup"
 
 
 
+;; Babel
+
+;; Example
+;; #+BEGIN_SRC dot :file my_output_file.png :cmdline -Kdot -Tpng
+;; digraph G {
+;;     overlap = false; ranksep = 0.5; nodesep = 0.1;
+;;     rankdir = BT; # LR, TB
+;;     fontname = "Verdana";
+;;     labelloc = "b";
+;;     graph[ style = invis ];
+
+;;     node [
+;;         shape    = "box",
+;;         width    = 0.1, height   = 0.4,
+;;         fontname = "Verdana", fontsize = 8,
+;;     ];
+;;     edge [
+;;         arrowsize = 0.5,
+;;         fontname  = "helvetica", fontsize  = 9,
+;;     ];
+
+;;     subgraph cluster_abc {
+;;         label = "ABC"
+
+;;         first [ label = "The first\none" ]
+;;         Third [
+;;             style     = "filled",
+;;             fillcolor = "lightblue",
+;;         ]
+;;     }
+
+;;     Second [ shape = "box3d" ]
+
+;;     first -> Second [ label = "the thin, grey line" ]
+;;     Second -> Third [
+;;         label = "going\nto 3rd",
+;;         style = "dashed",
+;;         arrowhead = none,
+;;     ]
+;; }
+;;  #+END_SRC
+
+(org-toggle-inline-images)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t) (dot . t)))
+
+(defun my/org-confirm-babel-evaluate (lang body)
+  (not (member lang '("dot"))))
+(setq org-confirm-babel-evaluate 'my/org-confirm-babel-evaluate)
+
+(defun my/org-redisplay-inline-images ()
+  (when org-inline-image-overlays
+    (org-redisplay-inline-images)))
+(add-hook 'org-babel-after-execute-hook 'my/org-redisplay-inline-images)
 
 
-()
+
 
 
 (defun org-export-subtree-as-simple-markup ()
