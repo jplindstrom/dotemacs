@@ -7,3 +7,8 @@
 
 (setq indent-guide-show-beyond-column 0)
 (setq indent-guide-recursive nil)
+
+
+(custom-set-variables
+ '(indent-guide-inhibit-modes (quote (dired-mode org-mode)))
+ )
