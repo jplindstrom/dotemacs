@@ -165,6 +165,8 @@ already there, to the beginning of the line."
       (kbd "C-M-k") 'org-shiftmetaup
       (kbd "C-M-h") 'org-shiftmetaleft
       (kbd "C-M-l") 'org-shiftmetaright
+
+      (kbd "C-a") 'org-beginning-of-line
       ))
   '(normal insert visual))
 

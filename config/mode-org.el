@@ -23,6 +23,10 @@
 (setq org-hide-leading-stars t)
 
 
+;; Beginning of line means after the stars
+(setq org-special-ctrl-a/e t)
+
+
 (setq org-link-abbrev-alist
       '(
         ("google"   . "http://www.google.com/search?q=")
