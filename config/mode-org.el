@@ -134,7 +134,7 @@ markup"
 ;; }
 ;;  #+END_SRC
 
-(org-toggle-inline-images)
+(setq org-startup-with-inline-images t)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
