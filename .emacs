@@ -222,6 +222,7 @@
  '(org-block ((t nil)))
  '(org-block-begin-line ((t (:foreground "light gray" :height 0.8))))
  '(org-hide ((t (:foreground "#f0f0f0"))))
+ '(org-meta-line ((t (:inherit font-lock-comment-face :foreground "light gray" :height 0.8))))
  '(org-property-value ((t (:height 0.7))) t)
  '(org-special-keyword ((t (:inherit font-lock-keyword-face :foreground "light gray" :height 0.7))))
  '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "#16a085" :height 1.4))))
