@@ -201,6 +201,9 @@
  '(js3-mode-show-strict-warnings nil)
  '(js3-strict-trailing-comma-warning nil)
  '(message-log-max 1000)
+ '(package-selected-packages
+   (quote
+    (plantuml-mode web-mode surround sparkline spaceline slim-mode scala-mode2 puppet-mode project-explorer pcsv org-transform-tree-table org-jira org-bullets org noctilux-theme neotree markdown-mode+ magit keyfreq js3-mode js2-refactor js-doc highlight-symbol helm-projectile helm-ls-git helm-helm-commands helm-gtags helm-git-grep helm-git helm-dired-recent-dirs helm-c-yasnippet helm-c-moccur haml-mode graphviz-dot-mode golden-ratio git-messenger git-gutter-fringe flatui-theme expand-region evil-matchit evil-leader evil-indent-textobject evil-args direx diminish cperl-mode corral cider anzu)))
  '(recentf-menu-filter nil)
  '(revert-without-query (quote (".*")))
  '(scroll-bar-mode (quote right))
