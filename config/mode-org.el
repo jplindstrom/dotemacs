@@ -91,11 +91,13 @@ markup"
 
 
 
+(setq org-startup-with-inline-images t)
 
 ;; Babel
 
 ;; Example
-;; #+BEGIN_SRC dot :file my_output_file.png :cmdline -Kdot -Tpng
+;; #+NAME: my_graphviz_result
+;; #+BEGIN_SRC dot :file my_graphviz_result.png :cmdline -Kdot -Tpng
 ;; digraph G {
 ;;     overlap = false; ranksep = 0.5; nodesep = 0.1;
 ;;     rankdir = BT; # LR, TB
@@ -134,14 +136,32 @@ markup"
 ;; }
 ;;  #+END_SRC
 
-(setq org-startup-with-inline-images t)
+;; #+RESULTS: name: my_graphviz_result
+
+
+
+;; #+NAME: my_plantuml_result
+;; #+BEGIN_SRC plantuml :file my_plantuml_result.png
+;;   Alice -> Bob: synchronous call
+;;   Alice ->> Bob: asynchronous call
+;; #+END_SRC
+
+;; #+results: name: my_plantuml_result
+;; file:my_plantuml_result.png
+
+
+
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((emacs-lisp . t) (dot . t)))
+ '(
+   (emacs-lisp . t)
+   (dot . t)
+   (plantuml . t)
+   ))
 
 (defun my/org-confirm-babel-evaluate (lang body)
-  (not (member lang '("dot"))))
+  (not (member lang '("dot" "plantuml"))))
 (setq org-confirm-babel-evaluate 'my/org-confirm-babel-evaluate)
 
 (defun my/org-redisplay-inline-images ()
@@ -150,6 +170,9 @@ markup"
 (add-hook 'org-babel-after-execute-hook 'my/org-redisplay-inline-images)
 
 
+;; Download from http://plantuml.com/download
+(setq org-plantuml-jar-path
+      (expand-file-name "~/bin/plantuml.jar"))
 
 
 
