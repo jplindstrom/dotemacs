@@ -104,6 +104,7 @@
 (jpl/load "mode-confluence")
 (jpl/load "mode-longlines")
 (jpl/load "mode-iedit")
+(jpl/load "mode-avy")
 (jpl/load "mode-expand-region")
 (jpl/load "mode-auto-complete") ;; disabled
 (jpl/load "jpl-s5")
