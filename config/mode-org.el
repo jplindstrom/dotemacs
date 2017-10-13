@@ -38,6 +38,10 @@
         ("DOING" . (:foreground "red" :background "white smoke" :weight bold))
         ("WAIT"  . (:foreground "turquoise4" :background "white smoke" :weight bold))
         ("DONE"  . org-done)
+
+        ("TASK"  . (:foreground "orange red" :background "white smoke" :weight bold))
+        ("STORY"  . (:foreground "turquoise4" :background "white smoke" :weight bold))
+        ("EPIC"  . org-done)
         ))
 
 
