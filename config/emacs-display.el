@@ -22,6 +22,17 @@
 
 
 
+;; When Tab-completion in minibuffer, don't display the completion
+;; list across the bottom, display it in an unused window
+(push '("\\*Completions\\*"
+        (display-buffer-use-some-window display-buffer-pop-up-window)
+        (inhibit-same-window . t))
+      display-buffer-alist)
+
+;; Display the completions list vertically
+(setq completions-format (quote vertical))
+
+
 
 ;; (require 'spaceline-config)
 ;; (spaceline-spacemacs-theme)
