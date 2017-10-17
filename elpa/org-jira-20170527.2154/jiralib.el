@@ -319,10 +319,14 @@ request.el, so if at all possible, it should be avoided."
       ('createIssue
        ;; Creating the issue doesn't return it, a second call must be
        ;; made to pull it in by using the self key in response.
-       (let ((response (jiralib--rest-call-it
+       (let* (
+              (json-payload (json-encode (first params)))
+              (response (jiralib--rest-call-it
                         "/rest/api/2/issue"
                         :type "POST"
-                        :data (json-encode (first params)))))
+                        :data json-payload)))
+         ;; (message "%s" json-payload)
+         ;; (message "%S" response)
          (jiralib--rest-call-it (cdr (assoc 'self response)) :type "GET")
          ))
       ('createIssueWithParent (jiralib--rest-call-it
