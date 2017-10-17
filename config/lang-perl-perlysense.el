@@ -104,3 +104,8 @@ string. Surround it with end-quote and string concatenation."
 
 
 
+(global-set-key (format "%sgV" ps/key-prefix) 'magit-status)
+
+
+
+
