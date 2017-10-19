@@ -95,9 +95,31 @@ markup"
 
 
 
+
+;;; Babel
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (emacs-lisp . t)
+   (dot . t)
+   (plantuml . t)
+   ))
+
+(defun my/org-confirm-babel-evaluate (lang body)
+  (not (member lang '("dot" "plantuml"))))
+(setq org-confirm-babel-evaluate 'my/org-confirm-babel-evaluate)
+
 (setq org-startup-with-inline-images t)
 
-;; Babel
+(defun my/org-redisplay-inline-images ()
+  (when org-inline-image-overlays
+    (org-redisplay-inline-images)))
+(add-hook 'org-babel-after-execute-hook 'my/org-redisplay-inline-images)
+
+
+
+;;; GraphViz
 
 ;; Example
 ;; #+NAME: my_graphviz_result
@@ -144,6 +166,17 @@ markup"
 
 
 
+;;; PlantUML
+
+;; http://plantuml.com/sequence-diagram
+;; http://plantuml.com/class-diagram
+;; http://plantuml.com/salt
+
+;; Download from http://plantuml.com/download
+(setq org-plantuml-jar-path
+      (expand-file-name "~/bin/plantuml.jar"))
+
+
 ;; #+NAME: my_plantuml_result
 ;; #+BEGIN_SRC plantuml :file my_plantuml_result.png
 ;;   Alice -> Bob: synchronous call
@@ -154,29 +187,6 @@ markup"
 ;; file:my_plantuml_result.png
 
 
-
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(
-   (emacs-lisp . t)
-   (dot . t)
-   (plantuml . t)
-   ))
-
-(defun my/org-confirm-babel-evaluate (lang body)
-  (not (member lang '("dot" "plantuml"))))
-(setq org-confirm-babel-evaluate 'my/org-confirm-babel-evaluate)
-
-(defun my/org-redisplay-inline-images ()
-  (when org-inline-image-overlays
-    (org-redisplay-inline-images)))
-(add-hook 'org-babel-after-execute-hook 'my/org-redisplay-inline-images)
-
-
-;; Download from http://plantuml.com/download
-(setq org-plantuml-jar-path
-      (expand-file-name "~/bin/plantuml.jar"))
 
 
 
