@@ -171,22 +171,60 @@ markup"
 ;; http://plantuml.com/sequence-diagram
 ;; http://plantuml.com/class-diagram
 ;; http://plantuml.com/salt
+;;   e.g. <&person>
+;;   https://useiconic.com/open/
+;;   http://s.plantuml.com/imgp/1c6-salt-012.png
 
 ;; Download from http://plantuml.com/download
 (setq org-plantuml-jar-path
       (expand-file-name "~/bin/plantuml.jar"))
 
 
-;; #+NAME: my_plantuml_result
-;; #+BEGIN_SRC plantuml :file my_plantuml_result.png
-;;   Alice -> Bob: synchronous call
-;;   Alice ->> Bob: asynchronous call
+;;; http://plantuml.com/sequence-diagram
+
+;; #+NAME: my_sequence_result
+;; #+BEGIN_SRC plantuml :file my_sequence_result.png
+;; actor Alice
+;; Alice -> Bob: synchronous\ncall
+;; ... time passes ...
+;; Alice ->> Bob: asynchronous call
+;; note right: so this happened
+;; == That's all folks ==
 ;; #+END_SRC
 
-;; #+results: name: my_plantuml_result
-;; file:my_plantuml_result.png
+;; #+results: name: my_sequence_result
+;; file:my_sequence_result.png
 
 
+;;; http://plantuml.com/salt
+
+;; #+NAME: my_gui_result
+;; #+BEGIN_SRC plantuml :file my_gui_result.png
+;; salt
+;; {
+;;   {* File | Edit | View | About
+;;   About | PlantUML | salt | Help }
+;;   .
+;;   .
+;;   {/ <b>Tab1 | Tab2 | Tab3 }
+;;   Just plain text | [This is my button]
+;;   ()  Unchecked radio | (X) Checked radio
+;;   .
+;;   {+
+;;     []  Unchecked box | [X] Checked box
+;;     .
+;;     User <&person> | "input field   "
+;;     --
+;;     ^This is a droplist^
+;;   } | {
+;;   () Radio
+;;   ==
+;;   (X) Button
+;;   }
+;; }
+;; #+END_SRC
+
+;; #+results: name: my_gui_result
 
 
 
