@@ -1,0 +1,14 @@
+# name: IS task skeleton
+# key: is-
+# --
+** is-$1
+*** branch
+*** $0
+*** grep JPL
+*** code review
+*** merge
+**** uat
+**** master
+*** deploy
+**** uat
+**** prod

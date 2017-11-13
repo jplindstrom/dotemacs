@@ -1,0 +1,14 @@
+# name: SCO task skeleton
+# key: sco-
+# --
+** sco-$1
+*** branch
+*** $0
+*** grep JPL
+*** code review
+*** merge
+**** uat
+**** master
+*** deploy
+**** uat
+**** prod
