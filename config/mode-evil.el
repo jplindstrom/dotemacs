@@ -9,37 +9,28 @@
 (evil-mode 1)
 
 
-;; Define a "defun" Evil text object
-(defun jpl-line-before-end-of-defun (&optional arg)
-  (interactive)
-  (end-of-defun arg)
-  (previous-line))
 
-(defun jpl-line-after-beginning-of-defun (&optional arg)
-  (interactive)
-  (beginning-of-defun arg)
-  (next-line))
+(evil-define-text-object jpl-evil-outer-defun (count &optional beg end type)
+     (save-excursion
+       (mark-defun)
+       (next-line)
+       (evil-range (region-beginning) (region-end) type :expanded t)))
 
-(evil-define-text-object evil-inner-defun (count &optional beg end type)
-  "Select inner defun.
+(evil-define-text-object jpl-evil-inner-defun (count &optional beg end type)
+  "Note: won't work correctly for one-line defuns"
+  (progn ;; save-excursion
+    (mark-defun)
+    (next-line)
+    (next-line)
+    (let* ((object-begin (point)))
+      (exchange-point-and-mark)
+      (previous-line)
+      (previous-line)
+      (end-of-line)
+      (evil-range (object-begin) (point) type :expanded t))))
 
-This is a gross simplification, assuming the inner part is one
-line within the outer part. Maybe find the next sexp and go with
-that? Maybe there's something in the syntax table alerady for
-this."
-  (evil-inner-object-range count beg end type
-   #'jpl-line-before-end-of-defun
-   #'jpl-line-after-beginning-of-defun
-   ))
-(define-key evil-inner-text-objects-map "d" 'evil-inner-defun)
-
-(evil-define-text-object evil-defun (count &optional beg end type)
-  "Select around defun."
-  (evil-an-object-range count beg end type
-   #'end-of-defun
-   #'beginning-of-defun))
-(define-key evil-outer-text-objects-map "d" 'evil-defun)
-
+(define-key evil-inner-text-objects-map "d" 'jpl-evil-inner-defun)
+(define-key evil-outer-text-objects-map "d" 'jpl-evil-outer-defun)
 
 
 
