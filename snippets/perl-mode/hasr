@@ -1,0 +1,3 @@
+#name : has => () Moose/Moo attribute with required => 1
+# --
+has ${1:name} => ( is => "ro", required => 1 );
