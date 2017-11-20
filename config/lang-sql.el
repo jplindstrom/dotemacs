@@ -24,6 +24,7 @@
   (align-all-strings begin end " not null")
   (align-all-strings begin end " null")
   (align-all-strings begin end " default ")
+  (align-all-strings begin end " references ")
   )
 
 
