@@ -18,6 +18,14 @@
 
 
 
+(defun jpl/sql-align-ddl (begin end)
+  (interactive "r")
+  (align-all-strings begin end " int\\| varchar\\| text\\| timestamp")
+  (align-all-strings begin end " not null")
+  (align-all-strings begin end " null")
+  (align-all-strings begin end " default ")
+  )
+
 
 
 (fset 'sql-exec-region
