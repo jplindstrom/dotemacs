@@ -18,7 +18,7 @@
 
 (evil-define-text-object jpl-evil-inner-defun (count &optional beg end type)
   "Note: won't work correctly for one-line defuns"
-  (progn ;; save-excursion
+  (save-excursion
     (mark-defun)
     (next-line)
     (next-line)
