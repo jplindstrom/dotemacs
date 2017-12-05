@@ -1,0 +1,3 @@
+#name : has => () Moo attribute with lazy "builder" subref
+# --
+has ${1:name} => ( is => "lazy", builder => sub { $0 } );
