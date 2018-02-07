@@ -50,6 +50,8 @@
 (setq org-bullets-bullet-list '("★" "▷" "►" "⊙" "•" "•" "•" "•" "•" "•" "•" "•" "•" "•"))
 
 
+;; Don't cycle faces when going into undefined levels
+(setq org-cycle-level-faces nil)
 
 
 
