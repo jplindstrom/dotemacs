@@ -325,8 +325,10 @@ request.el, so if at all possible, it should be avoided."
                         "/rest/api/2/issue"
                         :type "POST"
                         :data json-payload)))
-         ;; (message "%s" json-payload)
-         ;; (message "%S" response)
+         ;; (message "JPL: %s" json-payload)
+         ;; (message "JPL: %S" response)
+         (when (cdr (assoc 'errors response))
+           (error "createIssue with: %S\nresponse: %S" json-payload response))
          (jiralib--rest-call-it (cdr (assoc 'self response)) :type "GET")
          ))
       ('createIssueWithParent (jiralib--rest-call-it
