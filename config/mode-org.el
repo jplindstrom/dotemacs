@@ -115,6 +115,7 @@ markup"
 (setq org-startup-with-inline-images t)
 
 (defun my/org-redisplay-inline-images ()
+  (interactive)
   (when org-inline-image-overlays
     (org-redisplay-inline-images)))
 (add-hook 'org-babel-after-execute-hook 'my/org-redisplay-inline-images)
@@ -230,9 +231,9 @@ markup"
 
 
 
-(defun org-export-subtree-as-simple-markup ()
+(defun org-export-subtree-as-simple-markup (prefix-arg)
   "Export current subtreee."
-  (interactive)
+  (interactive "P")
   (save-excursion
     ;; Copy tree to temp buffer
     (org-mark-subtree)
@@ -252,15 +253,26 @@ markup"
 ")
       ;; Rename * to h1.
       (goto-char (point-min))
-      (replace-string "\n* " "\n\n\nh1. ")
+      (replace-string "\n* " "\n\n\n\nh1. ")
 
       ;; rename ** to h2.
       (goto-char (point-min))
-      (replace-string "\n** " "\n\nh2. ")
+      (replace-string "\n** " "\n\n\nh2. ")
 
-      ;; rename *** and below to * and below
-      (goto-char (point-min))
-      (replace-string "\n***" "\n*")
+      (if prefix-arg
+          (progn
+            ;; rename *** to h3.
+            (goto-char (point-min))
+            (replace-string "\n*** " "\n\nh3. ")
+
+            ;; rename **** and below to * and below
+            (goto-char (point-min))
+            (replace-string "\n****" "\n*")
+            )
+        ;; rename *** and below to * and below
+        (goto-char (point-min))
+        (replace-string "\n***" "\n*")
+        )
 
       ;; Copy
       (kill-new (buffer-substring-no-properties (point-min) (point-max)))
