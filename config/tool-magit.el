@@ -100,3 +100,8 @@
 ;; Override magit-mode.el magit-mode-map
 ; Restore C-tab to global setting, used to be cycle
 (define-key magit-mode-map [C-tab] nil)
+
+
+(require 'magit-gitflow)
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+
