@@ -1,6 +1,6 @@
 
 
-(set-face-attribute 'default nil :height 100)
+(set-face-attribute 'default nil :height (if (string-equal system-type "darwin") 140 100))
 
 (setq inhibit-startup-message t)
 (set-variable 'tool-bar-mode -1)
