@@ -1,7 +1,7 @@
-;;; js2r-helpers.el --- Private helper functions for js2-refactor
+;;; js2r-helpers.el --- Private helper functions for js2-refactor    -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012-2014 Magnar Sveen
-;; Copyright (C) 2015 Magnar Sveen and Nicolas Petton
+;; Copyright (C) 2015-2016 Magnar Sveen and Nicolas Petton
 
 ;; Author: Magnar Sveen <magnars@gmail.com>,
 ;;         Nicolas Petton <nicolas@petton.fr>
@@ -24,6 +24,18 @@
 
 (require 'dash)
 (require 's)
+(require 'js2-mode)
+
+(defmacro js2r--wait-for-parse (&rest body)
+  "Evaluate BODY once the current buffer has been parsed."
+  `(js2-mode-wait-for-parse (lambda () ,@body)))
+
+(defun js2r--wrap-text (&rest text)
+  "Wrap TEXT with the prefered quotes.  The prefered quotes is set with `js2r-prefered-quote-type'."
+  (let ((prefered-quotes "\""))
+    (when (= 2 js2r-prefered-quote-type)
+      (setq prefered-quotes "'"))
+    (concat prefered-quotes (apply 'concat text) prefered-quotes)))
 
 (defun js2r--fix-special-modifier-combinations (key)
   (case key

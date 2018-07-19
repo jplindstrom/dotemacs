@@ -1,7 +1,7 @@
-;;; js2r-iife.el --- IIFE wrapping functions for js2-refactor
+;;; js2r-iife.el --- IIFE wrapping functions for js2-refactor    -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012-2014 Magnar Sveen
-;; Copyright (C) 2015 Magnar Sveen and Nicolas Petton
+;; Copyright (C) 2015-2016 Magnar Sveen and Nicolas Petton
 
 ;; Author: Magnar Sveen <magnars@gmail.com>,
 ;;         Nicolas Petton <nicolas@petton.fr>
@@ -21,6 +21,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Code:
+
+(require 'js2r-helpers)
 
 (defvar js2r--iife-regexp "^(function (")
 
@@ -60,30 +62,31 @@
   "Create shortcut for marked global by injecting it in the wrapping IIFE"
   (interactive)
   (js2r--guard)
-  (save-excursion
-    (let* ((name-pos (js2r--selected-name-positions))
-           (name-beg (car name-pos))
-           (name-end (cdr name-pos))
-           (name (buffer-substring-no-properties name-beg name-end))
-           (short (buster--global-shortcut name))
-           beg end)
-      (unless (search-backward-regexp js2r--iife-regexp)
-        (error "No immediately invoked function expression found."))
-      (deactivate-mark)
-      (forward-char 11)
-      (insert short)
-      (unless (looking-at ")")
-        (insert ", "))
-      (search-forward "{")
-      (setq beg (point))
-      (backward-char)
-      (forward-list)
-      (forward-char)
-      (setq end (point))
-      (insert name)
-      (unless (looking-at ")")
-        (insert ", "))
-      (replace-string name short t beg end))))
+  (js2r--wait-for-parse
+   (save-excursion
+     (let* ((name-pos (js2r--selected-name-positions))
+	    (name-beg (car name-pos))
+	    (name-end (cdr name-pos))
+	    (name (buffer-substring-no-properties name-beg name-end))
+	    (short (buster--global-shortcut name))
+	    beg end)
+       (unless (search-backward-regexp js2r--iife-regexp)
+	 (error "No immediately invoked function expression found."))
+       (deactivate-mark)
+       (forward-char 11)
+       (insert short)
+       (unless (looking-at ")")
+	 (insert ", "))
+       (search-forward "{")
+       (setq beg (point))
+       (backward-char)
+       (forward-list)
+       (forward-char)
+       (setq end (point))
+       (insert name)
+       (unless (looking-at ")")
+	 (insert ", "))
+       (replace-string name short t beg end)))))
 
 (provide 'js2r-iife)
 ;;; js2-iife.el ends here

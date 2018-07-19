@@ -1,7 +1,7 @@
-;;; js2r-conveniences.el --- Convenience functions for js2-refactor
+;;; js2r-conveniences.el --- Convenience functions for js2-refactor    -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012-2014 Magnar Sveen
-;; Copyright (C) 2015 Magnar Sveen and Nicolas Petton
+;; Copyright (C) 2015-2016 Magnar Sveen and Nicolas Petton
 
 ;; Author: Magnar Sveen <magnars@gmail.com>,
 ;;         Nicolas Petton <nicolas@petton.fr>
@@ -30,33 +30,40 @@
 
 (require 'js2r-helpers)
 
-(defun js2r-log-this ()
-  "Log of the node at point, adding a 'console.log()' statement."
-  (interactive)
+(defun js2r-log-this (arg)
+  "Log of the node at point, adding a 'console.log()' statement.
+With a prefix argument ARG, use JSON pretty-printing for logging."
+  (interactive "P")
   (js2r--guard)
-  (let* ((log-info (js2r--figure-out-what-to-log-where))
-         (stmt (car log-info))
-         (pos (cdr log-info)))
-    (save-excursion
-      (goto-char pos)
-      (when (looking-at "[;{]")
-        (forward-char 1))
-      (newline-and-indent)
-      (insert "console.log(\"" stmt " = \", " stmt ");"))))
+  (js2r--wait-for-parse
+   (let* ((log-info (js2r--figure-out-what-to-log-where))
+	  (stmt (car log-info))
+	  (pos (cdr log-info)))
+     (save-excursion
+       (goto-char pos)
+       (when (looking-at "[;{]")
+	 (forward-char 1))
+       (newline-and-indent)
+       (if arg
+	   (progn (insert "console.log(\"" stmt " = \");")
+		  (newline-and-indent)
+		  (insert "console.dir(" stmt ", { depth:null, colors: true });"))
+	 (insert "console.log(\"" stmt " = \", " stmt ");"))))))
 
 (defun js2r-debug-this ()
   "Debug the node at point, adding a 'debug()' statement."
   (interactive)
   (js2r--guard)
-  (let* ((log-info (js2r--figure-out-what-to-log-where))
-         (stmt (car log-info))
-         (pos (cdr log-info)))
-    (save-excursion
-      (goto-char pos)
-      (when (looking-at "[;{]")
-        (forward-char 1))
-      (newline-and-indent)
-      (insert "debug(\"" stmt " = %s\", " stmt ");"))))
+  (js2r--wait-for-parse
+   (let* ((log-info (js2r--figure-out-what-to-log-where))
+	  (stmt (car log-info))
+	  (pos (cdr log-info)))
+     (save-excursion
+       (goto-char pos)
+       (when (looking-at "[;{]")
+	 (forward-char 1))
+       (newline-and-indent)
+       (insert "debug(" (js2r--wrap-text stmt " = %s") ", " stmt ");")))))
 
 (defun js2r--figure-out-what-to-log-where ()
   "Return a dotted pair containing the statement to log and the
@@ -86,11 +93,10 @@ position where the log should be inserted."
 
 (defun js2r--find-suitable-log-position-around (parent-stmt)
   "Return the position close to PARENT-STMT where the log statement should be inserted."
-  (if (js2-return-node-p parent-stmt)
+  (if (or js2r-log-before-point (js2-return-node-p parent-stmt))
       (save-excursion
         (goto-char (js2-node-abs-pos parent-stmt))
-        (beginning-of-line)
-        (forward-char -1)
+        (skip-chars-backward " \t\n\r") ; Can't use skip-syntax-backward since \n is end-comment
         (point))
     (js2-node-abs-end parent-stmt)))
 
@@ -107,6 +113,19 @@ position where the log should be inserted."
        (if (looking-at (regexp-quote (format "%s + %s" delimiter delimiter)))
            (delete-char 5)
          (insert (format "%s + %s" delimiter delimiter)))))))
+
+(defun js2r-string-to-template ()
+  "Convert the string at point into a template string."
+  (interactive)
+  (let ((node (js2-node-at-point)))
+    (when (js2-string-node-p node)
+      (let* ((start (js2-node-abs-pos node))
+             (end (+ start (js2-node-len node))))
+        (when (memq (char-after start) '(?' ?\"))
+          (save-excursion
+            (goto-char end) (delete-char -1) (insert "`")
+            (goto-char start) (delete-char 1) (insert "`")
+            (perform-replace "`" "\\`" nil nil nil nil nil (1+ start) (1- end))))))))
 
 (defun js2r--string-delimiter (node)
   "Return the delimiter character of the string node NODE.

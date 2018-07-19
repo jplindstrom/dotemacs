@@ -1,7 +1,7 @@
-;;; js2r-paredit.el --- Paredit-like extensions for js2-refactor
+;;; js2r-paredit.el --- Paredit-like extensions for js2-refactor    -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012-2014 Magnar Sveen
-;; Copyright (C) 2015 Magnar Sveen and Nicolas Petton
+;; Copyright (C) 2015-2016 Magnar Sveen and Nicolas Petton
 
 ;; Author: Magnar Sveen <magnars@gmail.com>,
 ;;         Nicolas Petton <nicolas@petton.fr>
@@ -23,6 +23,8 @@
 ;;; Code:
 
 (require 'dash)
+
+(require 'js2r-helpers)
 
 (defun js2r--nesting-node-p (node)
   (or (js2-function-node-p node)
@@ -50,9 +52,13 @@ function foo() {|2 + 3} -> function foo() {}
   (interactive)
   (if js2-parsed-errors
       (progn
-        (message "Buffer has parse errors. Killing the line")
+        (message "Buffer has parse errors.  Killing the line")
         (kill-line))
-    (js2r--kill-line)))
+    (condition-case error
+	(js2r--kill-line)
+      (progn
+	(message "Error occured while trying to kill AST node.  Killing the line.")
+	(kill-line)))))
 
 (defun js2r--kill-line ()
   "Kill a line, but respecting node boundaries."
@@ -60,8 +66,7 @@ function foo() {|2 + 3} -> function foo() {}
     (cond
      ((js2-comment-node-p node) (kill-line))
      ((js2-string-node-p node) (js2r--kill-line-in-string))
-     (t (js2r--kill-line-in-sexp))))
-  (js2r--cleanup-after-kill))
+     (t (js2r--kill-line-in-sexp)))))
 
 (defun js2r--next-node ()
   "Return the node at point, or the node after the point if the
@@ -71,10 +76,6 @@ function foo() {|2 + 3} -> function foo() {}
              (point))
       (forward-char 1))
     (js2-node-at-point)))
-
-(defun js2r--cleanup-after-kill ()
-  (while (looking-at ";")
-    (kill-forward-chars 1)))
 
 (defun js2r--kill-line-in-sexp ()
   "Kill a line, but only kills until the closest outer sexp on
@@ -111,6 +112,9 @@ warn the user."
              (end-of-sexp (save-excursion
                             (goto-char beg-of-sexp)
                             (forward-list)
+                            ;; Kill all remaining semi-colons as well
+                            (while (looking-at ";")
+                              (forward-char))
                             (point))))
         (if (js2-same-line beg-of-sexp)
             (kill-region beg (max end end-of-sexp))
@@ -133,73 +137,91 @@ line, or to the end of the line if no sexp is found."
 (defun js2r--kill-line-in-string ()
   "Kill a line in a string node, respecting the node boundaries.
 When at the beginning of the node, kill from outside of it."
-  (let ((node (js2-node-at-point))
-        (beg (point))
-        (node-start (js2-node-abs-pos node))
-        (node-end (js2-node-abs-end node)))
+  (let* ((node (js2-node-at-point))
+         (beg (point))
+         (node-start (js2-node-abs-pos node))
+         (node-end (js2-node-abs-end node)))
     (if (= beg node-start)
         (js2r--kill-line-in-sexp)
       (kill-region beg (1- node-end)))))
 
 (defun js2r-forward-slurp (&optional arg)
+  "Add the expression following the current function into it.
+
+The addition is performed by moving the closing brace of the
+function down.
+
+When called with a prefix argument ARG, slurp ARG expressions
+following the current function."
   (interactive "p")
   (js2r--guard)
-  (let* ((nesting (js2r--closest 'js2r--nesting-node-p))
-         (standalone (if (js2r--standalone-node-p nesting)
-                         nesting
-                       (js2-node-parent-stmt nesting)))
-         (next-sibling (js2-node-next-sibling standalone))
-         (beg (js2-node-abs-pos next-sibling))
-         (last-sibling (if (wholenump arg)
-                           (let ((num arg)
-                                 (iter-sibling next-sibling))
-                             (while (> num 1) ;; Do next-sibling arg nbr of times
-                               (setq iter-sibling (js2-node-next-sibling iter-sibling))
-                               (setq num (1- num)))
-                             iter-sibling)
-                         next-sibling)) ;; No optional arg. Just use next-sibling
-         (end (1+ (js2-node-abs-end last-sibling))) ;; include whitespace after statement
-         (text (buffer-substring beg end)))
-    (save-excursion
-      (delete-region beg end)
-      (goto-char (js2-node-abs-end nesting))
-      (forward-char -1)
-      (when (looking-back "{ *") (newline))
-      (setq beg (point))
-      (insert text)
-      (indent-region beg end))))
+  (js2r--wait-for-parse
+   (let* ((nesting (js2r--closest 'js2r--nesting-node-p))
+	  (standalone (if (js2r--standalone-node-p nesting)
+			  nesting
+			(js2-node-parent-stmt nesting)))
+	  (next-sibling (js2-node-next-sibling standalone))
+	  (beg (js2-node-abs-pos next-sibling))
+	  (last-sibling (if (wholenump arg)
+			    (let ((num arg)
+				  (iter-sibling next-sibling))
+			      (while (> num 1) ;; Do next-sibling arg nbr of times
+				(setq iter-sibling (js2-node-next-sibling iter-sibling))
+				(setq num (1- num)))
+			      iter-sibling)
+			  next-sibling)) ;; No optional arg. Just use next-sibling
+	  (end (js2-node-abs-end last-sibling))
+	  (text (buffer-substring beg end)))
+     (save-excursion
+       (delete-region beg end)
+       ;; Delete newline character if the deleted AST node was at the end of the line
+       (goto-char beg)
+       (when (and (eolp)
+		  (not (eobp)))
+	 (delete-char 1))
+       (goto-char (js2-node-abs-end nesting))
+       (forward-char -1)
+       (when (looking-back "{ *")
+	 (newline))
+       (setq beg (point))
+       (insert text)
+       (when (looking-at " *}")
+	 (newline))
+       (setq end (point))
+       (indent-region beg end)))))
 
 (defun js2r-forward-barf (&optional arg)
   (interactive "p")
   (js2r--guard)
-  (let* ((nesting (js2r--closest 'js2r--nesting-node-p))
-         (standalone (if (js2r--standalone-node-p nesting)
-                         nesting
-                       (js2-node-parent-stmt nesting)))
-         (standalone-end (js2-node-abs-end standalone))
-         (last-child (car (last (if (js2-if-node-p nesting)
-                                    (js2-scope-kids (js2r--closest 'js2-scope-p))
-                                  (js2r--node-kids nesting)))))
-         (first-barf-child (if (wholenump arg)
-                               (let ((num arg)
-                                     (iter-child last-child))
-                                 (while (> num 1) ;; Do prev-sibling arg nbr of times
-                                   (setq iter-child (js2-node-prev-sibling iter-child))
-                                   (setq num (1- num)))
-                                 iter-child)
-                             last-child)); No optional arg. Just use last-child
-         (last-child-beg (save-excursion
-                           (goto-char (js2-node-abs-pos first-barf-child))
-                           (skip-syntax-backward " ")
-                           (while (looking-back "\n") (backward-char))
-                           (point)))
-         (last-child-end (js2-node-abs-end last-child))
-         (text (buffer-substring last-child-beg last-child-end)))
-    (save-excursion
-      (js2r--execute-changes
-       (list
-        (list :beg last-child-beg :end last-child-end :contents "")
-        (list :beg standalone-end :end standalone-end :contents text))))))
+  (js2r--wait-for-parse
+   (let* ((nesting (js2r--closest 'js2r--nesting-node-p))
+	  (standalone (if (js2r--standalone-node-p nesting)
+			  nesting
+			(js2-node-parent-stmt nesting)))
+	  (standalone-end (js2-node-abs-end standalone))
+	  (last-child (car (last (if (js2-if-node-p nesting)
+				     (js2-scope-kids (js2r--closest 'js2-scope-p))
+				   (js2r--node-kids nesting)))))
+	  (first-barf-child (if (wholenump arg)
+				(let ((num arg)
+				      (iter-child last-child))
+				  (while (> num 1) ;; Do prev-sibling arg nbr of times
+				    (setq iter-child (js2-node-prev-sibling iter-child))
+				    (setq num (1- num)))
+				  iter-child)
+			      last-child)) ; No optional arg. Just use last-child
+	  (last-child-beg (save-excursion
+			    (goto-char (js2-node-abs-pos first-barf-child))
+			    (skip-syntax-backward " ")
+			    (while (looking-back "\n") (backward-char))
+			    (point)))
+	  (last-child-end (js2-node-abs-end last-child))
+	  (text (buffer-substring last-child-beg last-child-end)))
+     (save-excursion
+       (js2r--execute-changes
+	(list
+	 (list :beg last-child-beg :end last-child-end :contents "")
+	 (list :beg standalone-end :end standalone-end :contents text)))))))
 
 (provide 'js2r-paredit)
 ;;; js2r-paredit.el ends here

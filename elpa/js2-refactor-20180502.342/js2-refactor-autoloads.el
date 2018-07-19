@@ -1,11 +1,10 @@
 ;;; js2-refactor-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads (js2r-add-keybindings-with-modifier js2r-add-keybindings-with-prefix
-;;;;;;  js2-refactor-mode) "js2-refactor" "js2-refactor.el" (22063
-;;;;;;  36218 940990 755000))
+;;;### (autoloads nil "js2-refactor" "js2-refactor.el" (23376 54544
+;;;;;;  10423 350000))
 ;;; Generated autoloads from js2-refactor.el
 
 (autoload 'js2-refactor-mode "js2-refactor" "\
@@ -25,11 +24,21 @@ Add js2r keybindings using the modifier MODIFIER.
 
 ;;;***
 
-;;;### (autoloads (js2r-extract-var) "js2r-vars" "js2r-vars.el" (22063
-;;;;;;  36218 924982 956000))
+;;;### (autoloads nil "js2r-vars" "js2r-vars.el" (23376 54543 998423
+;;;;;;  500000))
 ;;; Generated autoloads from js2r-vars.el
 
 (autoload 'js2r-extract-var "js2r-vars" "\
+
+
+\(fn)" t nil)
+
+(autoload 'js2r-extract-let "js2r-vars" "\
+
+
+\(fn)" t nil)
+
+(autoload 'js2r-extract-const "js2r-vars" "\
 
 
 \(fn)" t nil)
@@ -39,15 +48,13 @@ Add js2r keybindings using the modifier MODIFIER.
 ;;;### (autoloads nil nil ("js2-refactor-pkg.el" "js2r-conditionals.el"
 ;;;;;;  "js2r-conveniences.el" "js2r-formatting.el" "js2r-functions.el"
 ;;;;;;  "js2r-helpers.el" "js2r-iife.el" "js2r-paredit.el" "js2r-wrapping.el")
-;;;;;;  (22063 36218 957833 435000))
+;;;;;;  (23376 54544 10423 350000))
 
 ;;;***
 
-(provide 'js2-refactor-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; js2-refactor-autoloads.el ends here
