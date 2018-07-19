@@ -197,6 +197,7 @@
  '(indent-guide-inhibit-modes (quote (dired-mode org-mode)))
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
+ '(js2-missing-semi-one-line-override t)
  '(js2-strict-inconsistent-return-warning nil)
  '(js2-strict-trailing-comma-warning nil)
  '(js3-mode-show-strict-warnings nil)
