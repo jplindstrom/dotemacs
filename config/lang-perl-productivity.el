@@ -308,3 +308,41 @@ before jumping back)."
   (interactive)
   (save-excursion
     (replace-regexp "^0 and subtest " "subtest " nil (point-min) (point-max))))
+
+
+
+
+
+;; Structural navigation
+(defun jpl/forward-over-perl-syntax ()
+  "Go to the next Perl syntax structure at the same level"
+  (interactive)
+  (forward-sexp)
+  (forward-sexp)
+  (backward-sexp)
+  )
+
+(defun jpl/backward-over-perl-syntax ()
+  "Go backwards to the next Perl syntax structure at the same level"
+  (interactive)
+  (backward-sexp)
+  )
+
+(defun jpl/forward-into-perl-syntax ()
+  "Go forward into next Perl syntax structure"
+  (interactive)
+  (forward-char)
+  (forward-sexp)
+  (backward-sexp)
+  )
+
+(defun jpl/backward-leave-perl-syntax ()
+  "Go backward out of the current Perl syntax structure. 
+
+Set mark before doing that, so you can easily go back, if that
+turns out to be the wrong place."
+  (interactive)
+  (push-mark)
+  (backward-up-list)
+  )
+

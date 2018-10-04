@@ -89,3 +89,14 @@
 
 (global-set-key (format "%stS" ps/key-prefix) 'jpl/perl-disable-all-subtests)
 (global-set-key (format "%sts" ps/key-prefix) 'jpl/perl-enable-all-subtests)
+
+
+
+
+;; Structural syntax movement
+;;; JPL: do this only in cperl-mode
+(define-key evil-normal-state-map (kbd "M-k") 'jpl/forward-over-perl-syntax)
+(define-key evil-normal-state-map (kbd "M-j") 'jpl/backward-over-perl-syntax)
+
+(define-key evil-normal-state-map (kbd "M-h") 'jpl/backward-leave-perl-syntax)
+(define-key evil-normal-state-map (kbd "M-l") 'jpl/forward-into-perl-syntax)
