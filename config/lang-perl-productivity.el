@@ -313,13 +313,19 @@ before jumping back)."
 
 
 
+;;; JPL: localize forward-sexp-function to nil?
+
 ;; Structural navigation
 (defun jpl/forward-over-perl-syntax ()
   "Go to the next Perl syntax structure at the same level"
   (interactive)
+  ;; (message "JPL: forward over")
   (forward-sexp)
+  ;; (message "JPL:    >")
   (forward-sexp)
+  ;; (message "JPL:    >>")
   (backward-sexp)
+  ;; (message "JPL:    <")
   )
 
 (defun jpl/backward-over-perl-syntax ()
@@ -331,13 +337,14 @@ before jumping back)."
 (defun jpl/forward-into-perl-syntax ()
   "Go forward into next Perl syntax structure"
   (interactive)
+  ;; (message "JPL: forward into")
   (forward-char)
   (forward-sexp)
   (backward-sexp)
   )
 
 (defun jpl/backward-leave-perl-syntax ()
-  "Go backward out of the current Perl syntax structure. 
+  "Go backward out of the current Perl syntax structure.
 
 Set mark before doing that, so you can easily go back, if that
 turns out to be the wrong place."
@@ -346,3 +353,32 @@ turns out to be the wrong place."
   (backward-up-list)
   )
 
+
+(defun jpl/move-or (first second)
+  "Call the FIRST function, and if that didn't move point, call
+    the SECOND function."
+  (let* (
+         (before-pos (point))
+         (first-ret (funcall first))
+         (after-pos (point))
+         )
+    ;; (message "JPL:  before-pos: %s" before-pos)
+    ;; (message "JPL:  after-pos: %s" after-pos)
+    (when (= before-pos (point))
+      (funcall second)
+      )
+    )
+  )
+
+(defun jpl/forward-into-or-over-perl-syntax ()
+  "Go forward into next Perl syntax structure"
+  (interactive)
+  (jpl/move-or 'jpl/forward-into-perl-syntax 'jpl/forward-over-perl-syntax)
+  )
+
+
+
+;; forward-into at end of list
+;; backward-out inside string
+;; forward-over in string at end of string jumps to next string
+;; backward-out at top level signals: quiet it

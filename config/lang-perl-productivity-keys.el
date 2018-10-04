@@ -99,4 +99,4 @@
 (define-key evil-normal-state-map (kbd "M-j") 'jpl/backward-over-perl-syntax)
 
 (define-key evil-normal-state-map (kbd "M-h") 'jpl/backward-leave-perl-syntax)
-(define-key evil-normal-state-map (kbd "M-l") 'jpl/forward-into-perl-syntax)
+(define-key evil-normal-state-map (kbd "M-l") 'jpl/forward-into-or-over-perl-syntax)
