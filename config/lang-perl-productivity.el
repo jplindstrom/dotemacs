@@ -376,9 +376,16 @@ turns out to be the wrong place."
   (jpl/move-or 'jpl/forward-into-perl-syntax 'jpl/forward-over-perl-syntax)
   )
 
-
-
+;; * TODO
 ;; forward-into at end of list
 ;; backward-out inside string
 ;; forward-over in string at end of string jumps to next string
 ;; backward-out at top level signals: quiet it
+
+(defun jpl/forward-to-end-of-expr ()
+  (interactive)
+  (cperl-forward-to-end-of-expr (point-max)))
+
+(defun jpl/backward-to-start-of-expr ()
+  (interactive)
+  (cperl-backward-to-start-of-expr (point-max)))

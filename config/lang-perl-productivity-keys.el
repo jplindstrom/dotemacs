@@ -95,8 +95,8 @@
 
 ;; Structural syntax movement
 ;;; JPL: do this only in cperl-mode
-(define-key evil-normal-state-map (kbd "M-k") 'jpl/forward-over-perl-syntax)
-(define-key evil-normal-state-map (kbd "M-j") 'jpl/backward-over-perl-syntax)
+(define-key evil-normal-state-map (kbd "M-l") 'jpl/forward-over-perl-syntax)
+(define-key evil-normal-state-map (kbd "M-h") 'jpl/backward-over-perl-syntax)
 
-(define-key evil-normal-state-map (kbd "M-h") 'jpl/backward-leave-perl-syntax)
-(define-key evil-normal-state-map (kbd "M-l") 'jpl/forward-into-or-over-perl-syntax)
+(define-key evil-normal-state-map (kbd "M-k") 'jpl/backward-leave-perl-syntax)
+(define-key evil-normal-state-map (kbd "M-j") 'jpl/forward-into-or-over-perl-syntax)
