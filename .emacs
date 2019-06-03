@@ -203,6 +203,7 @@
  '(js3-strict-trailing-comma-warning nil)
  '(message-log-max 1000)
  '(org-mind-map-dot-output "png")
+ '(org-support-shift-select t)
  '(package-selected-packages
    (quote
     (php-mode treemacs treemacs-evil treemacs-projectile edit-indirect org-sticky-header smartparens org-presie org-mind-map web-mode org-jira avy plantuml-mode surround sparkline spaceline slim-mode scala-mode2 puppet-mode project-explorer pcsv org-transform-tree-table org noctilux-theme neotree markdown-mode+ magit keyfreq js3-mode js2-refactor js-doc highlight-symbol helm-projectile helm-ls-git helm-helm-commands helm-gtags helm-git-grep helm-git helm-dired-recent-dirs helm-c-yasnippet helm-c-moccur haml-mode graphviz-dot-mode golden-ratio git-messenger git-gutter-fringe flatui-theme expand-region evil-matchit evil-leader evil-indent-textobject evil-args direx diminish cperl-mode cider anzu)))
