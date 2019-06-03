@@ -1,7 +1,7 @@
 
 
-(load "iso-syntax" t)
-(require 'iso-insert)
+;; (load "iso-syntax" t)
+;; (require 'iso-insert)
 
 
 

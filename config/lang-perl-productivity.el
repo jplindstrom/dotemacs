@@ -25,6 +25,12 @@
    [home ?h ?a ?s ?  end ?  ?\C-\; ?\C-s ?( ?i ?s ?  ?\C-\; ?\C-s ?\" ?r ?w ?\" ?) ?\; home C-right right])
 
 
+;; Re-indent Perl code in POD blocks
+;; With region in POD, run this to reformat at one brace level
+(fset 'jpl/perl-reindent-region
+   [?y ?\C-x ?b ?* ?t ?e ?m ?p ?- ?r ?e ?f ?o ?r ?m ?a ?t ?- ?c ?p ?e ?r ?l ?* return ?\M-x ?c ?p ?e ?r ?l ?  ?m ?o ?d ?  return ?i ?\{ return escape ?V ?P ?g ?g ?V ?G ?= ?j ?V ?G ?k ?y ?\C-x ?k return ?g ?v ?P])
+
+
 
 (defun jpl-makeover-replace-item-with-head ()
   "Clean up Perl source =item vs =head2 formatting"
@@ -302,3 +308,84 @@ before jumping back)."
   (interactive)
   (save-excursion
     (replace-regexp "^0 and subtest " "subtest " nil (point-min) (point-max))))
+
+
+
+
+
+;;; JPL: localize forward-sexp-function to nil?
+
+;; Structural navigation
+(defun jpl/forward-over-perl-syntax ()
+  "Go to the next Perl syntax structure at the same level"
+  (interactive)
+  ;; (message "JPL: forward over")
+  (forward-sexp)
+  ;; (message "JPL:    >")
+  (forward-sexp)
+  ;; (message "JPL:    >>")
+  (backward-sexp)
+  ;; (message "JPL:    <")
+  )
+
+(defun jpl/backward-over-perl-syntax ()
+  "Go backwards to the next Perl syntax structure at the same level"
+  (interactive)
+  (backward-sexp)
+  )
+
+(defun jpl/forward-into-perl-syntax ()
+  "Go forward into next Perl syntax structure"
+  (interactive)
+  ;; (message "JPL: forward into")
+  (forward-char)
+  (forward-sexp)
+  (backward-sexp)
+  )
+
+(defun jpl/backward-leave-perl-syntax ()
+  "Go backward out of the current Perl syntax structure.
+
+Set mark before doing that, so you can easily go back, if that
+turns out to be the wrong place."
+  (interactive)
+  (push-mark)
+  (backward-up-list)
+  )
+
+
+(defun jpl/move-or (first second)
+  "Call the FIRST function, and if that didn't move point, call
+    the SECOND function."
+  (let* (
+         (before-pos (point))
+         (first-ret (funcall first))
+         (after-pos (point))
+         )
+    ;; (message "JPL:  before-pos: %s" before-pos)
+    ;; (message "JPL:  after-pos: %s" after-pos)
+    (when (= before-pos (point))
+      (funcall second)
+      )
+    )
+  )
+
+(defun jpl/forward-into-or-over-perl-syntax ()
+  "Go forward into next Perl syntax structure"
+  (interactive)
+  (jpl/move-or 'jpl/forward-into-perl-syntax 'jpl/forward-over-perl-syntax)
+  )
+
+;; * TODO
+;; forward-into at end of list
+;; backward-out inside string
+;; forward-over in string at end of string jumps to next string
+;; backward-out at top level signals: quiet it
+
+(defun jpl/forward-to-end-of-expr ()
+  (interactive)
+  (cperl-forward-to-end-of-expr (point-max)))
+
+(defun jpl/backward-to-start-of-expr ()
+  (interactive)
+  (cperl-backward-to-start-of-expr (point-max)))
