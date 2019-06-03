@@ -1,0 +1,16 @@
+# name: Jira ticket task skeleton for Search project
+# key: jiras
+# --
+** $1
+*** branch
+*** $0
+*** grep JPL
+*** code review
+*** code complete
+**** merge to master
+**** write uat steps
+**** tag with testing?
+**** move ticket to uat
+**** deploy to uat
+*** project
+**** move to release version
