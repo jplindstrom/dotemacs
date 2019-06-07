@@ -398,8 +398,10 @@ turns out to be the wrong place."
   (transpose-lines 1)
   (previous-line)
   (indent-according-to-mode)
+  (delete-trailing-whitespace (line-beginning-position) (line-end-position))
   (previous-line)
   (indent-according-to-mode)
+  (delete-trailing-whitespace (line-beginning-position) (line-end-position))
   )
 
 (defun jpl/move-line-down-and-reindent ()
@@ -409,7 +411,8 @@ turns out to be the wrong place."
   (previous-line)
   (previous-line)
   (indent-according-to-mode)
+  (delete-trailing-whitespace (line-beginning-position) (line-end-position))
   (next-line)
   (indent-according-to-mode)
+  (delete-trailing-whitespace (line-beginning-position) (line-end-position))
   )
-
