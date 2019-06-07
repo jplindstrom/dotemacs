@@ -389,3 +389,27 @@ turns out to be the wrong place."
 (defun jpl/backward-to-start-of-expr ()
   (interactive)
   (cperl-backward-to-start-of-expr (point-max)))
+
+
+
+;; Extend and contract e.g. block delimiters and indent
+(defun jpl/move-line-up-and-reindent ()
+  (interactive)
+  (transpose-lines 1)
+  (previous-line)
+  (indent-according-to-mode)
+  (previous-line)
+  (indent-according-to-mode)
+  )
+
+(defun jpl/move-line-down-and-reindent ()
+  (interactive)
+  (next-line)
+  (transpose-lines 1)
+  (previous-line)
+  (previous-line)
+  (indent-according-to-mode)
+  (next-line)
+  (indent-according-to-mode)
+  )
+
