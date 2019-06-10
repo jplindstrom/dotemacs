@@ -1,0 +1,9 @@
+#name : name with current package -- =head1 NAME
+# --
+=head1 NAME
+
+${1:`(ps/current-package-name)`} -- $0
+
+=head1 DESCRIPTION
+
+=cut
