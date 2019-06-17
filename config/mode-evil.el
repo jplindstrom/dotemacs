@@ -5,6 +5,7 @@
 (setq evil-regexp-search nil) ;; Same as incremental-search, so they will share history
 (setq evil-find-skip-newlines t)
 (setq evil-cross-lines t)
+(setq evil-respect-visual-line-mode t)
 (require 'evil)
 (evil-mode 1)
 
