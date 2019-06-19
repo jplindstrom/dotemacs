@@ -38,6 +38,7 @@
       cperl-merge-trailing-else nil
       cperl-indent-level 4
       cperl-indent-parens-as-block t
+      cperl-indent-subs-specially nil
       cperl-auto-newline nil
       cperl-electric-parens nil
       cperl-electric-parens-string "{[]}<"
