@@ -119,7 +119,7 @@ already there, to the beginning of the line."
 (define-key evil-normal-state-map "\C-a" 'evil-first-non-blank)
 (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
 
-(define-key evil-normal-state-map " " 'avy-goto-word-1)
+(define-key evil-normal-state-map " " 'avy-goto-char-timer)
 
 (define-key evil-normal-state-map (kbd "zd") 'lp/recenter-top-of-defun)
 
