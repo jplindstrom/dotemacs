@@ -109,3 +109,6 @@ string. Surround it with end-quote and string concatenation."
 
 
 
+(global-set-key (kbd "\C-o g V") 'magit-status)
+
+
