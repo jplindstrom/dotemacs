@@ -133,7 +133,6 @@
 (jpl/load "lang-C++-boss")
 (jpl/load "lang-haskell")
 (jpl/load "lang-elisp-eval-and-replace")
-(jpl/load "lang-scala")
 (jpl/load "lang-clojure")
 
 (jpl/load "mode-corral")
