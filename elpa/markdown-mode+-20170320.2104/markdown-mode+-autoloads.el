@@ -1,11 +1,10 @@
 ;;; markdown-mode+-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads (markdown-copy-paste-html markdown-copy-rtf markdown-code-copy
-;;;;;;  markdown-export-pandoc-pdf markdown-export-pdf markdown-export-latex)
-;;;;;;  "markdown-mode+" "markdown-mode+.el" (21124 44952 0 0))
+;;;### (autoloads nil "markdown-mode+" "markdown-mode+.el" (23939
+;;;;;;  19836 451049 427000))
 ;;; Generated autoloads from markdown-mode+.el
 
 (autoload 'markdown-export-latex "markdown-mode+" "\
@@ -43,16 +42,14 @@ Process file with multimarkdown, copy it to the clipboard, and paste in safari's
 
 ;;;***
 
-;;;### (autoloads nil nil ("markdown-mode+-pkg.el") (21124 44952
-;;;;;;  426374 0))
+;;;### (autoloads nil nil ("markdown-mode+-pkg.el") (23939 19836
+;;;;;;  447049 427000))
 
 ;;;***
 
-(provide 'markdown-mode+-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; markdown-mode+-autoloads.el ends here
