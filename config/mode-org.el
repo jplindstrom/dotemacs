@@ -231,7 +231,7 @@ markup"
 
 
 
-(defun org-export-subtree-as-simple-markup (prefix-arg)
+(defun org-export-subtree-as-confluence-wiki-markup (prefix-arg)
   "Export current subtreee."
   (interactive "P")
   (save-excursion
@@ -264,6 +264,57 @@ markup"
             ;; rename *** to h3.
             (goto-char (point-min))
             (replace-string "\n*** " "\n\nh3. ")
+
+            ;; rename **** and below to * and below
+            (goto-char (point-min))
+            (replace-string "\n****" "\n*")
+            )
+        ;; rename *** and below to * and below
+        (goto-char (point-min))
+        (replace-string "\n***" "\n*")
+        )
+
+      ;; Copy
+      (kill-new (buffer-substring-no-properties (point-min) (point-max)))
+      )
+      )
+    )
+  )
+
+
+(defun org-export-subtree-as-markdown (prefix-arg)
+  "Export current subtreee."
+  (interactive "P")
+  (save-excursion
+    ;; Copy tree to temp buffer
+    (org-mark-subtree)
+    (let ((original-org-text (buffer-substring-no-properties (point) (mark))))
+    (with-temp-buffer
+      (org-mode)
+      (insert original-org-text)
+      (goto-char (point-min))
+
+      ;; Promote subtree to top level
+      (while (> (or (org-current-level) 1) 1)
+        (org-promote-subtree)
+        )
+
+      (goto-char (point-min))
+      (insert "
+")
+      ;; Rename * to #
+      (goto-char (point-min))
+      (replace-string "\n* " "\n\n\n\n# ")
+
+      ;; rename ** to h2.
+      (goto-char (point-min))
+      (replace-string "\n** " "\n\n\n## ")
+
+      (if prefix-arg
+          (progn
+            ;; rename *** to h3.
+            (goto-char (point-min))
+            (replace-string "\n*** " "\n\n### ")
 
             ;; rename **** and below to * and below
             (goto-char (point-min))
