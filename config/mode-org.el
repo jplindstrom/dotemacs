@@ -34,13 +34,13 @@
 
 (setq org-todo-keyword-faces
       '(
-        ("TODO"  . (:foreground "orange red" :background "white smoke" :weight bold))
-        ("DOING" . (:foreground "red" :background "white smoke" :weight bold))
-        ("WAIT"  . (:foreground "turquoise4" :background "white smoke" :weight bold))
+        ("TODO"  . (:foreground "orange red" :weight bold))
+        ("DOING" . (:foreground "red" :weight bold))
+        ("WAIT"  . (:foreground "purple" :weight bold))
         ("DONE"  . org-done)
 
-        ("TASK"  . (:foreground "orange red" :background "white smoke" :weight bold))
-        ("STORY"  . (:foreground "turquoise4" :background "white smoke" :weight bold))
+        ("TASK"  . (:foreground "orange red" :weight bold))
+        ("STORY"  . (:foreground "turquoise4" :weight bold))
         ("EPIC"  . org-done)
         ))
 
