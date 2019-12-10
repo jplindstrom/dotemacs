@@ -95,6 +95,9 @@
 (setq magit-default-tracking-name-function 'magit-tracking-name-branch-name-only)
 
 
+;; Show fine differences for all displayed diff hunks.
+(setq magit-diff-refine-hunk 'all)
+
 
 
 ;; Override magit-mode.el magit-mode-map
