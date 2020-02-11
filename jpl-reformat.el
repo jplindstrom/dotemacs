@@ -283,6 +283,7 @@ formatted multiple lines. Line breaks after each parameter."
     (narrow-to-region (point) (mark))
     (forward-line)
     (align-current)
+    (setq mark-active nil) ;; Deactivate any selection
     (widen)
     )
   )
