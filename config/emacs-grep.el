@@ -3,7 +3,6 @@
 (setq grep-find-template "ack <C> <R>")
 
 (setq grep-command "grep -nIi")
-(require 'grep-edit)
 
 
 
