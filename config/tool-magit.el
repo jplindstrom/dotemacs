@@ -6,6 +6,8 @@
 (require 'magit)
 ;; (require 'magit-svn)
 
+(add-to-list 'transient-values '(magit-show-refs "--sort=-committerdate"))
+
 
 ;; change magit diff colors
 ;;;; Not used with flatui-theme
