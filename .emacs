@@ -51,6 +51,7 @@
 (jpl/load "emacs-whitespace")
 (jpl/load "emacs-80-column-marker")
 (jpl/load "emacs-save-minibuffer-history")
+(jpl/load "emacs-buffer-name")
 (jpl/load "emacs-buffer-menu")
 (jpl/load "emacs-global-replace")
 (jpl/load "emacs-confing-insert-mode")
