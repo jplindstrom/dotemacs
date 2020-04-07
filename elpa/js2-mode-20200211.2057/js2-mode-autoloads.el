@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "js2-imenu-extras" "js2-imenu-extras.el" (23376
-;;;;;;  54167 703154 173000))
+;;;### (autoloads nil "js2-imenu-extras" "js2-imenu-extras.el" (24204
+;;;;;;  45500 669117 202000))
 ;;; Generated autoloads from js2-imenu-extras.el
 
 (autoload 'js2-imenu-extras-setup "js2-imenu-extras" "\
@@ -19,8 +19,8 @@ Toggle Imenu support for frameworks and structural patterns.
 
 ;;;***
 
-;;;### (autoloads nil "js2-mode" "js2-mode.el" (23376 54167 707154
-;;;;;;  122000))
+;;;### (autoloads nil "js2-mode" "js2-mode.el" (24204 45500 673117
+;;;;;;  151000))
 ;;; Generated autoloads from js2-mode.el
 
 (autoload 'js2-highlight-unused-variables-mode "js2-mode" "\
@@ -42,7 +42,10 @@ Major mode for editing JavaScript code.
 \(fn)" t nil)
 
 (autoload 'js2-jsx-mode "js2-mode" "\
-Major mode for editing JSX code.
+Major mode for editing JSX code in Emacs 26 and earlier.
+
+To edit JSX code in Emacs 27, use `js-mode' as your major mode
+with `js2-minor-mode' enabled.
 
 To customize the indentation for this mode, set the SGML offset
 variables (`sgml-basic-offset' et al) locally, like so:
@@ -56,7 +59,7 @@ variables (`sgml-basic-offset' et al) locally, like so:
 ;;;***
 
 ;;;### (autoloads nil nil ("js2-mode-pkg.el" "js2-old-indent.el")
-;;;;;;  (23376 54167 707154 122000))
+;;;;;;  (24204 45500 677117 101000))
 
 ;;;***
 
