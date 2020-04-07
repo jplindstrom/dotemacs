@@ -14,3 +14,12 @@
               (define-key js2-mode-map "\C-ci" 'js-doc-insert-function-doc)
               ;; (define-key js2-mode-map "@" 'js-doc-insert-tag)
 	      ))
+
+
+;; Mocha testing
+
+(setq mocha-environment-variables "NODE_ENV=test")
+
+(global-set-key (format "%s\C-j\C-t" ps/key-prefix) 'mocha-test-at-point)
+(global-set-key (format "%s\C-jtf" ps/key-prefix) 'mocha-test-file)
+(global-set-key (format "%s\C-jtp" ps/key-prefix) 'mocha-test-project)
