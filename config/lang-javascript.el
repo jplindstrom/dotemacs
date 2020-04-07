@@ -19,7 +19,9 @@
 ;; Mocha testing
 
 (setq mocha-environment-variables "NODE_ENV=test")
+(setq mocha-options "--exit")
 
 (global-set-key (format "%s\C-j\C-t" ps/key-prefix) 'mocha-test-at-point)
 (global-set-key (format "%s\C-jtf" ps/key-prefix) 'mocha-test-file)
 (global-set-key (format "%s\C-jtp" ps/key-prefix) 'mocha-test-project)
+(global-set-key (format "%s\C-jtr" ps/key-prefix) 'recompile)
