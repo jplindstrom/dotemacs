@@ -18,7 +18,6 @@
 
 ;; Mocha testing
 
-(setq mocha-environment-variables "NODE_ENV=test")
 (setq mocha-options "--exit")
 
 (global-set-key (format "%s\C-j\C-t" ps/key-prefix) 'mocha-test-at-point)
