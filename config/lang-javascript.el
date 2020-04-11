@@ -18,7 +18,8 @@
 
 ;; Mocha testing
 
-(setq mocha-options "--exit")
+(setq mocha-reporter "spec")
+(setq mocha-options "--recursive --exit")
 
 (global-set-key (format "%s\C-j\C-t" ps/key-prefix) 'mocha-test-at-point)
 (global-set-key (format "%s\C-jtf" ps/key-prefix) 'mocha-test-file)
