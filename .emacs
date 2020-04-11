@@ -219,6 +219,8 @@
 
 
 
+;; org-special-keyword is old org-drawer
+
 ;; Automatically added to .emacs
 
 (put 'narrow-to-region 'disabled nil)
@@ -229,6 +231,7 @@
  ;; If there is more than one, they won't work right.
  '(org-block ((t nil)))
  '(org-block-begin-line ((t (:foreground "light gray" :height 0.8))))
+ '(org-drawer ((t (:foreground "light gray" :height 0.7))))
  '(org-hide ((t (:foreground "#f0f0f0"))))
  '(org-level-10 ((t (:inherit outline-8 :foreground "dark magenta"))))
  '(org-level-11 ((t (:inherit outline-8 :foreground "tomato"))))
