@@ -130,7 +130,6 @@
 
 (jpl/load "lang-ruby")
 (jpl/load "lang-python")
-;; (jpl/load "javascript")
 (jpl/load "lang-C++-boss")
 (jpl/load "lang-haskell")
 (jpl/load "lang-elisp-eval-and-replace")
