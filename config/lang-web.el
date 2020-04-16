@@ -13,6 +13,7 @@
 (add-to-list 'auto-mode-alist '("\\.mc\\'" . web-mode))     ;; Mason
 (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
 
 (defun jpl/web-mode-element-close-and-indent ()
