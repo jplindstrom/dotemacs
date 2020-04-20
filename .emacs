@@ -214,7 +214,9 @@
  '(size-indication-mode t)
  '(tab-width 4)
  '(transient-mark-mode (quote identity))
- '(truncate-lines t))
+ '(truncate-lines t)
+ '(web-mode-auto-close-style 2)
+ '(web-mode-enable-auto-pairing nil))
 
 
 
