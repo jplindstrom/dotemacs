@@ -63,8 +63,8 @@
 
 
 
-(require 'surround)
-(global-surround-mode 1)
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 
 (setq evil-leader/leader ",")
 (setq evil-leader/in-all-states t)

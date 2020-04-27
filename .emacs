@@ -206,7 +206,7 @@
  '(org-support-shift-select t)
  '(package-selected-packages
    (quote
-    (web-mode treemacs-evil org typescript-mode mocha go-mode wgrep docker dockerfile-mode poly-markdown polymode discover-js2-refactor js2-highlight-vars js2-mode magit-gitflow treemacs treemacs-projectile edit-indirect org-sticky-header smartparens org-presie org-mind-map org-jira avy plantuml-mode surround sparkline spaceline slim-mode scala-mode2 puppet-mode project-explorer pcsv org-transform-tree-table noctilux-theme neotree markdown-mode+ keyfreq js3-mode js2-refactor js-doc highlight-symbol helm-projectile helm-ls-git helm-helm-commands helm-gtags helm-git-grep helm-git helm-dired-recent-dirs helm-c-yasnippet helm-c-moccur haml-mode graphviz-dot-mode golden-ratio git-messenger git-gutter-fringe flatui-theme expand-region direx diminish cperl-mode cider anzu)))
+    (evil-surround web-mode treemacs-evil org typescript-mode mocha go-mode wgrep docker dockerfile-mode poly-markdown polymode discover-js2-refactor js2-highlight-vars js2-mode magit-gitflow treemacs treemacs-projectile edit-indirect org-sticky-header smartparens org-presie org-mind-map org-jira avy plantuml-mode sparkline spaceline slim-mode scala-mode2 puppet-mode project-explorer pcsv org-transform-tree-table noctilux-theme neotree markdown-mode+ keyfreq js3-mode js2-refactor js-doc highlight-symbol helm-projectile helm-ls-git helm-helm-commands helm-gtags helm-git-grep helm-git helm-dired-recent-dirs helm-c-yasnippet helm-c-moccur haml-mode graphviz-dot-mode golden-ratio git-messenger git-gutter-fringe flatui-theme expand-region direx diminish cperl-mode cider anzu)))
  '(recentf-menu-filter nil)
  '(revert-without-query (quote (".*")))
  '(safe-local-variable-values (quote ((js2-indent-level . 2))))
