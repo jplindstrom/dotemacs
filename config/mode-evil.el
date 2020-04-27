@@ -6,6 +6,7 @@
 (setq evil-find-skip-newlines t)
 (setq evil-cross-lines t)
 (setq evil-respect-visual-line-mode t)
+(setq evil-move-beyond-eol t)
 (require 'evil)
 (evil-mode 1)
 
