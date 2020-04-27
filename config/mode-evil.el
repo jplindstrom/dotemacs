@@ -65,6 +65,9 @@
 
 (require 'evil-surround)
 (global-evil-surround-mode 1)
+(define-key evil-visual-state-map (kbd "s") 'evil-surround-region)
+(define-key evil-visual-state-map (kbd "S") 'evil-substitute) ;; Previously on s
+
 
 (setq evil-leader/leader ",")
 (setq evil-leader/in-all-states t)
