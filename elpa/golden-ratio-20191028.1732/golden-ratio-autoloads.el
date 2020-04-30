@@ -1,20 +1,21 @@
 ;;; golden-ratio-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads (golden-ratio-mode golden-ratio) "golden-ratio"
-;;;;;;  "golden-ratio.el" (21605 60413 669637 482000))
+;;;### (autoloads nil "golden-ratio" "golden-ratio.el" (24235 996
+;;;;;;  396603 465000))
 ;;; Generated autoloads from golden-ratio.el
 
 (autoload 'golden-ratio "golden-ratio" "\
 Resizes current window to the golden-ratio's size specs.
 
-\(fn)" t nil)
+\(fn &optional ARG)" t nil)
 
 (defvar golden-ratio-mode nil "\
 Non-nil if Golden-Ratio mode is enabled.
-See the command `golden-ratio-mode' for a description of this minor mode.
+See the `golden-ratio-mode' command
+for a description of this minor mode.
 Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `golden-ratio-mode'.")
@@ -28,16 +29,9 @@ Enable automatic window resizing with golden ratio.
 
 ;;;***
 
-;;;### (autoloads nil nil ("golden-ratio-pkg.el") (21605 60413 692060
-;;;;;;  297000))
-
-;;;***
-
-(provide 'golden-ratio-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; golden-ratio-autoloads.el ends here
