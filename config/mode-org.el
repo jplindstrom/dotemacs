@@ -18,6 +18,7 @@
                            ;; (push '("DOING"   . ?♻) prettify-symbols-alist)
                            (push '("DOING"    . ?✘) prettify-symbols-alist)
                            (push '("DONE"    . ?✔) prettify-symbols-alist)
+                           (push '("WAIT" . ?∅) prettify-symbols-alist)
                            (push '("BLOCKED" . ?∅) prettify-symbols-alist)
                            (push '("WONTDO"  . ?✅) prettify-symbols-alist)
                            (prettify-symbols-mode)
@@ -45,9 +46,10 @@
 
 (setq org-todo-keyword-faces
       '(
-        ("TODO"  . (:foreground "orange red" :weight bold))
+        ("TODO"  . (:foreground "red" :weight bold))
         ("DOING" . (:foreground "red" :weight bold))
-        ("WAIT"  . (:foreground "purple" :weight bold))
+        ("WAIT"  . (:foreground "orange red" :weight bold))
+        ("BLOCKED"  . (:foreground "blue" :weight bold))
         ("DONE"  . org-done)
 
         ("TASK"  . (:foreground "orange red" :weight bold))
