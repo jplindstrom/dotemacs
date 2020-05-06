@@ -12,14 +12,16 @@
 ; but then restore overview display
 (add-hook 'org-mode-hook (function (lambda () (org-overview))))
 
-;; (add-hook 'org-mode-hook (lambda ()
-;;                            (push '("TODO"    . ?☐) prettify-symbols-alist)
-;;                            (push '("DOING"   . ?♲) prettify-symbols-alist)
-;;                            (push '("DONE"    . ?☑) prettify-symbols-alist)
-;;                            (push '("BLOCKED" . ?☒) prettify-symbols-alist)
-;;                            (push '("WONTDO"  . ?❍) prettify-symbols-alist)
-;;                            (prettify-symbols-mode)
-;;                            ))
+(add-hook 'org-mode-hook (lambda ()
+                           (push '("TODO"    . ?✗) prettify-symbols-alist)
+                           ;; (push '("TODO"    . ?□) prettify-symbols-alist)
+                           ;; (push '("DOING"   . ?♻) prettify-symbols-alist)
+                           (push '("DOING"    . ?✘) prettify-symbols-alist)
+                           (push '("DONE"    . ?✔) prettify-symbols-alist)
+                           (push '("BLOCKED" . ?∅) prettify-symbols-alist)
+                           (push '("WONTDO"  . ?✅) prettify-symbols-alist)
+                           (prettify-symbols-mode)
+                           ))
 
 
 
