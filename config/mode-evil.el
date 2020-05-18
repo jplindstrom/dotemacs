@@ -195,3 +195,12 @@ already there, to the beginning of the line."
 
 ;; bind evil-jump-out-args
 (define-key evil-normal-state-map (kbd "M-k") 'evil-jump-out-args)
+
+
+(require 'evil-briefcase)
+;; zC -- evil-briefcase-camel-upper
+;; zc -- evil-briefcase-camel-lower
+;; zS -- evil-briefcase-snake-upper
+;; zs -- evil-briefcase-snake-lower
+;; zK -- evil-briefcase-kebab-upper
+;; zk -- evil-briefcase-kebab-lower
