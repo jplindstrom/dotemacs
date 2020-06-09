@@ -215,6 +215,7 @@
  '(tab-width 4)
  '(transient-mark-mode (quote identity))
  '(truncate-lines t)
+ '(typescript-indent-level 2)
  '(web-mode-auto-close-style 2)
  '(web-mode-enable-auto-pairing nil))
 
