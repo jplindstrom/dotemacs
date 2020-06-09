@@ -28,6 +28,7 @@
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
 
@@ -37,6 +38,16 @@
 
   (define-key web-mode-map (kbd "C-c /") 'jpl/web-mode-element-close-and-indent)
 
+  ;; Evil mode keys
+  (mapcar (lambda (state)
+            (evil-declare-key state web-mode-map
+              (kbd "M-h") 'web-mode-element-sibling-previous
+              (kbd "M-l") web-mode-element-sibling-next
+
+              (kbd "M-j") 'web-mode-element-next
+              (kbd "M-k") 'web-mode-element-parent
+              ))
+          '(normal insert visual))
   )
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
