@@ -93,16 +93,19 @@
 
 
 
-;; Structural syntax movement
-;;; JPL: do this only in cperl-mode
-(define-key evil-normal-state-map (kbd "M-l") 'jpl/forward-over-perl-syntax)
-(define-key evil-normal-state-map (kbd "M-h") 'jpl/backward-over-perl-syntax)
 
-(define-key evil-normal-state-map (kbd "M-k") 'jpl/backward-leave-perl-syntax)
-(define-key evil-normal-state-map (kbd "M-j") 'jpl/forward-into-or-over-perl-syntax)
+(defun keys-cperl-mode-hook ()
+  ;; Structural syntax movement
+  (define-key evil-normal-state-map (kbd "M-l") 'jpl/forward-over-perl-syntax)
+  (define-key evil-normal-state-map (kbd "M-h") 'jpl/backward-over-perl-syntax)
+
+  (define-key evil-normal-state-map (kbd "M-k") 'jpl/backward-leave-perl-syntax)
+  (define-key evil-normal-state-map (kbd "M-j") 'jpl/forward-into-or-over-perl-syntax)
 
 
 
-(define-key evil-normal-state-map (kbd "M-K") 'jpl/move-line-up-and-reindent)
-(define-key evil-normal-state-map (kbd "M-J") 'jpl/move-line-down-and-reindent)
+  (define-key evil-normal-state-map (kbd "M-K") 'jpl/move-line-up-and-reindent)
+  (define-key evil-normal-state-map (kbd "M-J") 'jpl/move-line-down-and-reindent)
+  )
+(add-hook 'cperl-mode-hook 'keys-cperl-mode-hook t)
 
