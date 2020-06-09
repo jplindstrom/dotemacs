@@ -41,11 +41,11 @@
   ;; Evil mode keys
   (mapcar (lambda (state)
             (evil-declare-key state web-mode-map
-              (kbd "M-h") 'web-mode-element-sibling-previous
-              (kbd "M-l") 'web-mode-element-sibling-next
+              (kbd "M-h") 'web-mode-element-parent
+              (kbd "M-l") 'web-mode-element-next
 
-              (kbd "M-j") 'web-mode-element-next
-              (kbd "M-k") 'web-mode-element-parent
+              (kbd "M-j") 'web-mode-element-sibling-next
+              (kbd "M-k") 'web-mode-element-sibling-previous
               ))
           '(normal insert visual))
   )
