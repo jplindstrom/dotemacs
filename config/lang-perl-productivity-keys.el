@@ -101,11 +101,10 @@
 
   (define-key evil-normal-state-map (kbd "M-k") 'jpl/backward-leave-perl-syntax)
   (define-key evil-normal-state-map (kbd "M-j") 'jpl/forward-into-or-over-perl-syntax)
-
-
-
-  (define-key evil-normal-state-map (kbd "M-K") 'jpl/move-line-up-and-reindent)
-  (define-key evil-normal-state-map (kbd "M-J") 'jpl/move-line-down-and-reindent)
   )
 (add-hook 'cperl-mode-hook 'keys-cperl-mode-hook t)
+
+;; Do this in all modes
+(define-key evil-normal-state-map (kbd "M-K") 'jpl/move-line-up-and-reindent)
+(define-key evil-normal-state-map (kbd "M-J") 'jpl/move-line-down-and-reindent)
 
