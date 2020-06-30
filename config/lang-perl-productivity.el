@@ -101,6 +101,15 @@ If there is a region, wrap the block around the region.
       (insert ";")
       )))
 
+(defun cperl-add-comma ()
+  (interactive)
+  (save-excursion
+    (when (search-forward-regexp "[})]" nil t)
+      (while (looking-at "[})]")
+        (forward-char))
+      (insert ",")
+      )))
+
 
 
 (defun perl/split-note-string ()
