@@ -25,3 +25,9 @@
 (global-set-key (format "%s\C-jtf" ps/key-prefix) 'mocha-test-file)
 (global-set-key (format "%s\C-jtp" ps/key-prefix) 'mocha-test-project)
 (global-set-key (format "%s\C-jtr" ps/key-prefix) 'recompile)
+
+
+;; Parsing is super slow on just 400 loc, so delay syntax check while typing
+(setq js2-idle-timer-delay 3)
+
+(setq inhibit-compacting-font-caches t)
