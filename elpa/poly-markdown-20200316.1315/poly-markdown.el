@@ -3,9 +3,10 @@
 ;; Author: Vitalie Spinu
 ;; Maintainer: Vitalie Spinu
 ;; Copyright (C) 2018
-;; Version: 0.2
-;; Package-Version: 20190605.2102
-;; Package-Requires: ((emacs "25") (polymode "0.2") (markdown-mode "2.3"))
+;; Version: 0.2.2
+;; Package-Version: 20200316.1315
+;; Package-Commit: 1536cf0c32f71d5cd05c90f7905905e38006e95d
+;; Package-Requires: ((emacs "25") (polymode "0.2.2") (markdown-mode "2.3"))
 ;; URL: https://github.com/polymode/poly-markdown
 ;; Keywords: emacs
 ;;
@@ -39,6 +40,9 @@
 (require 'polymode)
 (require 'markdown-mode)
 
+;; Declarations
+(defvar markdown-enable-math)
+
 (define-obsolete-variable-alias 'pm-host/markdown 'poly-markdown-hostmode "v0.2")
 (define-obsolete-variable-alias 'pm-inner/markdown-yaml-metadata 'poly-markdown-yaml-metadata-innermode "v0.2")
 (define-obsolete-variable-alias 'pm-inner/markdown-fenced-code 'poly-markdown-fenced-code-innermode "v0.2")
@@ -63,7 +67,7 @@
   :tail-matcher (pm-make-text-property-matcher 'markdown-yaml-metadata-end))
 
 (define-auto-innermode poly-markdown-fenced-code-innermode poly-markdown-root-innermode
-  :head-matcher (cons "^[ \t]*\\(```{?[[:alpha:]].*\n\\)" 1)
+  :head-matcher (cons "^[ \t]*\\(```[ \t]*{?[[:alpha:]].*\n\\)" 1)
   :tail-matcher (cons "^[ \t]*\\(```\\)[ \t]*$" 1)
   :mode-matcher (cons "```[ \t]*{?\\(?:lang *= *\\)?\\([^ \t\n;=,}]+\\)" 1))
 
@@ -79,19 +83,21 @@
   :allow-nested nil)
 
 (defun poly-markdown-displayed-math-head-matcher (count)
-  (when (re-search-forward "\\\\\\[\\|^[ \t]*\\(\\$\\$\\)." nil t count)
-    (if (match-beginning 1)
-        (cons (match-beginning 1) (match-end 1))
-      (cons (match-beginning 0) (match-end 0)))))
+  (when markdown-enable-math
+    (when (re-search-forward "\\\\\\[\\|^[ \t]*\\(\\$\\$\\)." nil t count)
+      (if (match-beginning 1)
+          (cons (match-beginning 1) (match-end 1))
+        (cons (match-beginning 0) (match-end 0))))))
 
 (defun poly-markdown-displayed-math-tail-matcher (_count)
-  (if (match-beginning 1)
-      ;; head matched an $$..$$ block
-      (when (re-search-forward "[^$]\\(\\$\\$\\)[^$[:alnum:]]" nil t)
-        (cons (match-beginning 1) (match-end 1)))
-    ;; head matched an \[..\] block
-    (when (re-search-forward "\\\\\\]" nil t)
-      (cons (match-beginning 0) (match-end 0)))))
+  (when markdown-enable-math
+    (if (match-beginning 1)
+        ;; head matched an $$..$$ block
+        (when (re-search-forward "[^$]\\(\\$\\$\\)[^$[:alnum:]]" nil t)
+          (cons (match-beginning 1) (match-end 1)))
+      ;; head matched an \[..\] block
+      (when (re-search-forward "\\\\\\]" nil t)
+        (cons (match-beginning 0) (match-end 0))))))
 
 (define-innermode poly-markdown-displayed-math-innermode poly-markdown-root-innermode
   "Displayed math $$..$$ innermode.
@@ -103,19 +109,21 @@ comment character would do)."
   :allow-nested nil)
 
 (defun poly-markdown-inline-math-head-matcher (count)
-  (when (re-search-forward "\\\\(\\|[ \t\n]\\(\\$\\)[^ $\t[:digit:]]" nil t count)
-    (if (match-beginning 1)
-        (cons (match-beginning 1) (match-end 1))
-      (cons (match-beginning 0) (match-end 0)))))
+  (when markdown-enable-math
+    (when (re-search-forward "\\\\(\\|[ \t\n]\\(\\$\\)[^ $\t[:digit:]]" nil t count)
+      (if (match-beginning 1)
+          (cons (match-beginning 1) (match-end 1))
+        (cons (match-beginning 0) (match-end 0))))))
 
 (defun poly-markdown-inline-math-tail-matcher (_count)
-  (if (match-beginning 1)
-      ;; head matched an $..$ block
-      (when (re-search-forward "[^ $\\\t]\\(\\$\\)[^$[:alnum:]]" nil t)
-        (cons (match-beginning 1) (match-end 1)))
-    ;; head matched an \(..\) block
-    (when (re-search-forward "\\\\)" nil t)
-      (cons (match-beginning 0) (match-end 0)))))
+  (when markdown-enable-math
+    (if (match-beginning 1)
+        ;; head matched an $..$ block
+        (when (re-search-forward "[^ $\\\t]\\(\\$\\)[^$[:alnum:]]" nil t)
+          (cons (match-beginning 1) (match-end 1)))
+      ;; head matched an \(..\) block
+      (when (re-search-forward "\\\\)" nil t)
+        (cons (match-beginning 0) (match-end 0))))))
 
 (define-innermode poly-markdown-inline-math-innermode poly-markdown-root-innermode
   "Inline math $..$ block.
@@ -145,6 +153,14 @@ character."
   ;; get rid of aggressive hooks (VS[02-09-2018]: probably no longer necessary)
   (remove-hook 'window-configuration-change-hook 'markdown-fontify-buffer-wiki-links t)
   (remove-hook 'after-change-functions 'markdown-check-change-for-wiki-link t))
+
+;;; Polymode for GitHub Flavored Markdown
+(define-hostmode poly-gfm-hostmode poly-markdown-hostmode
+  :mode 'gfm-mode)
+
+;;;###autoload  (autoload 'poly-gfm-mode "poly-markdown")
+(define-polymode poly-gfm-mode poly-markdown-mode
+  :hostmode 'poly-gfm-hostmode)
 
 (provide 'poly-markdown)
 
