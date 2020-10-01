@@ -119,7 +119,7 @@ markup"
    (emacs-lisp . t)
    (dot . t)
    (plantuml . t)
-   (sh . t)
+   ;; (sh . t)
    ))
 
 (defun my/org-confirm-babel-evaluate (lang body)
