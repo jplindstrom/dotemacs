@@ -339,6 +339,14 @@ markup"
         (replace-string "\n***" "\n*")
         )
 
+      ;; Indent remaining stars into nested bullet points
+      (goto-char (point-min))
+      (replace-string "\n**" "\n    *")
+
+      (dotimes (i 10)
+        (goto-char (point-min))
+        (replace-string "    **" "        *"))
+
       ;; Copy
       (kill-new (buffer-substring-no-properties (point-min) (point-max)))
       )
