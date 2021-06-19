@@ -347,6 +347,13 @@ markup"
         (goto-char (point-min))
         (replace-string "    **" "        *"))
 
+
+      ;; Make code blocks ```
+      (goto-char (point-min))
+      (replace-string "#+begin_src" "```")
+      (goto-char (point-min))
+      (replace-string "#+end_src" "```")
+
       ;; Copy
       (kill-new (buffer-substring-no-properties (point-min) (point-max)))
       )
