@@ -12,11 +12,6 @@
 (package-initialize)
 
 
-;; Improve performance
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
-
 (setq emacs-home-directory (concat (getenv "HOME") "/"))
 (setq elisp-home-directory (expand-file-name (concat emacs-home-directory "elisp")))
 (byte-recompile-directory elisp-home-directory)
@@ -37,6 +32,8 @@
    [?d ?\C-l ?k ?% ?h ?h ?y ?i ?\" ?\C-x ?\C-f ?c ?o ?n ?f ?i ?g ?/ ?\C-y ?. ?e ?l return ?\C-j ?\C-j ?P ?\C-p ?\C-x ?\C-s ?\C-x ?b return ?\C-a C-tab ?\C-x ?b return C-tab])
 (global-set-key (kbd "\C-c \C-d") 'jpl/extract-dotemacs-chunk)
 
+
+(jpl/load "emacs-performance")
 
 (jpl/load "emacs-packages")
 (jpl/load "emacs-load-path")
