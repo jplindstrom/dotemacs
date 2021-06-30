@@ -11,6 +11,9 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(setq gc-cons-threshold 100000000)
+
+
 (setq emacs-home-directory (concat (getenv "HOME") "/"))
 (setq elisp-home-directory (expand-file-name (concat emacs-home-directory "elisp")))
 (byte-recompile-directory elisp-home-directory)
