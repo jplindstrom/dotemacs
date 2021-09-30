@@ -22,6 +22,22 @@
 
 
 
+;; https://200ok.ch/posts/2020-09-29_comprehensive_guide_on_handling_long_lines_in_emacs.html
+
+;;; Performant display
+(setq-default bidi-paragraph-direction 'left-to-right)
+(if (version<= "27.1" emacs-version)
+    (setq bidi-inhibit-bpa t))
+
+;;; Performant longlines
+(if (version<= "27.1" emacs-version)
+    (global-so-long-mode 1))
+
+
+
+
+
+
 ;; When Tab-completion in minibuffer, don't display the completion
 ;; list across the bottom, display it in an unused window
 (push '("\\*Completions\\*"
@@ -56,3 +72,5 @@
 ;; (diminish 'server-buffer-clients "")
 ;; (diminish 'flyspell-mode "ⓢ")
 ;; (diminish 'auto-fill-function "㉠")
+
+
