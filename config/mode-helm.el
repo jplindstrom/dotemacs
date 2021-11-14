@@ -7,7 +7,7 @@
 (require 'helm-regexp)
 (require 'helm-ls-git)
 (require 'helm-projectile)
-(helm-occur-init-source)
+;; (helm-occur-init-source)
 
 (setq helm-ff-transformer-show-only-basename nil)
 
