@@ -144,7 +144,7 @@
 (jpl/load "lang-web")
 (jpl/load "lang-sql")
 (jpl/load "nxml")
-(jpl/load "yaml")
+(jpl/load "lang-yaml")
 (jpl/load "rnc") ;; XML Relax NG schema
 (jpl/load "lang-csv")
 (jpl/load "mode-org") ;; lang- ?
@@ -209,7 +209,7 @@
  '(org-support-shift-select t)
  '(package-selected-packages
    (quote
-    (dash company dap-mode flycheck helm-lsp lsp-ivy lsp-treemacs lsp-ui lsp-mode x-path-walker ztree treemacs-icons-dired treemacs-magit string-inflection evil-string-inflection evil-surround web-mode treemacs-evil org typescript-mode mocha go-mode wgrep docker dockerfile-mode poly-markdown polymode discover-js2-refactor js2-highlight-vars js2-mode magit-gitflow treemacs treemacs-projectile edit-indirect org-sticky-header smartparens org-presie org-mind-map org-jira avy plantuml-mode sparkline spaceline slim-mode scala-mode2 puppet-mode project-explorer pcsv org-transform-tree-table noctilux-theme neotree markdown-mode+ keyfreq js3-mode js2-refactor js-doc highlight-symbol helm-projectile helm-ls-git helm-helm-commands helm-gtags helm-git-grep helm-git helm-dired-recent-dirs helm-c-yasnippet helm-c-moccur haml-mode graphviz-dot-mode golden-ratio git-messenger git-gutter-fringe flatui-theme expand-region direx diminish cperl-mode cider anzu)))
+    (code-review ghub forge cask dash company dap-mode flycheck helm-lsp lsp-ivy lsp-treemacs lsp-ui lsp-mode x-path-walker ztree treemacs-icons-dired treemacs-magit string-inflection evil-string-inflection evil-surround web-mode treemacs-evil org typescript-mode mocha go-mode wgrep docker dockerfile-mode poly-markdown polymode discover-js2-refactor js2-highlight-vars js2-mode magit-gitflow treemacs treemacs-projectile edit-indirect org-sticky-header smartparens org-presie org-mind-map org-jira avy plantuml-mode sparkline spaceline slim-mode scala-mode2 puppet-mode project-explorer pcsv org-transform-tree-table noctilux-theme neotree markdown-mode+ keyfreq js3-mode js2-refactor js-doc highlight-symbol helm-projectile helm-ls-git helm-helm-commands helm-gtags helm-git-grep helm-git helm-dired-recent-dirs helm-c-yasnippet helm-c-moccur haml-mode graphviz-dot-mode golden-ratio git-messenger git-gutter-fringe flatui-theme expand-region direx diminish cperl-mode cider anzu)))
  '(recentf-menu-filter nil)
  '(revert-without-query (quote (".*")))
  '(safe-local-variable-values (quote ((js2-indent-level . 2))))
