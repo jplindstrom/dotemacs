@@ -50,34 +50,38 @@
 
 
 
-(defun cperl-insert-block ()
+(defun cperl-insert-block (dont-open-line-above)
    "Insert a { } block/hashref and put the point at a proper
 position ready to start typing.
 
 If point is preceeded by a fat arrow (=>) it's considered part of
 a data structure, and a comma will be added after the { }.
 "
-   (interactive)
-
    (let ((post-amble (if (looking-back "=> *") "," "")))
      (if (not (looking-back " ")) (insert " "))
-     (insert "{\n\n}" post-amble)
-     (indent-according-to-mode)
+     (if dont-open-line-above
+         (progn
+           (insert "{\n}" post-amble)
+           (backward-char)
+           (indent-according-to-mode))
+       (insert "{\n\n}" post-amble)
+       (indent-according-to-mode)
+       (previous-line 1)
+       (indent-according-to-mode)
+       )
 
-     (previous-line 1)
-     (indent-according-to-mode)
      )
    )
 
 
-(defun cperl-insert-block-dwim ()
+(defun cperl-insert-block-dwim (&optional dont-open-line-above)
    "Insert a { } block (see `cperl-insert-block').
 
 If there is a region, wrap the block around the region.
 "
-   (interactive)
+   (interactive "P")
    (if (not (and transient-mark-mode mark-active))
-       (cperl-insert-block)
+       (cperl-insert-block dont-open-line-above)
      (kill-region (region-beginning) (region-end))
      (cperl-insert-block)
 
