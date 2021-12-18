@@ -1,0 +1,6 @@
+# name: sub name($self, parameters) { ... }
+# key: subpm
+# --
+sub $1($self$2) {
+    $0
+}

@@ -1,0 +1,7 @@
+# name: sub name(parameters) { ... }
+# key: subp
+# --
+sub $1($2) {
+    $0
+}
+
