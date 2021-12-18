@@ -8,3 +8,4 @@ elpa/archives
 /tramp
 *.elc
 /emacs-backup-files/
+.yas-compiled-*
