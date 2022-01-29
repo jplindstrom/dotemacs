@@ -34,7 +34,6 @@
  'typescript-mode-hook
  '(lambda ()
     (progn
-      (message "JPL: setting the keymap")
       ;; Go to
       (local-set-key "\C-o\C-g" 'tide-jump-to-definition)
       (local-set-key "\C-ogb" 'xref-pop-marker-stack)
@@ -53,14 +52,15 @@
       ;; Edit Refactor
       ;; e C-r tide-refactor
       (local-set-key "\C-o\C-d" 'tide-documentation-at-point)
-      (local-set-key "\C-oer" 'r tide-rename-symbol)
+      (local-set-key "\C-oerr" 'tide-rename-symbol)
       (local-set-key "\C-oerR" 'tide-rename-file)
       (local-set-key "\C-oeri" 'tide-organize-imports)
       (local-set-key "\C-oef" 'tide-fix)
-      (local-set-key "\C-oF" 'tide-format))
+      (local-set-key "\C-oeF" 'tide-format))
     ))
 
 
 
-;; Evil mode: don't use it in the 
+;; Evil mode: don't use it in the tide buffers
 (evil-set-initial-state 'tide-references-mode 'emacs)
+(evil-set-initial-state 'tide-project-errors 'emacs)
