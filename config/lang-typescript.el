@@ -34,6 +34,10 @@
  'typescript-mode-hook
  '(lambda ()
     (progn
+      ;; company completion trigger
+      (local-set-key "\C-\M-SPC" 'company-tide)
+
+
       ;; Go to
       (local-set-key "\C-o\C-g" 'tide-jump-to-definition)
       (local-set-key "\C-ogb" 'xref-pop-marker-stack)
