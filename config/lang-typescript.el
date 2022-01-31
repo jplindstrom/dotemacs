@@ -67,4 +67,5 @@
 
 ;; Evil mode: don't use it in the tide buffers
 (evil-set-initial-state 'tide-references-mode 'emacs)
-(evil-set-initial-state 'tide-project-errors 'emacs)
+(evil-set-initial-state 'tide-project-errors-mode 'emacs)
+
