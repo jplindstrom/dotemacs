@@ -18,11 +18,12 @@
                            ;; (push '("DOING"   . ?♻) prettify-symbols-alist)
                            (push '("DOING"    . ?✘) prettify-symbols-alist)
                            (push '("DONE"    . ?✔) prettify-symbols-alist)
-                           (push '("WAIT" . ?∅) prettify-symbols-alist)
-                           (push '("BLOCKED" . ?∅) prettify-symbols-alist)
+                           (push '("WAIT" . ?⨻) prettify-symbols-alist)
+                           (push '("BLOCKED" . ?⨻) prettify-symbols-alist)
                            (push '("WONTDO"  . ?✅) prettify-symbols-alist)
                            (prettify-symbols-mode)
                            ))
+;; △ ⎊ ⨻ ◃ ⧐
 
 
 
