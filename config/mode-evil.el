@@ -197,7 +197,7 @@ already there, to the beginning of the line."
 (define-key evil-normal-state-map (kbd "M-k") 'evil-jump-out-args)
 
 
-(require 'evil-briefcase)
+;;;JPL: reinstate? (require 'evil-briefcase)
 ;; zC -- evil-briefcase-camel-upper
 ;; zc -- evil-briefcase-camel-lower
 ;; zS -- evil-briefcase-snake-upper

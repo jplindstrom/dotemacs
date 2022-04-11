@@ -3,7 +3,7 @@
                          ;; ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
-(package-initialize)
+;;;JPL: remove (package-initialize)
 (setq package-enable-at-startup nil)
 
 
