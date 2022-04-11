@@ -9,3 +9,4 @@ elpa/archives
 *.elc
 /emacs-backup-files/
 .yas-compiled-*
+/elpa/elpa
