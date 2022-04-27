@@ -8,9 +8,12 @@
 
   ;; Go to
   (local-set-key "\C-o\C-g" 'tide-jump-to-definition)
+  (local-set-key "\C-ogi" 'tide-jump-to-implementation)
   (local-set-key "\C-ogb" 'xref-pop-marker-stack)
+
   ;; Docs
   (local-set-key "\C-o\C-d" 'tide-documentation-at-point)
+
   ;; Find
   (local-set-key "\C-ofr" 'tide-references)
 
@@ -20,15 +23,16 @@
 
   ;; Edit
   (local-set-key "\C-oed" 'tide-jsdoc-template)
+  (local-set-key "\C-oe\C-f" 'tide-format)
 
   ;; Edit Refactor
-  ;; e C-r tide-refactor
   (local-set-key "\C-o\C-d" 'tide-documentation-at-point)
+
+  (local-set-key "\C-oe\C-r" 'tide-refactor)
+  (local-set-key "\C-oer\C-r" 'tide-rename-file)
   (local-set-key "\C-oerr" 'tide-rename-symbol)
-  (local-set-key "\C-oerR" 'tide-rename-file)
-  (local-set-key "\C-oeri" 'tide-organize-imports)
+  (local-set-key "\C-oei" 'tide-organize-imports)
   (local-set-key "\C-oef" 'tide-fix)
-  (local-set-key "\C-oeF" 'tide-format)
   )
 
 ;; https://github.com/ananthakumaran/tide
