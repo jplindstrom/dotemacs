@@ -2,9 +2,8 @@
 
 
 (defun setup-tide-keys ()
-  ;; company completion trigger
-  (local-set-key "\C-\M-SPC" 'company-tide)
-
+  ;; company Completion trigger
+  (local-set-key "\C-o\C-c" 'company-tide) ;; Complete
 
   ;; Go to
   (local-set-key "\C-o\C-g" 'tide-jump-to-definition)
