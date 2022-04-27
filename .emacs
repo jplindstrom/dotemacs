@@ -194,10 +194,9 @@
  ;; If there is more than one, they won't work right.
  '(auto-revert-interval 1)
  '(custom-safe-themes
-   (quote
-    ("cdc7555f0b34ed32eb510be295b6b967526dd8060e5d04ff0dce719af789f8e5" "3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "d9d703d9591163c5d711d42e01971ac1b8186f5e46596a5529e6ab3ef5014020" "5b577969a67ee2d1c55f44c82609f62d757529cec4b279bef67fdab60215e80b" "b07c445fe973d0d38e4266f29587f90070f65fbfec33b5772bb1be054a197832" "75d4ccc5e912b93f722e57cca3ca1a15e079032cd69fd9bc67268b4c85639663" default)))
+   '("cdc7555f0b34ed32eb510be295b6b967526dd8060e5d04ff0dce719af789f8e5" "3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "d9d703d9591163c5d711d42e01971ac1b8186f5e46596a5529e6ab3ef5014020" "5b577969a67ee2d1c55f44c82609f62d757529cec4b279bef67fdab60215e80b" "b07c445fe973d0d38e4266f29587f90070f65fbfec33b5772bb1be054a197832" "75d4ccc5e912b93f722e57cca3ca1a15e079032cd69fd9bc67268b4c85639663" default))
  '(emacs-wiki-create-backlinks t)
- '(indent-guide-inhibit-modes (quote (dired-mode org-mode)))
+ '(indent-guide-inhibit-modes '(dired-mode org-mode))
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
  '(js2-missing-semi-one-line-override t)
@@ -211,12 +210,12 @@
  '(package-selected-packages
    '(tide code-review ghub forge cask company dap-mode helm-lsp lsp-ivy lsp-treemacs lsp-ui x-path-walker ztree treemacs-icons-dired treemacs-magit string-inflection evil-string-inflection evil-surround web-mode treemacs-evil org mocha go-mode wgrep docker dockerfile-mode poly-markdown polymode discover-js2-refactor js2-highlight-vars js2-mode magit-gitflow treemacs treemacs-projectile edit-indirect org-sticky-header smartparens org-presie org-mind-map org-jira avy plantuml-mode sparkline spaceline slim-mode scala-mode2 puppet-mode project-explorer pcsv noctilux-theme neotree markdown-mode+ keyfreq js2-refactor js-doc highlight-symbol helm-projectile helm-ls-git helm-helm-commands helm-gtags helm-git-grep helm-git helm-dired-recent-dirs helm-c-yasnippet helm-c-moccur haml-mode graphviz-dot-mode golden-ratio git-messenger git-gutter-fringe flatui-theme expand-region direx diminish cperl-mode cider anzu))
  '(recentf-menu-filter nil)
- '(revert-without-query (quote (".*")))
- '(safe-local-variable-values (quote ((js2-indent-level . 2))))
- '(scroll-bar-mode (quote right))
+ '(revert-without-query '(".*"))
+ '(safe-local-variable-values '((js2-indent-level . 2)))
+ '(scroll-bar-mode 'right)
  '(size-indication-mode t)
  '(tab-width 4)
- '(transient-mark-mode (quote identity))
+ '(transient-mark-mode 'identity)
  '(truncate-lines t)
  '(typescript-indent-level 2)
  '(web-mode-auto-close-style 2)
