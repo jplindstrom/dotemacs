@@ -141,6 +141,9 @@
 
 (jpl/load "mode-corral")
 
+;; Config language
+(jpl/load "lang-terraform")
+
 ;; Markup language
 (jpl/load "lang-web")
 (jpl/load "lang-sql")
