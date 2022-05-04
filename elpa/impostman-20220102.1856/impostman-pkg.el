@@ -1,0 +1,2 @@
+;;; Generated package description from impostman-20220102.1856/impostman.el  -*- no-byte-compile: t -*-
+(define-package "impostman" "20220102.1856" "Import Postman collections" '((emacs "27.1")) :commit "5b122f3d5a3421aa2d89bdc9dc4aafaf19cf85d4" :authors '(("Sébastien Helleu" . "flashcode@flashtux.org")) :maintainer '("Sébastien Helleu" . "flashcode@flashtux.org") :keywords '("tools") :url "https://github.com/flashcode/impostman")
