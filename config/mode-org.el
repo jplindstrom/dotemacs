@@ -26,6 +26,16 @@
 ;; △ ⎊ ⨻ ◃ ⧐
 
 
+(add-hook
+ 'org-mode-hook
+ (lambda ()
+   (require 'verb)
+   (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
+   (company-mode)
+   )
+ )
+
+
 
 ;; Restore C-tab to other-window
 (org-defkey org-mode-map [(control tab)] nil)
@@ -121,6 +131,7 @@ markup"
    (dot . t)
    (plantuml . t)
    ;; (sh . t)
+   (verb . t)
    ))
 
 (defun my/org-confirm-babel-evaluate (lang body)
