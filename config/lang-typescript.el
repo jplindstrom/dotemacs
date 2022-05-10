@@ -40,6 +40,21 @@
   (tide-setup)
   (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+
+  (setq lsp-javascript-display-enum-member-value-hints t)
+  (setq lsp-javascript-display-inlay-hints t)
+  (setq lsp-javascript-display-parameter-name-hints "all")
+  (setq lsp-javascript-display-parameter-name-hints-when-argument-matches-name t)
+  (setq lsp-javascript-display-parameter-type-hints t)
+  (setq lsp-javascript-display-property-declaration-type-hints t)
+  (setq lsp-javascript-display-return-type-hints t)
+  (setq lsp-javascript-display-variable-type-hints t)
+  (setq lsp-javascript-suggest-complete-function-calls t)
+  (setq lsp-javascript-suggest-complete-js-docs nil)
+  (setq lsp-javascript-suggestion-actions-enabled t)
+  (setq lsp-typescript-suggest-complete-function-calls t)
+  (setq lsp-typescript-surveys-enabled nil)
+
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   ;; company is an optional dependency. You have to
