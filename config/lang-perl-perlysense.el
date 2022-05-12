@@ -105,10 +105,8 @@ string. Surround it with end-quote and string concatenation."
 
 
 (global-set-key (format "%sgV" ps/key-prefix) 'magit-status)
-
-
-
-
 (global-set-key (kbd "\C-o g V") 'magit-status)
 
+
+(global-set-key (kbd "\C-o \C-t") 'treemacs-select-window)
 
