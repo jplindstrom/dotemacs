@@ -220,6 +220,7 @@
  '(size-indication-mode t)
  '(tab-width 4)
  '(transient-mark-mode 'identity)
+ '(treemacs-is-never-other-window t)
  '(truncate-lines t)
  '(typescript-indent-level 2)
  '(web-mode-auto-close-style 2)
