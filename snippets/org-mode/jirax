@@ -1,14 +1,12 @@
 # name: Jira ticket task skeleton
 # key: jirax
 # --
-** $1
+** feature/$1
 *** branch
 *** $0
 *** grep JPL
 *** code review
-*** merge
-**** uat
-**** master
+*** merge to master
 *** deploy
-**** uat
+**** qa
 **** prod
