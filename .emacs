@@ -252,6 +252,7 @@
  '(org-level-14 ((t (:inherit outline-8 :foreground "dark green"))))
  '(org-level-15 ((t (:inherit outline-8 :foreground "dim gray"))))
  '(org-level-16 ((t (:inherit outline-8 :foreground "dark orange"))))
+ '(org-level-7 ((t (:inherit outline-7 :underline nil))))
  '(org-level-9 ((t (:inherit outline-8 :foreground "dark orange"))))
  '(org-meta-line ((t (:inherit font-lock-comment-face :foreground "light gray" :height 0.6))))
  '(org-property-value ((t (:height 0.7))) t)
