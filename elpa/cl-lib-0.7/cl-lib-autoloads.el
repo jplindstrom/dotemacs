@@ -2,8 +2,11 @@
 ;;
 ;;; Code:
 
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "cl-lib" "cl-lib.el" (21665 59597))
+;;;### (autoloads nil "cl-lib" "cl-lib.el" (0 0 0 0))
 ;;; Generated autoloads from cl-lib.el
  (let ((d (file-name-directory #$)))
   (when (member d load-path)
@@ -11,11 +14,10 @@
 
 ;;;***
 
-;;;### (autoloads nil nil ("cl-lib-pkg.el") (21665 59598 156032))
+;;;### (autoloads nil nil ("cl-lib-pkg.el") (0 0 0 0))
 
 ;;;***
 
-(provide 'cl-lib-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

@@ -1,10 +1,11 @@
-;;; cl-lib.el --- Properly prefixed CL functions and macros  -*- coding: utf-8 -*-
+;;; cl-lib.el --- Forward cl-lib compatibility library for Emacs<24.3  -*- coding: utf-8 -*-
 
-;; Copyright (C) 2012, 2013, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2012-2021  Free Software Foundation, Inc.
 
 ;; Author: Stefan Monnier <monnier@iro.umontreal.ca>
 ;; vcomment: Emacs-24.3's version is 1.0 so this has to stay below.
-;; Version: 0.5
+;; Version: 0.7
+;; Y-Package-Requires: ((emacs "21")) ¡`emacs' package only exists in Emacs≥24!
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -23,7 +24,7 @@
 
 ;; This is a forward compatibility package, which provides (a subset of) the
 ;; features of the cl-lib package introduced in Emacs-24.3, for use on
-;; previous emacsen.
+;; previous emacsen (it should work on Emacs≥21 as well as XEmacs).
 
 ;; Make sure this is installed *late* in your `load-path`, i.e. after Emacs's
 ;; built-in .../lisp/emacs-lisp directory, so that if/when you upgrade to
@@ -33,6 +34,11 @@
 
 ;; This code is largely copied from Emacs-24.3's cl.el, with the alias bindings
 ;; simply reversed.
+
+;;; News:
+
+;; Since v0.7:
+;; - Provides `gv-define-setter'.
 
 ;;; Code:
 
@@ -100,7 +106,10 @@
                ;; custom-print-functions
                ))
   (let ((new (intern (format "cl-%s" var))))
-    (unless (boundp new) (defvaralias new var))))
+    (if (fboundp 'defvaralias)
+        (unless (boundp new) (defvaralias new var))
+      (if (fboundp 'cl-float-limits) (cl-float-limits))
+      (eval `(defvar ,new ,var ,(format "`cl-lib' alias of `%s'" var))))))
 
 ;; The following cl-lib functions were already defined in the old cl.el,
 ;; with a different meaning:
@@ -368,43 +377,9 @@
       (message "This `cl-labels' requires `lexical-binding' to be non-nil"))
     `(labels ,@args)))
 
-;;;; ChangeLog:
-
-;; 2014-02-25  Stefan Monnier  <monnier@iro.umontreal.ca>
-;; 
-;; 	Fixes: debbugs:16671
-;; 
-;; 	* cl-lib.el (cl-position, cl-delete-duplicate): Don't advise if >=24.3.
-;; 	(load-path): Try to make sure we're at the end.
-;; 
-;; 2014-01-25  Stefan Monnier  <monnier@iro.umontreal.ca>
-;; 
-;; 	* cl-lib.el: Resolve conflicts with old internal definitions
-;; 	(bug#16353).
-;; 	(dolist fun): Don't skip definitions silently.
-;; 	(define-setf-expander): Remove, not in cl-lib.
-;; 	(cl-position, cl-delete-duplicates): Add advice to distinguish the use
-;; 	case.
-;; 	(cl-member): Override old definition.
-;; 
-;; 2013-05-22  Stefan Monnier  <monnier@iro.umontreal.ca>
-;; 
-;; 	* cl-lib.el (cl-labels): Demote error to message and improve it.
-;; 
-;; 2012-11-30  Stefan Monnier  <monnier@iro.umontreal.ca>
-;; 
-;; 	* cl-lib.el: Try and patch things up in case we're hiding the real
-;; 	cl-lib.
-;; 
-;; 2012-11-22  Stefan Monnier  <monnier@iro.umontreal.ca>
-;; 
-;; 	Add cl-letf and cl-labels.
-;; 
-;; 2012-11-16  Stefan Monnier  <monnier@iro.umontreal.ca>
-;; 
-;; 	* packages/cl-lib: New package.
-;; 
-
+(unless (fboundp 'gv-define-setter)
+  (defmacro gv-define-setter (name arglist &rest body)
+    `(defsetf ,name ,(cdr arglist) (,(car arglist)) ,@body)))
 
 (provide 'cl-lib)
 ;;; cl-lib.el ends here
