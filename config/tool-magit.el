@@ -110,3 +110,13 @@
 (require 'magit-gitflow)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
+
+;;
+;;; Gitlab frontend
+;;
+;; git config --global gitlab.user my.username
+;; https://gitlab.com/-/profile/personal_access_tokens (api permissions)
+;; ~/.authinfo
+;; machine gitlab.com/api/v4 login my.username^forge password 123456
+(require 'forge)
+
