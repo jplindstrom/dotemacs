@@ -68,13 +68,26 @@
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
 
-;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
-
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 (add-hook 'js2-mode-hook #'setup-tide-mode)
 ;; configure javascript-tide checker to run after your default javascript checker
 ;;; Doesn't work? (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+
+
+;;; Formatting
+;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+(use-package prettier-js
+  :commands (prettier-js-mode prettier)
+  :init (add-hook 'typescript-mode-hook 'prettier-js-mode)
+  :bind (:map typescript-mode-map ("M-q" . prettier))
+  :config
+  (setq prettier-target-mode "typescript-mode")
+  )
+;; (setq prettier-js-args '(
+;;     "--trailing-comma" "all"
+;;     "--bracket-spacing" "false"))
 
 
 ;; Evil mode: don't use it in the tide buffers
