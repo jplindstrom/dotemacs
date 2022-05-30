@@ -240,6 +240,7 @@
  ;; If there is more than one, they won't work right.
  '(font-lock-builtin-face ((t (:foreground "#16a085" :underline t :weight bold))))
  '(highlight ((t (:background "light steel blue"))))
+ '(hl-line ((t (:extend t :underline "black"))))
  '(org-block ((t nil)))
  '(org-block-begin-line ((t (:foreground "light gray" :height 0.8))))
  '(org-drawer ((t (:foreground "light gray" :height 0.7))))
