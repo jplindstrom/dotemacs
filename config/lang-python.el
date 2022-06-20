@@ -10,7 +10,8 @@
 
   (lsp)
   (lsp-headerline-breadcrumb-mode)
-  (lsp-ui-doc-frame-mode)
+
+  (lsp-ui-doc-enable)
 
 
   ;; Full LSP prefix
