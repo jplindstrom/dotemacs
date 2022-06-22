@@ -11,7 +11,7 @@
   (lsp)
   (lsp-headerline-breadcrumb-mode)
 
-  (lsp-ui-doc-enable)
+  (lsp-ui-doc-enable t)
 
 
   ;; Full LSP prefix
