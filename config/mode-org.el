@@ -205,6 +205,7 @@ markup"
 ;;   http://s.plantuml.com/imgp/1c6-salt-012.png
 
 ;; Download from http://plantuml.com/download
+;; wget https://github.com/plantuml/plantuml/releases/download/v1.2022.7/plantuml-1.2022.7.jar ~/bin/plantuml.jar
 (setq org-plantuml-jar-path
       (expand-file-name "~/bin/plantuml.jar"))
 
