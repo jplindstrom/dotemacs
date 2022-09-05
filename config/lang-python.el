@@ -11,6 +11,12 @@
   (lsp)
   (lsp-headerline-breadcrumb-mode)
 
+  ;; (setq lsp-ui-sideline-show-diagnostics t)   ;;  show diagnostics messages in sideline
+  ;; (setq lsp-ui-sideline-show-hover t)         ;;  show hover messages in sideline
+  ;; (setq lsp-ui-sideline-show-code-actions t)  ;;  show code actions in sideline
+  ;; (setq lsp-ui-sideline-update-mode t)        ;;  When set to 'line' the information will be updated when user changes current line otherwise the information will be updated when user changes current point
+  ;; (setq lsp-ui-sideline-delay t)              ;;  secon
+
   (lsp-ui-doc-enable t)
 
 
