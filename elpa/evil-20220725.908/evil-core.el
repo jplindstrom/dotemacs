@@ -2,7 +2,7 @@
 ;; Author: Vegard Øye <vegard_oye at hotmail.com>
 ;; Maintainer: Vegard Øye <vegard_oye at hotmail.com>
 
-;; Version: 1.14.0
+;; Version: 1.15.0
 
 ;;
 ;; This file is NOT part of GNU Emacs.
@@ -871,10 +871,9 @@ one already."
   (when state
     (let* ((key (vconcat (list (intern (format "%s-state" state)))))
            (parent-aux (when (and ignore-parent
-                                  (keymap-parent map)
-                                  state)
+                                  (keymap-parent map))
                          (lookup-key (keymap-parent map) key)))
-           (aux (if state (lookup-key map key) map)))
+           (aux (lookup-key map key)))
       (cond
        ((and ignore-parent
              (equal parent-aux aux)
@@ -1104,6 +1103,7 @@ consequences). `evil-define-key*' also does not defer any
 bindings like `evil-define-key' does using `evil-delay'. This
 allows errors in the bindings to be caught immediately, and makes
 its behavior more predictable."
+  (declare (indent defun))
   (let ((maps
          (if state
              (mapcar

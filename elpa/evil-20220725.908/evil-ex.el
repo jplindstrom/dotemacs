@@ -3,7 +3,7 @@
 ;; Author: Frank Fischer <frank fischer at mathematik.tu-chemnitz.de>
 ;; Maintainer: Vegard Øye <vegard_oye at hotmail.com>
 
-;; Version: 1.14.0
+;; Version: 1.15.0
 
 ;;
 ;; This file is NOT part of GNU Emacs.
@@ -42,6 +42,7 @@
 
 (require 'evil-common)
 (require 'evil-states)
+(require 'evil-types)
 (require 'shell)
 
 ;;; Code:
@@ -65,13 +66,15 @@
      ((\? space) (\? "\\(?:.\\|\n\\)+") #'$2))
     (range
      ("%" #'(evil-ex-full-range))
+     ("*" #'(evil-ex-last-visual-range))
+     ((alt "," ";") line #'(evil-ex-range (evil-ex-current-line) $2))
      (line ";" line #'(let ((tmp1 $1))
                         (save-excursion
                           (goto-line tmp1)
                           (evil-ex-range tmp1 $3))))
      (line "," line #'(evil-ex-range $1 $3))
      (line #'(evil-ex-range $1 nil))
-     ("`" "[-a-zA-Z_<>']" ",`" "[-a-zA-Z_<>']"
+     ("`" marker-name ",`" marker-name
       #'(evil-ex-char-marker-range $2 $4)))
     (line
      (base (\? offset) search (\? offset)
@@ -96,7 +99,7 @@
     (offset
      (+ signed-number #'+))
     (marker
-     ("'" "[-a-zA-Z_<>']" #'(evil-ex-marker $2)))
+     ("'" marker-name #'(evil-ex-marker $2)))
     (search
      forward
      backward
@@ -113,6 +116,8 @@
       #'(evil-ex-re-bwd $2))
      ("\\?" "\\(?:[\\].\\|[^?]\\)+" "\\?"
       #'(evil-ex-re-bwd $2)))
+    (marker-name
+     "[]\\[-a-zA-Z_<>'}{)(]")
     (next
      "\\\\/" #'(evil-ex-prev-search))
     (prev
@@ -187,18 +192,21 @@ is appended to the line."
              ":"
              (or initial-input
                  (and evil-ex-previous-command
+                      evil-want-empty-ex-last-command
                       (propertize evil-ex-previous-command 'face 'shadow)))
              evil-ex-completion-map
              nil
              'evil-ex-history
-             evil-ex-previous-command
+             (when evil-want-empty-ex-last-command
+               evil-ex-previous-command)
              t)))
     (evil-ex-execute result)))
 
 (defun evil-ex-execute (result)
   "Execute RESULT as an ex command on `evil-ex-current-buffer'."
   ;; empty input means repeating the previous command
-  (when (zerop (length result))
+  (when (and (zerop (length result))
+             evil-want-empty-ex-last-command)
     (setq result evil-ex-previous-command))
   ;; parse data
   (evil-ex-update nil nil nil result)
@@ -219,7 +227,8 @@ Otherwise behaves like `delete-backward-char'."
 
 (defun evil-ex-abort ()
   "Cancel ex state when another buffer is selected."
-  (unless (minibufferp)
+  (unless (or (minibufferp)
+              (memq this-command '(mouse-drag-region choose-completion)))
     (abort-recursive-edit)))
 
 (defun evil-ex-command-window-execute (config result)
@@ -228,6 +237,12 @@ Otherwise behaves like `delete-backward-char'."
   (delete-minibuffer-contents)
   (insert result)
   (exit-minibuffer))
+
+(defun evil-ex-elisp-completion-at-point ()
+  "Complete an `evil-ex' Elisp expression."
+  (when (and (fboundp 'elisp-completion-at-point)
+             (string-prefix-p "(" (minibuffer-contents-no-properties)))
+    (elisp-completion-at-point)))
 
 (defun evil-ex-setup ()
   "Initialize Ex minibuffer.
@@ -242,7 +257,8 @@ interactive actions during ex state."
   (with-no-warnings
     (make-variable-buffer-local 'completion-at-point-functions))
   (setq completion-at-point-functions
-        '(evil-ex-command-completion-at-point
+        '(evil-ex-elisp-completion-at-point
+          evil-ex-command-completion-at-point
           evil-ex-argument-completion-at-point)))
 (put 'evil-ex-setup 'permanent-local-hook t)
 
@@ -263,19 +279,6 @@ Clean up everything set up by `evil-ex-setup'."
       (when runner
         (funcall runner 'stop)))))
 (put 'evil-ex-teardown 'permanent-local-hook t)
-
-(defun evil-ex-remove-default ()
-  "Remove the default text shown in the ex minibuffer.
-When ex starts, the previous command is shown enclosed in
-parenthesis. This function removes this text when the first key
-is pressed."
-  (when (and (not (eq this-command 'exit-minibuffer))
-             (/= (minibuffer-prompt-end) (point-max)))
-    (if (eq this-command 'evil-ex-delete-backward-char)
-        (setq this-command 'ignore))
-    (delete-minibuffer-contents))
-  (remove-hook 'pre-command-hook #'evil-ex-remove-default))
-(put 'evil-ex-remove-default 'permanent-local-hook t)
 
 (defun evil-ex-update (&optional beg end len string)
   "Update Ex variables when the minibuffer changes.
@@ -595,7 +598,7 @@ argument handler that requires shell completion."
 
 (define-obsolete-function-alias
   'evil-ex-shell-command-completion-at-point
-  'comint-completion-at-point)
+  'comint-completion-at-point "1.2.13")
 
 (evil-ex-define-argument-type shell
   "Shell argument type, supports completion."
@@ -707,6 +710,10 @@ This function interprets special file names like # and %."
          (evil-ex-range
           (or range (and count (evil-ex-range count count))))
          (evil-ex-command (evil-ex-completed-binding command))
+         (restore-point (when (evil-get-command-property evil-ex-command :restore-point)
+                          (if (evil-visual-state-p)
+                              (min (point) (or (mark) most-positive-fixnum))
+                            (point))))
          (evil-ex-bang (and bang t))
          (evil-ex-argument (copy-sequence argument))
          (evil-this-type (evil-type evil-ex-range))
@@ -716,10 +723,15 @@ This function interprets special file names like # and %."
       (set-text-properties
        0 (length evil-ex-argument) nil evil-ex-argument))
     (let ((buf (current-buffer)))
+      (when evil-ex-reverse-range
+        (setq evil-ex-reverse-range nil)
+        (unless (y-or-n-p "Backward range given, OK to swap? ")
+          (user-error "")))
       (unwind-protect
           (cond
            ((not evil-ex-range)
             (setq this-command evil-ex-command)
+            (evil-exit-visual-state)
             (run-hooks 'pre-command-hook)
             (call-interactively evil-ex-command)
             (run-hooks 'post-command-hook))
@@ -738,7 +750,8 @@ This function interprets special file names like # and %."
               (goto-char beg)
               (activate-mark)
               (call-interactively evil-ex-command)
-              (run-hooks 'post-command-hook))))
+              (run-hooks 'post-command-hook)
+              (when restore-point (goto-char restore-point)))))
         (when (buffer-live-p buf)
           (with-current-buffer buf
             (deactivate-mark)))))))
@@ -766,6 +779,11 @@ This function interprets special file names like # and %."
 
 (defun evil-ex-range (beg-line &optional end-line)
   "Returns the first and last position of the current range."
+  (when (and end-line (< end-line beg-line))
+    (setq evil-ex-reverse-range t)
+    (let ((beg-line* beg-line))
+      (setq beg-line end-line
+            end-line beg-line*)))
   (evil-range
    (evil-line-position beg-line)
    (evil-line-position (or end-line beg-line) -1)
@@ -775,6 +793,10 @@ This function interprets special file names like # and %."
 (defun evil-ex-full-range ()
   "Return a range encompassing the whole buffer."
   (evil-range (point-min) (point-max) 'line))
+
+(defun evil-ex-last-visual-range ()
+  "Return a linewise range of the last visual selection."
+  (evil-line-expand evil-visual-mark evil-visual-point))
 
 (defun evil-ex-marker (marker)
   "Return MARKER's line number in the current buffer.
@@ -807,8 +829,11 @@ Returns the line number of the match."
         (save-excursion
           (set-text-properties 0 (length pattern) nil pattern)
           (evil-move-end-of-line)
-          (and (re-search-forward pattern nil t)
-               (line-number-at-pos (1- (match-end 0))))))
+          (if (re-search-forward pattern nil t)
+              (line-number-at-pos (1- (match-end 0)))
+            (goto-char (point-min))
+            (and (re-search-forward pattern nil t)
+                 (line-number-at-pos (1- (match-end 0)))))))
     (invalid-regexp
      (evil-ex-echo (cadr err))
      nil)))
@@ -821,8 +846,11 @@ Returns the line number of the match."
         (save-excursion
           (set-text-properties 0 (length pattern) nil pattern)
           (evil-move-beginning-of-line)
-          (and (re-search-backward pattern nil t)
-               (line-number-at-pos (match-beginning 0)))))
+          (if (re-search-backward pattern nil t)
+              (line-number-at-pos (match-beginning 0))
+            (goto-char (point-max))
+            (and (re-search-backward pattern nil t)
+                 (line-number-at-pos (match-beginning 0))))))
     (invalid-regexp
      (evil-ex-echo (cadr err))
      nil)))

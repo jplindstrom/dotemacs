@@ -3,7 +3,7 @@
 ;; Author: Vegard Øye <vegard_oye at hotmail.com>
 ;; Maintainer: Vegard Øye <vegard_oye at hotmail.com>
 
-;; Version: 1.14.0
+;; Version: 1.15.0
 
 ;;
 ;; This file is NOT part of GNU Emacs.
@@ -90,10 +90,8 @@ If the end position is at the beginning of a line, then:
 
 (evil-define-type inclusive
   "Include the character under point.
-If the end position is at the beginning of a line or the end of a
-line and `evil-want-visual-char-semi-exclusive', then:
-
-* If in visual state return `exclusive' (expanded)."
+Handling for `evil-want-visual-char-semi-exclusive' is deprecated,
+and will be removed in a future version."
   :expand (lambda (beg end)
             (if (and evil-want-visual-char-semi-exclusive
                      (evil-visual-state-p)
@@ -342,6 +340,14 @@ If visual state is inactive then those values are nil."
   :ex-arg t
   (list (when (evil-ex-p) evil-ex-argument)))
 
+(evil-define-interactive-code "<N>" ()
+  "Prefix argument or ex-arg, converted to number"
+  (list (cond
+         (current-prefix-arg (prefix-numeric-value current-prefix-arg))
+         ((and evil-ex-argument (evil-ex-p)) (string-to-number evil-ex-argument))
+         ((evil-ex-p) nil)
+         (t 1))))
+
 (evil-define-interactive-code "<f>"
   "Ex file argument."
   :ex-arg file
@@ -372,7 +378,7 @@ If visual state is inactive then those values are nil."
   "Ex line number."
   (list
    (and (evil-ex-p)
-        (let ((expr (evil-ex-parse  evil-ex-argument)))
+        (let ((expr (evil-ex-parse evil-ex-argument)))
           (if (eq (car expr) 'evil-goto-line)
               (save-excursion
                 (goto-char evil-ex-point)
