@@ -177,6 +177,7 @@
 (jpl/load "version-control")
 (jpl/load "tool-irc")
 (jpl/load "tool-browse-kill-ring")
+(jpl/load "tool-sort")
 
 
 ;; Projects
