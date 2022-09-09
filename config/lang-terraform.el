@@ -47,8 +47,7 @@
   )
 
 (defun terraform-my-setup ()
-  (py-setup-python-lsp)
-  )
+  (tf-setup-terraform-lsp))
 
 
 (add-hook 'terraform-mode-hook 'terraform-my-setup)
