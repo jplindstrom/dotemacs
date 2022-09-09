@@ -10,6 +10,8 @@
   (lsp)
   (lsp-headerline-breadcrumb-mode)
 
+  (setq lsp-terraform-ls-enable-show-reference t)
+
   (lsp-ui-doc-enable t)
 
 
