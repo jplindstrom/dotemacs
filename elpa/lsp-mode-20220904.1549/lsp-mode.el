@@ -6287,6 +6287,7 @@ textDocument/didOpen for the new file."
 
 (defun lsp--send-no-wait (message proc)
   "Send MESSAGE to PROC without waiting for further output."
+  ;;; (message "JPL: lsp--send-no-wait: %s %s" message proc)
 
   (unless lsp--flushing-delayed-changes
     (let ((lsp--flushing-delayed-changes t))
