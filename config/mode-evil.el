@@ -9,6 +9,7 @@
 (setq evil-move-beyond-eol t)
 
 ;; undo-tree
+(setq undo-tree-auto-save-history nil)
 (setq evil-undo-system 'undo-tree)
 (global-undo-tree-mode)
 (add-hook 'evil-local-mode-hook 'turn-on-undo-tree-mode)
