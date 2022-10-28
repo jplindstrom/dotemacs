@@ -62,7 +62,11 @@
   ;; `M-x package-install [ret] company`
   (company-mode +1)
 
-  (setup-tide-keys))
+  (setup-tide-keys)
+
+  ;; Restore original functionality, don't call prettier
+  (local-set-key "\M-q" 'fill-paragraph)
+  )
 
 
 ;; aligns annotation to the right hand side
