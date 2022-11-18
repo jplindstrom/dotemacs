@@ -41,12 +41,15 @@
   (define-key evil-normal-state-local-map (kbd "C-M-h") 'yaml-pro-unindent-subtree)
   (define-key evil-normal-state-local-map (kbd "C-M-l") 'yaml-pro-indent-subtree)
 
-  ;;; (define-key evil-normal-state-local-map (kbd "C-a") 'org-beginning-of-line)
+
+  (define-key evil-normal-state-local-map (kbd "C-H") 'yaml-pro-fold-at-point)
+  (define-key evil-normal-state-local-map (kbd "C-L") 'yaml-pro-unfold-at-point)
 
   ;; C-c ' -- edit scalar
 
   ;; C-c C-j -- yaml-pro-consult-jump
   (define-key evil-normal-state-local-map (kbd "C-c C-g") 'yaml-pro-jump)
+
 
   ;;; Not sure this is a universally good idea
   ;; (setq evil-shift-width . 2)
