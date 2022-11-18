@@ -1,0 +1,2 @@
+;; Generated package description from beacon.el  -*- no-byte-compile: t -*-
+(define-package "beacon" "1.3.4" "Highlight the cursor whenever the window scrolls" '((emacs "25.1")) :commit "0cf8b60f62876f3e75653a5fb30d5d5cdd74c586" :authors '(("Artur Malabarba" . "emacs@endlessparentheses.com")) :maintainer '("Artur Malabarba" . "emacs@endlessparentheses.com") :keywords '("convenience") :url "https://github.com/Malabarba/beacon")

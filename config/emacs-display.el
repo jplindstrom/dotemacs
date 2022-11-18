@@ -49,6 +49,10 @@
 (setq completions-format (quote vertical))
 
 
+;; Display a highlight when the cursor moves drastically
+(beacon-mode 1)
+
+
 
 ;; (require 'spaceline-config)
 ;; (spaceline-spacemacs-theme)
