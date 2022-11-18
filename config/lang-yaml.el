@@ -3,6 +3,47 @@
 (require 'yaml-mode)
 (require 'yaml-pro)
 
+
+(defun yaml-setup-yaml-lsp ()
+  (setq lsp-pylsp-server-command '("pylsp" "-v"))
+  (setq read-process-output-max 8192)
+
+  ;; Run this to install the LSP server
+  ;;
+  ;;     npm install -g yaml-language-server
+  ;;
+  ;; M-x lsp-install-server
+  ;; yamlls
+
+
+  (lsp)
+  (lsp-headerline-breadcrumb-mode)
+
+  ;; (setq lsp-ui-sideline-show-diagnostics t)   ;;  show diagnostics messages in sideline
+  ;; (setq lsp-ui-sideline-show-hover t)         ;;  show hover messages in sideline
+  ;; (setq lsp-ui-sideline-show-code-actions t)  ;;  show code actions in sideline
+  ;; (setq lsp-ui-sideline-update-mode t)        ;;  When set to 'line' the information will be updated when user changes current line otherwise the information will be updated when user changes current point
+  ;; (setq lsp-ui-sideline-delay t)              ;;  secon
+
+  (lsp-ui-doc-enable t)
+
+
+  ;; Full LSP prefix
+  (define-key lsp-mode-map (kbd "C-o C-l") lsp-command-map)
+
+  ;; Company completion trigger
+  (local-set-key (kbd "C-o C-c") 'company-complete)
+
+  ;; Go to
+  (local-set-key "\C-o\C-g" 'lsp-ui-peek-find-definitions)
+  (local-set-key "\C-ogb" 'xref-pop-marker-stack)
+
+
+  ;; Edit
+  (local-set-key "\C-oe\C-f" 'lsp-format-buffer)
+  )
+
+
 (defun jpl/yaml-pro-next-into ()
   (interactive)
   (next-line)
@@ -61,8 +102,13 @@
   ;; Use different indentation marker
   (highlight-indentation-current-column-mode)
   (indent-guide-mode 'toggle)
+
+  (yaml-setup-yaml-lsp)
   )
 
 (add-to-list 'auto-mode-alist '("\\.yml$"  . jpl/enable-yaml-modes))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . jpl/enable-yaml-modes))
 
+
+;; For serverless.yml
+;; https://github.com/lalcebo/json-schema
