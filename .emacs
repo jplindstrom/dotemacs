@@ -115,6 +115,7 @@
 (jpl/load "jpl-jira")
 (jpl/load "mode-markdown")
 (jpl/load "mode-indent-guide")
+(jpl/load "mode-highlight-indentation")
 
 
 ;; Languages
@@ -241,6 +242,7 @@
  ;; If there is more than one, they won't work right.
  '(font-lock-builtin-face ((t (:foreground "#16a085" :underline t :weight bold))))
  '(highlight ((t (:background "light steel blue"))))
+ '(highlight-indentation-current-column-face ((t (:background "gainsboro"))))
  '(hl-line ((t (:extend t :underline "black"))))
  '(org-block ((t (:extend t :background "gainsboro"))))
  '(org-block-begin-line ((t (:inherit org-meta-line :extend t :background "gainsboro"))))
