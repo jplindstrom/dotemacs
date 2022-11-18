@@ -56,6 +56,11 @@
 
   ;; possibly create a .dir-locals-el file with
   ;; ((yaml-mode . ((evil-shift-width . 2))))
+
+
+  ;; Use different indentation marker
+  (highlight-indentation-current-column-mode)
+  (indent-guide-mode 'toggle)
   )
 
 (add-to-list 'auto-mode-alist '("\\.yml$"  . jpl/enable-yaml-modes))
