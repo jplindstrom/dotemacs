@@ -42,8 +42,8 @@
   (define-key evil-normal-state-local-map (kbd "C-M-l") 'yaml-pro-indent-subtree)
 
 
-  (define-key evil-normal-state-local-map (kbd "C-H") 'yaml-pro-fold-at-point)
-  (define-key evil-normal-state-local-map (kbd "C-L") 'yaml-pro-unfold-at-point)
+  (define-key evil-normal-state-local-map (kbd "C-S-H") 'yaml-pro-fold-at-point)
+  (define-key evil-normal-state-local-map (kbd "C-S-L") 'yaml-pro-unfold-at-point)
 
   ;; C-c ' -- edit scalar
 
