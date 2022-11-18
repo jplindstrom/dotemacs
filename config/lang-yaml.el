@@ -8,6 +8,19 @@
   (next-line)
   (evil-first-non-blank))
 
+(defun jpl/move-line-up ()
+  (interactive)
+  (transpose-lines 1)
+  (previous-line)
+  (previous-line)
+  )
+
+(defun jpl/move-line-down ()
+  (interactive)
+  (next-line)
+  (transpose-lines 1)
+  (previous-line))
+
 (defun jpl/enable-yaml-modes ()
   (interactive)
   (yaml-mode)
@@ -18,14 +31,13 @@
   (define-key evil-normal-state-local-map (kbd "M-h") 'yaml-pro-up-level)
   (define-key evil-normal-state-local-map (kbd "M-l") 'jpl/yaml-pro-next-into)
 
-  ;;; Already set globally (maybe shouldn't indent?)
-  ;; (define-key evil-normal-state-local-map (kbd "M-J") 'yaml-pro-move-subtree-up)
-  ;; (define-key evil-normal-state-local-map (kbd "M-K") 'yaml-pro-move-subtree-down)
+  (define-key evil-normal-state-local-map (kbd "M-J") 'jpl/move-line-down)
+  (define-key evil-normal-state-local-map (kbd "M-K") 'jpl/move-line-up)
   (define-key evil-normal-state-local-map (kbd "M-H") 'evil-shift-left-line)
   (define-key evil-normal-state-local-map (kbd "M-L") 'evil-shift-right-line)
 
-  (define-key evil-normal-state-local-map (kbd "C-M-j") 'yaml-pro-move-subtree-up)
-  (define-key evil-normal-state-local-map (kbd "C-M-k") 'yaml-pro-move-subtree-down)
+  (define-key evil-normal-state-local-map (kbd "C-M-j") 'yaml-pro-move-subtree-down)
+  (define-key evil-normal-state-local-map (kbd "C-M-k") 'yaml-pro-move-subtree-up)
   (define-key evil-normal-state-local-map (kbd "C-M-h") 'yaml-pro-unindent-subtree)
   (define-key evil-normal-state-local-map (kbd "C-M-l") 'yaml-pro-indent-subtree)
 
@@ -35,6 +47,12 @@
 
   ;; C-c C-j -- yaml-pro-consult-jump
   (define-key evil-normal-state-local-map (kbd "C-c C-g") 'yaml-pro-jump)
+
+  ;;; Not sure this is a universally good idea
+  ;; (setq evil-shift-width . 2)
+
+  ;; possibly create a .dir-locals-el file with
+  ;; ((yaml-mode . ((evil-shift-width . 2))))
   )
 
 (add-to-list 'auto-mode-alist '("\\.yml$"  . jpl/enable-yaml-modes))
