@@ -62,14 +62,29 @@
   (transpose-lines 1)
   (previous-line))
 
+(defun jpl/yaml-up-level ()
+  (interactive)
+  (evil-first-non-blank)
+  (yaml-pro-up-level))
+
+(defun jpl/yaml-forward-fold-same-level ()
+  (interactive)
+  (origami-forward-fold-same-level (current-buffer) (point))
+  (evil-first-non-blank))
+
+(defun jpl/yaml-backward-fold-same-level ()
+  (interactive)
+  (origami-backward-fold-same-level (current-buffer) (point))
+  (evil-first-non-blank))
+
 (defun jpl/enable-yaml-modes ()
   (interactive)
   (yaml-mode)
   (yaml-pro-mode)
 
-  (define-key evil-normal-state-local-map (kbd "M-j") 'yaml-pro-next-subtree)
-  (define-key evil-normal-state-local-map (kbd "M-k") 'yaml-pro-prev-subtree)
-  (define-key evil-normal-state-local-map (kbd "M-h") 'yaml-pro-up-level)
+  (define-key evil-normal-state-local-map (kbd "M-j") 'jpl/yaml-forward-fold-same-level)
+  (define-key evil-normal-state-local-map (kbd "M-k") 'jpl/yaml-backward-fold-same-level)
+  (define-key evil-normal-state-local-map (kbd "M-h") 'jpl/yaml-up-level)
   (define-key evil-normal-state-local-map (kbd "M-l") 'jpl/yaml-pro-next-into)
 
   (define-key evil-normal-state-local-map (kbd "M-J") 'jpl/move-line-down)
@@ -82,9 +97,15 @@
   (define-key evil-normal-state-local-map (kbd "C-M-h") 'yaml-pro-unindent-subtree)
   (define-key evil-normal-state-local-map (kbd "C-M-l") 'yaml-pro-indent-subtree)
 
+  ;; Code folding with origami mode
+  (origami-mode)
+  (define-key evil-normal-state-local-map (kbd "C-S-h") 'origami-close-node)
+  (define-key evil-normal-state-local-map (kbd "C-S-l") 'origami-open-node)
+  (define-key evil-normal-state-local-map (kbd "C-S-s-h") 'origami-close-node-recursively)
+  (define-key evil-normal-state-local-map (kbd "C-S-s-l") 'origami-open-node-recursively)
+  (define-key evil-normal-state-local-map (kbd "C-S-g") 'origami-close-all-nodes)
+  (define-key evil-normal-state-local-map (kbd "C-:") 'origami-open-all-nodes)
 
-  (define-key evil-normal-state-local-map (kbd "C-S-H") 'yaml-pro-fold-at-point)
-  (define-key evil-normal-state-local-map (kbd "C-S-L") 'yaml-pro-unfold-at-point)
 
   ;; C-c ' -- edit scalar
 
@@ -99,9 +120,8 @@
   ;; ((yaml-mode . ((evil-shift-width . 2))))
 
 
-  ;; Use different indentation marker
-  (highlight-indentation-current-column-mode)
-  (indent-guide-mode 'toggle)
+  ;; Can't use this, it's too slow with origami-mode folding
+  ;; (highlight-indentation-current-column-mode)
 
   (yaml-setup-yaml-lsp)
   )
