@@ -1,78 +1,30 @@
 
 
-
-(require 'helm-config)
-(require 'helm-buffers)
-(require 'helm-files)
-(require 'helm-regexp)
 (require 'helm-ls-git)
 (require 'helm-projectile)
-(helm-occur-init-source)
+(require 'helm-git-grep)
 
-(setq helm-ff-transformer-show-only-basename nil)
+(setq helm-projectile-sources-list
+  '(
+    helm-source-recentf
+    helm-source-projectile-files-list
+    helm-source-projectile-projects
+    helm-source-buffers-list
+    ;;helm-source-projectile-buffers-list
 
-(defun my-helm-goto ()
-  "heml-mode mini set"
-  (interactive)
-  (helm-other-buffer '(
-                       ;; ;; Projectile
-                       helm-c-source-projectile-recentf-list
-                       helm-c-source-projectile-files-list
-                       helm-c-source-projectile-buffers-list
+    ;; helm-source-ls-git-status
+    helm-ls-git-branches-source
+    ;; helm-source-ls-git-buffers
+    helm-source-ls-git
+    ;; helm-ls-git-stashes-source
+    ;; helm-ls-git-create-branch-source
 
-                       ;; Default sources
-                       helm-source-buffers-list
-                       helm-source-recentf
-                       ;; helm-source-files-in-current-dir ;; Not that interesting
-
-                       ;; Additional sources
-                       ;; helm-c-source-locate
-                       )
-                     "*my helm goto*"))
-
-(defun my-helm-search ()
-  "heml-mode mini set"
-  (interactive)
-  (require 'helm-files)
-  (helm-other-buffer '(
-                       helm-source-occur
-                       helm-source-moccur
-
-                       ;; Full file search
-                       helm-source-buffers-list
-                       helm-source-recentf
-                       helm-source-files-in-current-dir
-                       helm-source-locate
-                       )
-                     "*my helm search*"))
+    helm-git-grep-source
+    ;; helm-git-grep-submodule-source
+    ))
 
 
-
-;; Copy-pasted, except remove the ridiculous 15 limit which can easily
-;; hide actual matches
-;; TODO: fork and fix
-(setq helm-c-source-projectile-files-list
-  `((name . "Projectile files list")
-    ;; Needed for filenames with capitals letters.
-    (disable-shortcuts)
-    (init . (lambda ()
-              (with-current-buffer (helm-candidate-buffer 'local)
-                (insert
-                 (helm-c-projectile-candidate-buffer-content)))))
-    (candidates-in-buffer)
-    (candidate-number-limit . 100)
-    (keymap . ,helm-generic-files-map)
-    (help-message . helm-generic-file-help-message)
-    (mode-line . helm-generic-file-mode-line-string)
-    (type . file)
-    (action . (lambda (candidate)
-                (find-file (projectile-expand-root candidate))))))
-
-
-
-
-(global-set-key (kbd "s-SPC") 'my-helm-goto)
-(global-set-key (kbd "C-s-SPC") 'my-helm-search)
+(global-set-key (kbd "s-SPC") 'helm-projectile)
 
 ;; (helm-mode 1)
 
