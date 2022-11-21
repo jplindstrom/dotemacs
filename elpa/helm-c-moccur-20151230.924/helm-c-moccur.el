@@ -4,10 +4,10 @@
 ;; Copyright (C) 2012 Yuhei Maeda <yuhei.maeda_at_gmail.com>
 
 ;; Author: Kenji.I (Kenji Imakado) <ken.imakaado@gmail.com>
-;; Version: 20130216.1417
-;; X-Original-Version: 0.0.1
-;; Package-version: 0.0.1
-;; Package-Requires: ()
+;; Version: 0.0.1
+;; Package-Commit: b0a906f85fa352db091f88b91a9c510de607dfe9
+;; Package-Version: 20151230.924
+;; Package-X-Original-Version: 0.0.1
 ;; Package-Requires: ((helm "20120811")(color-moccur "2.71"))
 ;; Keywords: convenience, emulation
 
@@ -93,9 +93,11 @@
 
 ;;;code:
 
-(require 'helm)
-(eval-when-compile 
+(eval-when-compile
   (require 'cl))
+
+(require 'helm)
+(require 'cl-lib)
 (require 'color-moccur)
 (require 'rx)
 
@@ -124,8 +126,7 @@ nilなら`helm-idle-delay'の値を使う"
 (defcustom helm-c-moccur-show-all-when-goto-line-flag nil ;outline
   "non-nilなら必要に応じてoutlineの折畳み表示を解除する"
   :type 'boolean
-  :group 'helm-c-moccur
-  )
+  :group 'helm-c-moccur)
 
 (defcustom helm-c-moccur-higligt-info-line-flag nil
   "non-nilならdmoccur, dired-do-moccurの候補を表示する際にバッファ名などの情報をハイライト表示する"
@@ -189,7 +190,7 @@ nilなら使用しない"
 
       (define-key map (kbd "C-M-f")  'helm-c-moccur-helm-next-file-matches)
       (define-key map (kbd "C-M-b")  'helm-c-moccur-helm-previous-file-matches)
-
+      (define-key map (kbd "C-c C-e")  'helm-c-moccur-edit)
       (define-key map (kbd "C-M-%")  'helm-c-moccur-query-replace-regexp)
       )
     map))
@@ -216,7 +217,7 @@ nilなら使用しない"
         (when (save-excursion
                 (beginning-of-line)
                 (looking-at re))
-          (case direction
+          (cl-case direction
             (next (helm-next-line))
             (previous (helm-previous-line)))))
       (helm-mark-current-line))))
@@ -247,8 +248,8 @@ nilなら使用しない"
     (save-selected-window
       (select-window (get-buffer-window helm-buffer 'visible))
 
-      (case unit
-        (file (let ((search-fn (case direction
+      (cl-case unit
+        (file (let ((search-fn (cl-case direction
                                  (next 're-search-forward)
                                  (previous (prog1 're-search-backward
                                              (re-search-backward helm-c-moccur-info-line-re nil t)))
@@ -420,7 +421,7 @@ nilなら使用しない"
   (when (buffer-live-p moccur-mocur-buffer)
     (with-current-buffer moccur-mocur-buffer
       (let* ((buf (buffer-substring (point-min) (point-max)))
-             (lines (delete "" (subseq (split-string buf "\n") 3))))
+             (lines (delete "" (cl-subseq (split-string buf "\n") 3))))
         lines))))
 
 (defun helm-c-moccur-occur-by-moccur-get-candidates ()
@@ -520,12 +521,12 @@ nilなら使用しない"
 
 (defun helm-c-moccur-dmoccur-higligt-info-line ()
   (let ((re helm-c-moccur-info-line-re))
-    (loop initially (goto-char (point-min))
-          while (re-search-forward re nil t)
-          do (put-text-property (line-beginning-position)
-                                (line-end-position)
-                                'face
-                                'helm-header))))
+    (cl-loop initially (goto-char (point-min))
+             while (re-search-forward re nil t)
+             do (put-text-property (line-beginning-position)
+                                   (line-end-position)
+                                   'face
+                                   'helm-header))))
 
 (defun helm-c-moccur-dmoccur-scraper ()
   (when (buffer-live-p moccur-mocur-buffer)
@@ -537,10 +538,10 @@ nilなら使用しない"
         (when helm-c-moccur-higligt-info-line-flag
           (helm-c-moccur-dmoccur-higligt-info-line))
         
-        (loop initially (progn (goto-char (point-min))
-                               (forward-line 1))
-              while (re-search-forward re nil t)
-              do (push (match-string 0) lines))
+        (cl-loop initially (progn (goto-char (point-min))
+                                  (forward-line 1))
+                 while (re-search-forward re nil t)
+                 do (push (match-string 0) lines))
         (nreverse lines)))))
 
 (defun helm-c-moccur-dmoccur-get-candidates ()
@@ -654,10 +655,10 @@ nilなら使用しない"
 
 (defun helm-c-moccur-last-sources-is-moccur-p ()
   (and (equal helm-c-moccur-last-buffer (current-buffer))
-       (every (lambda (source)
-                (let ((source (if (listp source) source (symbol-value source))))
-                  (string-match "moccur" (assoc-default 'name source))))
-              helm-last-sources)))
+       (cl-every (lambda (source)
+                   (let ((source (if (listp source) source (symbol-value source))))
+                     (string-match "moccur" (assoc-default 'name source))))
+                 helm-last-sources)))
 
 (defun helm-c-moccur-resume ()
   (interactive)
@@ -741,7 +742,13 @@ nilなら使用しない"
   (interactive)
   (helm-c-moccur-wrap-word-internal "\\<" "\\>"))
 
+(defun helm-c-moccur-edit-1 (cand)
+  (interactive)
+  (occur-by-moccur helm-pattern nil))
 
+(defun helm-c-moccur-edit ()
+(interactive)
+(helm-quit-and-execute-action 'helm-c-moccur-edit-1))
 
 ;; minibuf: hoge
 ;; => minibuf: ! hoge

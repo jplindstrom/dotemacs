@@ -3,8 +3,9 @@
 ;; Copyright (C) 2013  akisute3 <akisute3@gmail.com>
 
 ;; Author: Akisute <akisute3@gmail.com>
-;; Version: 20130630.2239
-;; X-Original-Version: 0.1
+;; Version: 0.1
+;; Package-Version: 20131228.1414
+;; Package-Commit: 3bcd125b44f5a707588ae3868777d91192351523
 ;; Package-Requires: ((helm "1.0"))
 ;; Keywords: helm, dired, zsh
 
@@ -51,6 +52,10 @@ zstyle \":chpwd:*\" recent-dirs-max %d"
 (add-hook 'dired-after-readin-hook 'helm-dired-recent-dirs-cd)
 
 
+(defun helm-dired-internal (dir)
+  (dired dir))
+
+
 (defvar helm-source-dired-recent-dirs
   '((name . "Dired History:")
     (init .  (lambda ()
@@ -60,7 +65,7 @@ zstyle \":chpwd:*\" recent-dirs-max %d"
                 nil
                 (helm-candidate-buffer 'global))))
     (candidates-in-buffer)
-    (action . (("Go" . (lambda (candidate) (dired candidate)))))))
+    (action . (("Go" . (lambda (candidate) (helm-dired-internal candidate)))))))
 
 ;;;###autoload
 (defun helm-dired-recent-dirs-view ()

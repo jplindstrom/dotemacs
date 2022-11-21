@@ -1,10 +1,11 @@
 ;;; helm-git.el --- Helm extension for Git.
-;; Version: 20120629.1358
 
 ;; Copyright (C) 2012 Marian Schubert
 
 ;; Author   : Marian Schubert <marian.schubert@gmail.com>
 ;; URL      : https://github.com/maio/helm-git
+;; Package-Version: 20120630.2103
+;; Package-Commit: 5b4a6eb7a97b2583236a1f919b75249957918e29
 ;; Version  : 1.1
 ;; Keywords : helm, git
 
