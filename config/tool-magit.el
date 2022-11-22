@@ -107,6 +107,16 @@
 (define-key magit-mode-map [C-tab] nil)
 
 
+
+(defun jpl/magit-copy-current-branch ()
+  (interactive)
+  (let* ((branch (magit-get-current-branch)))
+    (message "Branch: %s" branch)
+    (kill-new branch)))
+
+(global-set-key (kbd "C-o e c b") 'jpl/magit-copy-current-branch)
+
+
 (require 'magit-gitflow)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
