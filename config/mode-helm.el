@@ -1,5 +1,6 @@
 
 
+(require 'helm-for-files)
 (require 'helm-ls-git)
 (require 'helm-projectile)
 (require 'helm-git-grep)
@@ -8,6 +9,7 @@
 (setq helm-projectile-sources-list
   '(
     helm-source-recentf
+    ;; helm-source-projectile-recentf-list
     helm-source-projectile-files-list
     helm-source-projectile-projects
     helm-source-buffers-list
