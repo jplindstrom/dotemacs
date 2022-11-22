@@ -4,8 +4,6 @@
 (require 'helm-projectile)
 (require 'helm-git-grep)
 
-(require 'helm-dash)
-(setq dash-docs-docsets-path (expand-file-name "~/elisp/docsets"))
 
 (setq helm-projectile-sources-list
   '(
@@ -28,7 +26,6 @@
 
 
 (global-set-key (kbd "s-SPC") 'helm-projectile)
-(global-set-key (kbd "C-s-SPC") 'helm-dash)
 
 ;; (helm-mode 1)
 
