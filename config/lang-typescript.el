@@ -62,6 +62,10 @@
   ;; `M-x package-install [ret] company`
   (company-mode +1)
 
+  ;;; Formatting
+  ;; formats the buffer before saving
+  (add-hook 'before-save-hook 'tide-format-before-save)
+
   (setup-tide-keys)
 
   ;; Restore original functionality, don't call prettier
@@ -77,10 +81,6 @@
 ;; configure javascript-tide checker to run after your default javascript checker
 ;;; Doesn't work? (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
 
-
-;;; Formatting
-;; formats the buffer before saving
-;; (add-hook 'before-save-hook 'tide-format-before-save)
 
 (use-package prettier-js
   :commands (prettier-js-mode prettier)
