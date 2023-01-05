@@ -151,6 +151,7 @@
 (jpl/load "lang-sql")
 (jpl/load "nxml")
 (jpl/load "lang-yaml")
+(jpl/load "lang-json")
 (jpl/load "rnc") ;; XML Relax NG schema
 (jpl/load "lang-csv")
 (jpl/load "mode-org") ;; lang- ?
