@@ -374,3 +374,37 @@ markup"
       )
     )
   )
+
+
+(defun org-insert-src-block (region-start region-end)
+  (interactive "r")
+  (let* (
+         (initial-point (point))
+         (content
+          (if (region-active-p)
+              (buffer-substring (region-beginning) (region-end))
+            nil)
+          )
+         )
+
+    (when (not content)
+      (message "JPL: no content, deleting line")
+      (delete-region (line-beginning-position) (+ 1 (line-end-position))))
+
+    (insert "#+begin_src\n")
+
+    (if content
+        (progn
+          (message "JPL: with content: %s" content)
+          (insert content)
+          )
+      (progn (message "JPL: no content"))
+      (insert "\n")
+      )
+
+    (insert "#+end_src\n")
+
+    (goto-char initial-point)
+    (forward-line)
+    (beginning-of-line)
+    ))
