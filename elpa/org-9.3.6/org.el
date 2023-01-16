@@ -3772,7 +3772,7 @@ After a match, the match groups contain these elements:
 			  "\\([%s]\\|$\\)") ;after markers
 		  pre border border body border post)))
       (setq org-emph-re (format template "*/_+"))
-      (setq org-verbatim-re (format template "=~")))))
+      (setq org-verbatim-re (format template "=~`")))))
 
 ;; This used to be a defcustom (Org <8.0) but allowing the users to
 ;; set this option proved cumbersome.  See this message/thread:
@@ -3801,6 +3801,7 @@ You need to reload Org or to restart Emacs after setting this.")
     ("_" underline)
     ("=" org-verbatim verbatim)
     ("~" org-code verbatim)
+    ;; ("`" org-code verbatim)
     ("+" (:strike-through t)))
   "Alist of characters and faces to emphasize text.
 Text starting and ending with a special character will be emphasized,
@@ -5050,12 +5051,12 @@ stacked delimiters is N.  Escaping delimiters is not possible."
 
 (defun org-do-emphasis-faces (limit)
   "Run through the buffer and emphasize strings."
-  (let ((quick-re (format "\\([%s]\\|^\\)\\([~=*/_+]\\)"
+  (let ((quick-re (format "\\([%s]\\|^\\)\\([~`=*/_+]\\)"
 			  (car org-emphasis-regexp-components))))
     (catch :exit
       (while (re-search-forward quick-re limit t)
 	(let* ((marker (match-string 2))
-	       (verbatim? (member marker '("~" "="))))
+	       (verbatim? (member marker '("~" "=" "`"))))
 	  (when (save-excursion
 		  (goto-char (match-beginning 0))
 		  (and
