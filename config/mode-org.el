@@ -79,6 +79,15 @@
 (setq org-cycle-level-faces nil)
 
 
+;; Don't show e.g. *bold* and _underline_ markers, just the text
+(setq org-hide-emphasis-markers t)
+
+
+;; Allow `code span` to show code similar to ~code span~
+(push '("`" org-block) org-emphasis-alist)
+
+
+
 
 (defun myorg-convert-line-outline-org-to-wiki (outline-line)
   "Return `outline-line` (a single line of org-mode text as wiki
