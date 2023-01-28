@@ -64,13 +64,19 @@
 
   ;;; Formatting
   ;; formats the buffer before saving
-  (add-hook 'before-save-hook 'tide-format-before-save)
+  (add-hook 'before-save-hook 'jpl/tide-mode-maybe-format-before-save)
 
   (setup-tide-keys)
 
   ;; Restore original functionality, don't call prettier
   (local-set-key "\M-q" 'fill-paragraph)
   )
+
+;; Disable this in .dir-locals if needed
+(setq jpl/tide-mode-format-before-save t)
+(defun jpl/tide-mode-maybe-format-before-save ()
+  (when jpl/tide-mode-format-before-save
+    (tide-format-before-save)))
 
 
 ;; aligns annotation to the right hand side
