@@ -384,6 +384,31 @@ markup"
     )
   )
 
+(defun jpl/issue-from-branch-name (branch-name)
+  (save-excursion
+    (if (string-match "\\([a-z]+-[0-9]+\\)" branch-name)
+        (match-string 1 branch-name)
+      nil)))
+
+(defun jpl/org-jira-link-from-branch-name (branch-name)
+  (interactive)
+  (let* ((jira-issue-text (jpl/issue-from-branch-name branch-name))
+         (jira-base-url "https://zpgltd.atlassian.net/"))
+    (if jira-issue-text
+        (format "%sbrowse/%s" jira-base-url (upcase jira-issue-text))
+      nil)))
+
+(defun jpl/org-jira-issue-url-property-from-branch-name (branch-name)
+  (interactive)
+  (let* ((jira-issue-url (jpl/org-jira-link-from-branch-name branch-name)))
+    (if jira-issue-url
+        (format ":PROPERTIES:
+:issue-url: %s
+:END:
+" jira-issue-url)
+      "")))
+
+
 
 (defun org-insert-src-block (region-start region-end)
   (interactive "r")
