@@ -140,7 +140,7 @@ markup"
    (emacs-lisp . t)
    (dot . t)
    (plantuml . t)
-   ;; (sh . t)
+   (shell . t)
    (verb . t)
    ))
 
