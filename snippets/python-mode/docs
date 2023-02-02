@@ -1,0 +1,4 @@
+# name: Triple quote doc string
+# key: docs
+# --
+"""$0."""
