@@ -47,10 +47,11 @@
 
   ;; Errors
 
-  ;; Edit
+  ;; Edit Refactor
   (local-set-key "\C-oe\C-f" 'lsp-format-buffer)
+  (local-set-key "\C-oerr" 'lsp-rename)
   ;; Fix
-  (local-set-key "\C-oef" 'lsp-ui-sideline-apply-code-actions) 
+  (local-set-key "\C-oef" 'lsp-ui-sideline-apply-code-actions)
   )
 
 (defun py-my-setup ()
