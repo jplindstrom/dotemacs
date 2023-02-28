@@ -72,7 +72,13 @@
   (local-set-key "\M-q" 'fill-paragraph)
   )
 
-;; Disable this in .dir-locals if needed
+;; Disable `jpl/tide-mode-format-before-save` in .dir-locals if needed
+;;
+;; If it doesn't format, ensure that `prettier` is installed into the
+;; active nvm environment. Maybe install it using
+;;
+;;    npm install -g prettier
+;;
 (setq jpl/tide-mode-format-before-save t)
 (defun jpl/tide-mode-maybe-format-before-save ()
   (when jpl/tide-mode-format-before-save
@@ -103,4 +109,3 @@
 ;; Evil mode: don't use it in the tide buffers
 (evil-set-initial-state 'tide-references-mode 'emacs)
 (evil-set-initial-state 'tide-project-errors-mode 'emacs)
-
