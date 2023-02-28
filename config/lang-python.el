@@ -1,4 +1,10 @@
 
+(defun insert-python-self ()
+  (interactive)
+  (insert "self.")
+  (company-complete)
+  )
+
 (defun py-setup-python-lsp ()
   (setq lsp-pylsp-server-command '("pylsp" "-v"))
   (setq read-process-output-max 8192)
@@ -63,6 +69,8 @@
   (outline-minor-mode 1)
 
   (py-setup-python-lsp)
+
+  (local-set-key (kbd "C-; C-l") 'insert-python-self)
   )
 
 
