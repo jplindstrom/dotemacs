@@ -43,6 +43,8 @@
   (local-set-key "\C-opn" 'lsp-ui-peek--select-next)
   (local-set-key "\C-opp" 'lsp-ui-peek--select-prev)
   (local-set-key "\C-opg" 'lsp-ui-peek--goto-xref)
+  ;; Or: M-n, M-p for next/prev
+  (local-set-key "\M-return" 'lsp-ui-peek--goto-xref)
 
   ;; Docs
   (local-set-key "\C-o\C-d" 'lsp-ui-doc-show)
