@@ -6,6 +6,10 @@
   )
 
 (defun py-setup-python-lsp ()
+
+  ;; Disable documentation related linting moaning
+  (setq lsp-pylsp-plugins-pydocstyle-enabled nil)
+
   (setq lsp-pylsp-server-command '("pylsp" "-v"))
   (setq read-process-output-max 8192)
 
@@ -79,5 +83,3 @@
 (add-hook 'python-mode-hook 'py-my-setup)
 (setq interpreter-mode-alist
       (cons '("python" . python-mode) interpreter-mode-alist))
-
-
