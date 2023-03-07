@@ -13,3 +13,8 @@
 
 
 (global-set-key (kbd "C-x v G") 'git-messenger:popup-message)
+
+
+;; git-link
+;; https://github.com/sshaw/git-link
+(global-set-key (kbd "C-o e c g") 'git-link)
