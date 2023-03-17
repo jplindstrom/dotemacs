@@ -410,35 +410,33 @@ markup"
 
 
 
+;; Insert source block with a default language
+
+(defun org-find-previous-begin_src-language ()
+  "Return e.g. 'json' for the previous line '#+begin_src json'"
+  (save-excursion
+    (previous-line)
+    (if (not (re-search-backward "#\\+begin_src \\([a-zA-Z]+\\)" nil t))
+        nil
+      (match-string 1))))
+
 (defun org-insert-src-block (region-start region-end)
   (interactive "r")
-  (let* (
-         (initial-point (point))
-         (content
-          (if (region-active-p)
-              (buffer-substring (region-beginning) (region-end))
-            nil)
-          )
-         )
+  (org-insert-structure-template "src")
+  (move-end-of-line nil)
+  (when (search-backward "#+begin_src" nil t)
+    (move-end-of-line nil)
+    (let* ((default-language (org-find-previous-begin_src-language)))
+      (if default-language
+          (progn
+            (insert default-language)
+            (move-beginning-of-line nil))
 
-    (when (not content)
-      (message "JPL: no content, deleting line")
-      (delete-region (line-beginning-position) (+ 1 (line-end-position))))
+        ;; Remove trailing whitespace
+        (backward-char)
+        (delete-char 1)
 
-    (insert "#+begin_src\n")
+        (move-beginning-of-line nil)
+        ))))
 
-    (if content
-        (progn
-          (message "JPL: with content: %s" content)
-          (insert content)
-          )
-      (progn (message "JPL: no content"))
-      (insert "\n")
-      )
-
-    (insert "#+end_src\n")
-
-    (goto-char initial-point)
-    (forward-line)
-    (beginning-of-line)
-    ))
+(define-key global-map "\C-oeis" 'org-insert-src-block)
