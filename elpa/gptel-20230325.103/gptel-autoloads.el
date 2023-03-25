@@ -9,6 +9,14 @@
 ;;;### (autoloads nil "gptel" "gptel.el" (0 0 0 0))
 ;;; Generated autoloads from gptel.el
 
+(autoload 'gptel-send "gptel" "\
+Submit this prompt to ChatGPT.
+
+With prefix arg ARG activate a transient menu with more options
+instead.
+
+\(fn &optional ARG)" t nil)
+
 (autoload 'gptel "gptel" "\
 Switch to or start ChatGPT session with NAME.
 

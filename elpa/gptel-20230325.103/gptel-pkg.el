@@ -1,7 +1,7 @@
-(define-package "gptel" "20230320.258" "A simple ChatGPT client"
+(define-package "gptel" "20230325.103" "A simple ChatGPT client"
   '((emacs "27.1")
     (transient "0.3.7"))
-  :commit "4f3ca234545a3643eb3bed2baf55645463b6f728" :authors
+  :commit "1828dd3fa445fd558d4f9ac00574fe3644cbcb7e" :authors
   '(("Karthik Chikmagalur"))
   :maintainer
   '("Karthik Chikmagalur")

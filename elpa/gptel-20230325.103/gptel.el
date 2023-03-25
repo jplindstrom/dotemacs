@@ -108,22 +108,92 @@ return the transformed string."
 (defvar gptel-default-mode (if (featurep 'markdown-mode)
                                'markdown-mode
                              'text-mode))
-(defvar gptel-prompt-string "### ")
+
+;; TODO: Handle `prog-mode' using the `comment-start' variable
+(defcustom gptel-prompt-prefix-alist
+  '((markdown-mode . "### ")
+    (org-mode . "*** ")
+    (text-mode . "### "))
+  "String inserted after the response from ChatGPT.
+
+This is an alist mapping major modes to the prefix strings. This
+is only inserted in dedicated gptel buffers."
+  :group 'gptel
+  :type '(alist :key-type symbol :value-type string))
 
 ;; Model and interaction parameters
 (defvar-local gptel--system-message
   "You are a large language model living in Emacs and a helpful assistant. Respond concisely.")
-(defvar gptel--system-message-alist
+
+(defcustom gptel-directives
   `((default . ,gptel--system-message)
     (programming . "You are a large language model and a careful programmer. Provide code and only code as output without any additional text, prompt or note.")
     (writing . "You are a large language model and a writing assistant. Respond concisely.")
     (chat . "You are a large language model and a conversation partner. Respond concisely."))
-  "Prompt templates (directives).")
-(defvar gptel--debug nil)
-(defvar-local gptel--max-tokens nil)
-(defvar-local gptel--model "gpt-3.5-turbo")
-(defvar-local gptel--temperature 1.0)
+  "System prompts (directives) for ChatGPT.
+
+These are system instructions sent at the beginning of each
+request to ChatGPT.
+
+Each entry in this alist maps a symbol naming the directive to
+the string that is sent. To set the directive for a chat session
+interactively call `gptel-send' with a prefix argument.
+
+Note: Currently the names (default, programming, writing and
+chat) are hard-coded and only their values may be customized.
+This will be fixed in an upcoming release."
+  :group 'gptel
+  :type '(alist :key-type symbol :value-type string))
+
+(defcustom gptel-max-tokens nil
+  "Max tokens per response.
+
+This is roughly the number of words in the response. 100-300 is a
+reasonable range for short answers, 400 or more for longer
+responses.
+
+To set the target token count for a chat session interactively
+call `gptel-send' with a prefix argument.
+
+If left unset, ChatGPT will target about 40% of the total token
+count of the conversation so far in each message, so messages
+will get progressively longer!"
+  :local t
+  :group 'gptel
+  :type '(choice (integer :tag "Specify Token count")
+                 (const :tag "Default" nil)))
+
+(defcustom gptel-model "gpt-3.5-turbo"
+  "GPT Model for chat.
+
+The current options are
+- \"gpt-3.5-turbo\"
+- \"gpt-3.5-turbo-0301\"
+- \"gpt-4\" (experimental)
+
+To set the model for a chat session interactively call
+`gptel-send' with a prefix argument."
+  :local t
+  :group 'gptel
+  :type '(choice
+          (const :tag "GPT 3.5 turbo" "gpt-3.5-turbo")
+          (const :tag "GPT 3.5 turbo 0301" "gpt-3.5-turbo-0301")
+          (const :tag "GPT 4 (experimental)" "gpt-4")))
+
+(defcustom gptel-temperature 1.0
+  "\"Temperature\" of ChatGPT response.
+
+This is a number between 0.0 and 2.0 that controls the randomness
+of the response, with 2.0 being the most random.
+
+To set the temperature for a chat session interactively call
+`gptel-send' with a prefix argument."
+  :local t
+  :group 'gptel
+  :type 'number)
+
 (defvar-local gptel--num-messages-to-send nil)
+(defvar gptel--debug nil)
 
 (defun gptel-api-key-from-auth-source (&optional host user)
   "Lookup api key in the auth source.
@@ -153,6 +223,9 @@ By default, \"openai.com\" is used as HOST and \"apikey\" as USER."
   "Ensure VAL is a number."
   (if (stringp val) (string-to-number val) val))
 
+(defun gptel-prompt-string ()
+  (or (alist-get major-mode gptel-prompt-prefix-alist) ""))
+
 (defvar-local gptel--old-header-line nil)
 (define-minor-mode gptel-mode
   "Minor mode for interacting with ChatGPT."
@@ -174,6 +247,7 @@ By default, \"openai.com\" is used as HOST and \"apikey\" as USER."
 ;; TODO: Handle multiple requests(#15). (Only one request from one buffer at a time?)
 ;; TODO: Since we capture a marker for the insertion location, `gptel-buffer' no
 ;; longer needs to be recorded
+;;;###autoload
 (defun gptel-send (&optional arg)
   "Submit this prompt to ChatGPT.
 
@@ -183,7 +257,6 @@ instead."
   (if (and arg (require 'gptel-transient nil t))
       (call-interactively #'gptel-send-menu)
   (message "Querying ChatGPT...")
-  (gptel--update-header-line " Waiting..." 'warning)
   (let* ((response-pt
           (if (use-region-p)
               (set-marker (make-marker) (region-end))
@@ -195,7 +268,8 @@ instead."
          #'gptel-curl-get-response #'gptel--url-get-response)
      (list :prompt full-prompt
            :gptel-buffer gptel-buffer
-           :insert-marker response-pt)))))
+           :insert-marker response-pt)))
+    (gptel--update-header-line " Waiting..." 'warning)))
 
 (defun gptel--insert-response (response info)
   "Insert RESPONSE from ChatGPT into the gptel buffer.
@@ -221,7 +295,7 @@ See `gptel--url-get-response' for details."
                 (insert content-str)
                 (pulse-momentary-highlight-region p (point)))
               (when gptel-mode
-                (insert "\n\n" gptel-prompt-string)
+                (insert "\n\n" (gptel-prompt-string))
                 (gptel--update-header-line " Ready" 'success))))
           (goto-char (- (point) 2)))
       (gptel--update-header-line
@@ -270,12 +344,12 @@ there."
 (defun gptel--request-data (prompts)
   "JSON encode PROMPTS for sending to ChatGPT."
   (let ((prompts-plist
-         `(:model ,gptel--model
+         `(:model ,gptel-model
            :messages [,@prompts])))
-    (when gptel--temperature
-      (plist-put prompts-plist :temperature (gptel--numberize gptel--temperature)))
-    (when gptel--max-tokens
-      (plist-put prompts-plist :max_tokens (gptel--numberize gptel--max-tokens)))
+    (when gptel-temperature
+      (plist-put prompts-plist :temperature (gptel--numberize gptel-temperature)))
+    (when gptel-max-tokens
+      (plist-put prompts-plist :max_tokens (gptel--numberize gptel-max-tokens)))
     prompts-plist))
 
 ;; TODO: Use `run-hook-wrapped' with an accumulator instead to handle
@@ -339,15 +413,33 @@ INFO is a plist with the following keys:
         (clone-buffer "*gptel-error*" 'show)))
     (with-current-buffer response-buffer
       (if-let* ((status (buffer-substring (line-beginning-position) (line-end-position)))
-                ((string-match-p "200 OK" status))
                 (json-object-type 'plist)
                 (response (progn (forward-paragraph)
-                                 (json-read)))
-                (content (map-nested-elt
-                          response '(:choices 0 :message :content))))
-          (list :content (string-trim (decode-coding-string content 'utf-8))
-                :status status)
-        (list :content nil :status status)))))
+                                 (condition-case nil
+                                         (json-read)
+                                       (json-readtable-error 'json-read-error)))))
+          (cond
+           ((string-match-p "200 OK" status)
+            (list :content (string-trim
+                            (decode-coding-string
+                             (map-nested-elt
+                              response '(:choices 0 :message :content))
+                             'utf-8))
+                  :status status))
+           ((plist-get response :error)
+            (let* ((error-plist (plist-get response :error))
+                   (error-msg (plist-get error-plist :message))
+                   (error-type (plist-get error-plist :type)))
+              (message "ChatGPT error: %s" error-msg)
+              (list :content nil :status (concat status ": " error-type))))
+           ((eq response 'json-read-error)
+            (message "ChatGPT error: Malformed JSON in response.")
+            (list :content nil :status (concat status ": Malformed JSON in response.")))
+           (t (message "ChatGPT error: Could not parse HTTP response.")
+              (list :content nil :status (concat status ": Could not parse HTTP response."))))
+        (message "ChatGPT error: Could not parse HTTP response.")
+        (list :content nil
+              :status (concat status ": Could not parse HTTP response."))))))
 
 ;;;###autoload
 (defun gptel (name &optional api-key initial)
@@ -365,7 +457,8 @@ buffer created or switched to."
                      (condition-case nil
                          (gptel--api-key)
                        ((error user-error)
-                        (read-passwd "OpenAI API key: ")))
+                        (setq gptel-api-key
+                              (read-passwd "OpenAI API key: "))))
                      (and (use-region-p)
                           (buffer-substring (region-beginning)
                                             (region-end)))))
@@ -379,7 +472,7 @@ buffer created or switched to."
       (visual-line-mode 1))
      (t (funcall gptel-default-mode)))
     (unless gptel-mode (gptel-mode 1))
-    (if (bobp) (insert (or initial gptel-prompt-string)))
+    (if (bobp) (insert (or initial (gptel-prompt-string))))
     (pop-to-buffer (current-buffer))
     (goto-char (point-max))
     (skip-chars-backward "\t\r\n")
@@ -452,7 +545,7 @@ Begin at START-PT."
                        (min content-length (+ idx 16))))
                      (setq idx (+ idx 16)))
                  (when gptel-mode
-                   (insert "\n\n" gptel-prompt-string)
+                   (insert "\n\n" (gptel-prompt-string))
                    (gptel--update-header-line " Ready" 'success))
                  (when start-pt (goto-char (marker-position start-pt)))
                  (accept-change-group (symbol-value handle))
