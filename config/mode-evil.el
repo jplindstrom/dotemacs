@@ -145,6 +145,7 @@ already there, to the beginning of the line."
 (evil-set-initial-state 'rcirc-mode 'emacs)
 (evil-set-initial-state 'sql-interactive-mode 'emacs)
 (evil-set-initial-state 'magit-branch-mode 'emacs)
+(evil-set-initial-state 'helm-ls-git-rebase-todo 'emacs)
 (evil-set-initial-state 'special-mode 'emacs)
 (evil-set-initial-state 'tabulated-list-mode 'emacs)
 (evil-set-initial-state 'Buffer-menu-mode 'emacs)
