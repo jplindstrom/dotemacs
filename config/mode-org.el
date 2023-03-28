@@ -437,6 +437,12 @@ markup"
         (delete-char 1)
 
         (move-beginning-of-line nil)
-        ))))
+        )))
+  (when
+      (save-excursion
+        (forward-line)
+        (looking-at " *#\\+end_src"))
+    (forward-line)
+    (open-line 1)))
 
 (define-key global-map "\C-oeis" 'org-insert-src-block)
