@@ -179,6 +179,9 @@ already there, to the beginning of the line."
   '(normal insert visual))
 
 
+
+
+
 ;; (require 'evil-matchit)
 ;; (global-evil-matchit-mode 1)
 
@@ -208,6 +211,30 @@ already there, to the beginning of the line."
 ;; bind evil-jump-out-args
 (define-key evil-normal-state-map (kbd "M-k") 'evil-jump-out-args)
 
+
+
+;;; Camelize, snakeify, kebab
+
+(defun string-inflection-upper-underscore ()
+  (interactive)
+  (string-inflection-underscore)
+  (string-inflection-upcase))
+
+;; In visual state, change selection
+(define-key evil-visual-state-map (kbd "zI") 'string-inflection-python-style-cycle)
+(define-key evil-visual-state-map (kbd "zic") 'string-inflection-lower-camelcase)
+(define-key evil-visual-state-map (kbd "ziC") 'string-inflection-camelcase)
+(define-key evil-visual-state-map (kbd "zik") 'string-inflection-kebab-case)
+(define-key evil-visual-state-map (kbd "zis") 'string-inflection-underscore)
+(define-key evil-visual-state-map (kbd "ziS") 'string-inflection-upper-underscore)
+
+;; In NORMAL mode, change the current word
+(define-key evil-normal-state-map (kbd "zI") 'string-inflection-python-style-cycle)
+(define-key evil-normal-state-map (kbd "zic") 'string-inflection-lower-camelcase)
+(define-key evil-normal-state-map (kbd "ziC") 'string-inflection-camelcase)
+(define-key evil-normal-state-map (kbd "zik") 'string-inflection-kebab-case)
+(define-key evil-normal-state-map (kbd "zis") 'string-inflection-underscore)
+(define-key evil-normal-state-map (kbd "ziS") 'string-inflection-upper-underscore)
 
 ;;;JPL: reinstate? (require 'evil-briefcase)
 ;; zC -- evil-briefcase-camel-upper
