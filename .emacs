@@ -42,6 +42,7 @@
 
 (jpl/load "emacs-mac")
 (jpl/load "emacs-display")
+(jpl/load "emacs-minibuffer")
 (jpl/load "emacs-global-unset-keys")
 
 
