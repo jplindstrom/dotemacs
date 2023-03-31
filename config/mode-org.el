@@ -138,15 +138,19 @@ markup"
  'org-babel-load-languages
  '(
    (emacs-lisp . t)
+   (python . t)
    (dot . t)
    (plantuml . t)
+   (R . t)
    (shell . t)
    (verb . t)
    ))
 
 (defun my/org-confirm-babel-evaluate (lang body)
-  (not (member lang '("dot" "plantuml"))))
+  (not (member lang '("dot" "plantuml" "python" "R"))))
 (setq org-confirm-babel-evaluate 'my/org-confirm-babel-evaluate)
+
+
 
 (setq org-startup-with-inline-images t)
 
