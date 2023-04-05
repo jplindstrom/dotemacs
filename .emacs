@@ -254,6 +254,7 @@
  '(highlight ((t (:background "light steel blue"))))
  '(highlight-indentation-current-column-face ((t (:background "gainsboro"))))
  '(hl-line ((t (:extend t :underline "black"))))
+ '(markdown-code-face ((t (:inherit fixed-pitch :height 0.8))))
  '(org-block ((t (:extend t :background "gainsboro"))))
  '(org-block-begin-line ((t (:inherit org-meta-line :extend t :background "gainsboro"))))
  '(org-drawer ((t (:foreground "light gray" :height 0.7))))
