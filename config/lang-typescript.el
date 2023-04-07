@@ -1,5 +1,6 @@
 (require 'flycheck)
 
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
 
 (defun setup-tide-keys ()
   ;; company Completion trigger
