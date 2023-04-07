@@ -388,6 +388,8 @@ markup"
     )
   )
 
+
+
 (defun jpl/issue-from-branch-name (branch-name)
   (save-excursion
     (if (string-match "\\([a-z]+-[0-9]+\\)" branch-name)
@@ -411,6 +413,32 @@ markup"
 :END:
 " jira-issue-url)
       "")))
+
+
+;; Copy current jira URL, branch name
+
+(defun jpl/org-current-branch-name ()
+  (interactive)
+  (save-excursion
+    (if (not (re-search-backward "* \\(\\b\\w+/\\w+-[0-9]+-.+\\)" nil t))
+        nil
+      (match-string 1))))
+
+(defun jpl/copy-org-jira-current-issue-url ()
+  (interactive)
+  (let* ((branch-name (jpl/org-current-branch-name))
+         (url (jpl/org-jira-link-from-branch-name branch-name)))
+    (message "%s (%s)" url branch-name)
+    (kill-new url)))
+
+(defun jpl/copy-org-current-branch-name ()
+  (interactive)
+  (let* ((branch-name (jpl/org-current-branch-name)))
+    (message "%s" branch-name)
+    (kill-new branch-name)))
+
+(define-key org-mode-map "\C-oecu" 'jpl/copy-org-jira-current-issue-url)
+(define-key org-mode-map "\C-oecb" 'jpl/copy-org-current-branch-name)
 
 
 
@@ -450,3 +478,5 @@ markup"
     (open-line 1)))
 
 (define-key global-map "\C-oeis" 'org-insert-src-block)
+
+
