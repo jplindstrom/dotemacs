@@ -477,7 +477,7 @@ markup"
     (forward-line)
     (open-line 1)))
 
-(define-key global-map "\C-oeis" 'org-insert-src-block)
+(define-key org-mode-map "\C-oeis" 'org-insert-src-block)
 
 
 ;; Insert images from clipboard, screenshots, URLs
@@ -490,15 +490,15 @@ markup"
 
 (setq-default org-download-image-dir "images")
 ;; Insert Clipboard image
-(define-key global-map "\C-oeic" 'org-download-clipboard)
+(define-key org-mode-map "\C-oeic" 'org-download-clipboard)
 ;; Insert Screenshot
-(define-key global-map "\C-oeiS" 'org-download-screenshot)
+(define-key org-mode-map "\C-oeiS" 'org-download-screenshot)
 ;; Insert Image from URL
-(define-key global-map "\C-oeii" 'org-download-yank)
+(define-key org-mode-map "\C-oeii" 'org-download-yank)
 
 
-(define-key global-map "\C-oDd" 'org-download-delete)
-(define-key global-map "\C-oDR" 'org-download-rename-last-file)
-(define-key global-map "\C-oDr" 'org-download-rename-at-point)
+(define-key org-mode-map "\C-oDd" 'org-download-delete)
+(define-key org-mode-map "\C-oDR" 'org-download-rename-last-file)
+(define-key org-mode-map "\C-oDr" 'org-download-rename-at-point)
 
 
