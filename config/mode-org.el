@@ -480,3 +480,10 @@ markup"
 (define-key global-map "\C-oeis" 'org-insert-src-block)
 
 
+
+(require 'org-download)
+(setq-default org-download-image-dir "images")
+;; Insert Clipboard image
+(define-key global-map "\C-oeic" 'org-download-clipboard)
+
+
