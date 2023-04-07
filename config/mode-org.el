@@ -480,10 +480,25 @@ markup"
 (define-key global-map "\C-oeis" 'org-insert-src-block)
 
 
+;; Insert images from clipboard, screenshots, URLs
 
 (require 'org-download)
+;; Make sure images are displayed and not just the URL
+(advice-add 'org-download-clipboard  :after #'org-redisplay-inline-images)
+(advice-add 'org-download-screenshot :after #'org-redisplay-inline-images)
+(advice-add 'org-download-yank       :after #'org-redisplay-inline-images)
+
 (setq-default org-download-image-dir "images")
 ;; Insert Clipboard image
 (define-key global-map "\C-oeic" 'org-download-clipboard)
+;; Insert Screenshot
+(define-key global-map "\C-oeiS" 'org-download-screenshot)
+;; Insert Image from URL
+(define-key global-map "\C-oeii" 'org-download-yank)
+
+
+(define-key global-map "\C-oDd" 'org-download-delete)
+(define-key global-map "\C-oDR" 'org-download-rename-last-file)
+(define-key global-map "\C-oDr" 'org-download-rename-at-point)
 
 
