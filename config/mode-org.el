@@ -143,6 +143,7 @@ markup"
    (plantuml . t)
    (R . t)
    (shell . t)
+   (calc . t)
    (verb . t)
    ))
 
