@@ -485,9 +485,11 @@ markup"
 
 (require 'org-download)
 ;; Make sure images are displayed and not just the URL
-(advice-add 'org-download-clipboard  :after #'org-redisplay-inline-images)
-(advice-add 'org-download-screenshot :after #'org-redisplay-inline-images)
-(advice-add 'org-download-yank       :after #'org-redisplay-inline-images)
+(advice-add 'org-download-clipboard        :after #'org-redisplay-inline-images)
+(advice-add 'org-download-screenshot       :after #'org-redisplay-inline-images)
+(advice-add 'org-download-yank             :after #'org-redisplay-inline-images)
+(advice-add 'org-download-rename-last-file :after #'org-redisplay-inline-images)
+(advice-add 'org-download-rename-at-point  :after #'org-redisplay-inline-images)
 
 (setq-default org-download-image-dir "images")
 ;; Insert Clipboard image
