@@ -142,8 +142,6 @@
 (jpl/load "lang-elisp-eval-and-replace")
 (jpl/load "lang-clojure")
 
-(jpl/load "mode-corral")
-
 ;; Config language
 (jpl/load "lang-terraform")
 
