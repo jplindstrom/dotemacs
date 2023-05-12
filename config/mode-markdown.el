@@ -10,8 +10,12 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . poly-markdown-mode))
 
 
-(defun jpl/set-visual-line-mode ()
-  (visual-line-mode 1))
-(add-hook 'markdown-mode-hook 'jpl/set-visual-line-mode)
-(add-hook 'gfm-mode-hook 'jpl/set-visual-line-mode)
+(defun jpl/setup-markdown-mode ()
+  (visual-line-mode 1)
+  
+
+  )
+
+(add-hook 'markdown-mode-hook 'jpl/setup-markdown-mode)
+(add-hook 'gfm-mode-hook 'jpl/setup-markdown-mode)
 
