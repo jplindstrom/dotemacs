@@ -34,8 +34,7 @@
   (local-set-key "\C-opg" 'lsp-ui-peek--goto-xref)
 
   ;; Docs
-  (local-set-key "\C-o\C-d" 'lsp-ui-doc-show)
-  (local-set-key "\C-odh" 'lsp-ui-doc-hide)
+  (local-set-key "\C-o\C-d" 'jpl/terraform-doc-at-point-in-buffer)
 
   ;; Find
   (local-set-key "\C-ofr" 'lsp-find-references)
@@ -45,7 +44,7 @@
   ;; Edit
   (local-set-key "\C-oe\C-f" 'lsp-format-buffer)
   ;; Fix
-  (local-set-key "\C-oef" 'lsp-ui-sideline-apply-code-actions) 
+  (local-set-key "\C-oef" 'lsp-ui-sideline-apply-code-actions)
   )
 
 (defun terraform-my-setup ()
