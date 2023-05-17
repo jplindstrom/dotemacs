@@ -64,6 +64,7 @@
 ;; - E.g. data "template_file" "container_definitions_yaml" { }
 ;;   - Which provider is this?
 
+(require 'terraform-doc)
 (require 's)
 
 (defvar jpl/prefix-to-provider-name
