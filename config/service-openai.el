@@ -12,3 +12,5 @@
 ;; (setq org-ai-openai-api-token (jpl/gptel-get-api-key))
 
 
+
+(setq chatgpt-shell-openai-key (lambda () (jpl/gptel-get-api-key)))
