@@ -85,8 +85,7 @@
     (search-forward-regexp regex nil t) ;;;JPL: fail, catch and say, not found
     (message "searched")
     (beginning-of-line)
-    )
-  )
+    ))
 
 (defun jpl/terraform-doc-fetch-provider-data (provider)
   (let* ((terraform-doc-buffer-name (format "*Terraform:%s*" (cdr provider))))
@@ -112,13 +111,13 @@ The provider docs are fetched from GitHub on first lookup."
       ;; We're now in the terraform-doc buffer for the provider
       (jpl/terraform-doc-find-item type thing)
       (terraform-doc-at-point)
+      (gfm-view-mode)
 
       ;; Put the main docs buffer at the end, so that it doesn't show
       ;; when the user kills the thing docs buffer.
       (message "doc-buffer %s" doc-buffer)
       (bury-buffer doc-buffer)
-      ))
-  )
+      )))
 
 
 (defun jpl/terraform-doc--thing-at-point ()
@@ -129,6 +128,4 @@ The provider docs are fetched from GitHub on first lookup."
     (let* ((type (substring-no-properties (thing-at-point 'symbol))))
       (forward-symbol 2)
       (let* ((thing (substring-no-properties (thing-at-point 'symbol))))
-        (list type thing)
-        )
-      )))
+        (list type thing)))))
