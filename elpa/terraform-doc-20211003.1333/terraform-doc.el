@@ -83,7 +83,6 @@
   (interactive)
   (if (get-text-property (point) 'shr-url)
       (let* ((url (get-text-property (point) 'shr-url))
-             (jpl-dummy1 (message "JPL: url (%s)" url))
              (buffer-name (string-join (last (split-string url "/") 2) "/"))
              (provider (replace-regexp-in-string ".*terraform-provider-\\(.+?\\)/.*" "\\1" url)))
         (terraform-doc--render-object url (format "*Terraform:%s:%s*" provider buffer-name)))))
