@@ -111,8 +111,11 @@ The provider docs are fetched from GitHub on first lookup."
 
       ;; We're now in the terraform-doc buffer for the provider
       (jpl/terraform-doc-find-item type thing)
-      (terraform-doc-at-point)
-      (gfm-view-mode)
+      (let* ((thing-doc-buffer (terraform-doc-at-point)))
+        (switch-to-buffer thing-doc-buffer)
+        (message "thing doc-buffer %s" (current-buffer))
+        (gfm-view-mode)
+        )
 
       ;; Put the main docs buffer at the end, so that it doesn't show
       ;; when the user kills the thing docs buffer.
