@@ -228,6 +228,7 @@
  '(scroll-bar-mode 'right)
  '(size-indication-mode t)
  '(tab-width 4)
+ '(terraform-doc-markdown-mode-function 'gfm-view-mode)
  '(tide-server-max-response-length 1024000)
  '(transient-mark-mode 'identity)
  '(treemacs-is-never-other-window t)
