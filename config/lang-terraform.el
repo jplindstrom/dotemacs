@@ -78,13 +78,11 @@
   )
 
 (defun jpl/terraform-doc-find-item (type thing)
-  (message "jpl/terraform-doc-find-item in buffer %s" (buffer-name))
   (let* ((short-thing (nth 1 (s-split-up-to "_" thing 1)))
          (regex (format "%s/%s" type short-thing)))
-    (message "short-thing: %s %s" short-thing regex)
+    (message "JPL: short-thing: %s %s" short-thing regex)
     (goto-char (point-min))
     (search-forward-regexp regex nil t) ;;;JPL: fail, catch and say, not found
-    (message "searched")
     (beginning-of-line)
     ))
 
@@ -111,15 +109,10 @@ The provider docs are fetched from GitHub on first lookup."
 
       ;; We're now in the terraform-doc buffer for the provider
       (jpl/terraform-doc-find-item type thing)
-      (let* ((thing-doc-buffer (terraform-doc-at-point)))
-        (switch-to-buffer thing-doc-buffer)
-        (message "thing doc-buffer %s" (current-buffer))
-        (gfm-view-mode)
-        )
+      (terraform-doc-at-point)
 
       ;; Put the main docs buffer at the end, so that it doesn't show
       ;; when the user kills the thing docs buffer.
-      (message "doc-buffer %s" doc-buffer)
       (bury-buffer doc-buffer)
       )))
 
