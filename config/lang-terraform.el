@@ -105,16 +105,17 @@ The provider docs are fetched from GitHub on first lookup."
          (prefix (nth 0 (s-split "_" thing)))
          (provider (jpl/terraform-doc-get-provider-from-prefix prefix)))
 
-    (let* ((doc-buffer (jpl/terraform-doc-fetch-provider-data provider)))
+    (if provider
+        (let* ((doc-buffer (jpl/terraform-doc-fetch-provider-data provider)))
 
-      ;; We're now in the terraform-doc buffer for the provider
-      (jpl/terraform-doc-find-item type thing)
-      (terraform-doc-at-point)
+          ;; We're now in the terraform-doc buffer for the provider
+          (jpl/terraform-doc-find-item type thing)
+          (terraform-doc-at-point)
 
-      ;; Put the main docs buffer at the end, so that it doesn't show
-      ;; when the user kills the thing docs buffer.
-      (bury-buffer doc-buffer)
-      )))
+          ;; Put the main docs buffer at the end, so that it doesn't show
+          ;; when the user kills the thing docs buffer.
+          (bury-buffer doc-buffer))
+      (error "No provider found for '%s %s'" type thing))))
 
 
 (defun jpl/terraform-doc--thing-at-point ()
