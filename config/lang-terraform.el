@@ -35,6 +35,7 @@
 
   ;; Docs
   (local-set-key "\C-o\C-d" 'jpl/terraform-doc-at-point-in-buffer)
+  (local-set-key "\C-odu" 'jpl/terraform-copy-doc-url)
 
   ;; Find
   (local-set-key "\C-ofr" 'lsp-find-references)
@@ -126,3 +127,43 @@ The provider docs are fetched from GitHub on first lookup."
       (forward-symbol 2)
       (let* ((thing (substring-no-properties (thing-at-point 'symbol))))
         (list type thing)))))
+
+
+
+
+
+;; Extend terraform-mode to copy the
+
+(require 'terraform-mode)
+
+(defun jpl/terraform-copy-doc-url ()
+  "Copy the URL documenting the resource at point."
+  (interactive)
+  (let* ((url (terraform--resource-url-at-point)))
+    (kill-new url)
+    (message "Copied URL: %s" url)))
+
+
+(defvar jpl/terraform--prefix-to-provider-namespace
+  '(
+    ("template" . "hashicorp")
+    ("aws" . "hashicorp")
+    ))
+
+(defun jpl/terraform--get-configured-resource-provider-namespace (provider)
+  "Return provider namespace for PROVIDER."
+  (cdr (assoc-string provider jpl/terraform--prefix-to-provider-namespace provider)))
+
+
+(defun jpl/terraform--advice-get-resource-provider-namespace (orig-fun provider)
+  "Return provider namespace for PROVIDER from configuration if
+available, otherwise by running `terraform providers`."
+  (or (jpl/terraform--get-configured-resource-provider-namespace provider)
+      (funcall orig-fun provider)))
+
+(advice-add
+ 'terraform--get-resource-provider-namespace
+ :around #'jpl/terraform--advice-get-resource-provider-namespace)
+
+
+;; (message (jpl/terraform--get-configured-resource-provider-namespace "aws"))
