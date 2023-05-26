@@ -81,7 +81,6 @@
 (defun jpl/terraform-doc-find-item (type thing)
   (let* ((short-thing (nth 1 (s-split-up-to "_" thing 1)))
          (regex (format "%s/%s" type short-thing)))
-    (message "JPL: short-thing: %s %s" short-thing regex)
     (goto-char (point-min))
     (search-forward-regexp regex nil t) ;;;JPL: fail, catch and say, not found
     (beginning-of-line)
