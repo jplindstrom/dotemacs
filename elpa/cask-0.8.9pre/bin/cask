@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2012, 2013, 2014 Johan Andersson
+# Copyright (C) 2013-2014, 2016 Sebastian Wiesner
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with GNU Emacs; see the file COPYING.  If not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA 02110-1301, USA.
+
+set -euo pipefail
+CASK=$0
+EMACS=${CASK_EMACS:-${EMACS:-emacs}}
+READLINK=${READLINK:-readlink}
+GREADLINK=${GREADLINK:-greadlink}
+
+if [ "$#" -eq "0" ] ; then
+	subcommand=install
+else
+	subcommand=$1
+	shift
+fi
+
+set +eu
+SRCDIR__=$($READLINK -f "$CASK" 2>/dev/null)
+if [ -z "$SRCDIR__" ] ; then
+    SRCDIR__=$($GREADLINK -f "$CASK" 2>/dev/null)
+fi
+set -eu
+if [ -z "$SRCDIR__" ]; then
+    SRCDIR__=$(python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" "$CASK")
+fi
+SRCDIR_=$(dirname "$SRCDIR__")
+SRCDIR=$(dirname "$SRCDIR_")
+case $subcommand in
+	emacs)
+		EMACS="$EMACS" \
+                "$EMACS" -Q -L "$SRCDIR" -l "$SRCDIR/cask" \
+                --eval "(cask--initialize (expand-file-name default-directory))" \
+                "$@"
+		;;
+	exec)
+		EMACSLOADPATH="$($CASK load-path)" PATH="$($CASK path)" EMACS="$EMACS" "$@"
+		;;
+	*)
+		"$EMACS" -Q --script "$SRCDIR/cask-cli.el" -- $subcommand "$@"
+		;;
+esac
