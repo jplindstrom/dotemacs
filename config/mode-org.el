@@ -399,11 +399,12 @@ markup"
 
 (defun jpl/org-jira-link-from-branch-name (branch-name)
   (interactive)
-  (let* ((jira-issue-text (jpl/issue-from-branch-name branch-name))
-         (jira-base-url "https://zpgltd.atlassian.net/"))
-    (if jira-issue-text
-        (format "%sbrowse/%s" jira-base-url (upcase jira-issue-text))
-      nil)))
+  (when branch-name
+    (let* ((jira-issue-text (jpl/issue-from-branch-name branch-name))
+           (jira-base-url "https://zpgltd.atlassian.net/"))
+      (if jira-issue-text
+          (format "%sbrowse/%s" jira-base-url (upcase jira-issue-text))
+        nil))))
 
 (defun jpl/org-jira-issue-url-property-from-branch-name (branch-name)
   (interactive)
@@ -421,16 +422,18 @@ markup"
 (defun jpl/org-current-branch-name ()
   (interactive)
   (save-excursion
-    (if (not (re-search-backward "* \\(\\b\\w+/\\w+-[0-9]+-.+\\)" nil t))
+    (if (not (re-search-backward "* \\(\\w+ \\)?\\(\\b\\w+/\\w+-[0-9]+-.+\\)" nil t))
         nil
-      (match-string 1))))
+      (match-string 2))))
 
 (defun jpl/copy-org-jira-current-issue-url ()
   (interactive)
   (let* ((branch-name (jpl/org-current-branch-name))
          (url (jpl/org-jira-link-from-branch-name branch-name)))
-    (message "%s (%s)" url branch-name)
-    (kill-new url)))
+    (if (not url)
+        (error "No URL found")
+      (message "%s (%s)" url branch-name)
+      (kill-new url))))
 
 (defun jpl/copy-org-current-branch-name ()
   (interactive)
