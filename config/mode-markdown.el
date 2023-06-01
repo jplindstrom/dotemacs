@@ -1,13 +1,11 @@
 
-
-
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
 (require 'poly-markdown)
 
-(add-to-list 'auto-mode-alist '("\\.text\\'" . poly-markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . poly-markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . poly-markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.text\\'" . poly-gfm-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . poly-gfm-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . poly-gfm-mode))
 
 
 (defun jpl/markdown-outline-toggle (&optional arg)
