@@ -30,6 +30,7 @@
 (defun jpl/setup-markdown-mode ()
   (interactive)
   (visual-line-mode 1)
+  (markdown-display-inline-images)
 
   ;; Tab - toggle heading outline
   (define-key evil-normal-state-local-map (kbd "C-i") 'jpl/markdown-outline-toggle)
