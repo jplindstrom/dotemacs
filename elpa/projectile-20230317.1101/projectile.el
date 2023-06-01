@@ -1,13 +1,13 @@
 ;;; projectile.el --- Manage and navigate projects in Emacs easily -*- lexical-binding: t -*-
 
-;; Copyright © 2011-2022 Bozhidar Batsov <bozhidar@batsov.dev>
+;; Copyright © 2011-2023 Bozhidar Batsov <bozhidar@batsov.dev>
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.dev>
 ;; URL: https://github.com/bbatsov/projectile
-;; Package-Version: 20221122.2032
-;; Package-Commit: 14beeaee7a77601aee4d4982811f6a27f696403c
+;; Package-Version: 20230317.1101
+;; Package-Commit: 271007c6611fcb08ddd326d7de9727c2ad5ef265
 ;; Keywords: project, convenience
-;; Version: 2.7.0
+;; Version: 2.8.0-snapshot
 ;; Package-Requires: ((emacs "25.1"))
 
 ;; This file is NOT part of GNU Emacs.
@@ -86,8 +86,10 @@
 (declare-function ripgrep-regexp "ext:ripgrep")
 (declare-function rg-run "ext:rg")
 (declare-function vterm "ext:vterm")
+(declare-function vterm-other-window "ext:vterm")
 (declare-function vterm-send-return "ext:vterm")
 (declare-function vterm-send-string "ext:vterm")
+
 
 ;;; Customization
 (defgroup projectile nil
@@ -98,7 +100,8 @@
   :link '(url-link :tag "Online Manual" "https://docs.projectile.mx/")
   :link '(emacs-commentary-link :tag "Commentary" "projectile"))
 
-(defcustom projectile-indexing-method (if (eq system-type 'windows-nt) 'native 'alien)
+(defcustom projectile-indexing-method
+  (if (eq system-type 'windows-nt) 'native 'alien)
   "Specifies the indexing method used by Projectile.
 
 There are three indexing methods - native, hybrid and alien.
@@ -357,7 +360,7 @@ containing a root file."
     projectile-root-top-down
     projectile-root-top-down-recurring)
   "A list of functions for finding project root folders.
-The functions will be ran until one of them returns a project folder.
+The functions will be run until one of them returns a project folder.
 Reordering the default functions will alter the project discovery
 algorithm."
   :group 'projectile
@@ -674,10 +677,35 @@ means check all the subdirectories of DIRECTORY.  Etc."
   :type '(repeat (choice directory (cons directory (integer :tag "Depth"))))
   :package-version '(projectile . "1.0.0"))
 
+(defcustom projectile-fd-executable
+  (cond
+   ((executable-find "fdfind") "fdfind")
+   ((executable-find "fd") "fd"))
+  "Path or name of fd executable used by Projectile if enabled.
+Nil means fd is not installed or should not be used."
+  :type 'string)
+
+(defcustom projectile-git-use-fd (when projectile-fd-executable t)
+  "Non-nil means use fd to implement git ls-files.
+This may change Projectile's performance in large Git repositories
+depending on your system, but it will also work around the Git behavior
+that causes deleted files to still be shown in Projectile listings until
+their deletions are staged."
+  :type 'boolean
+  :package-version '(projectile . "2.8.0"))
+
 (defcustom projectile-git-command "git ls-files -zco --exclude-standard"
   "Command used by projectile to get the files in a git project."
   :group 'projectile
   :type 'string)
+
+(defcustom projectile-git-fd-args "-H -0 -E .git -tf --strip-cwd-prefix"
+  "Arguments to fd used to re-implement `git ls-files'.
+This is used with `projectile-fd-executable' when `projectile-git-use-fd'
+is non-nil."
+  :group 'projectile
+  :type 'string
+  :package-version '(projectile . "2.8.0"))
 
 (defcustom projectile-git-submodule-command "git submodule --quiet foreach 'echo $displaypath' | tr '\\n' '\\0'"
   "Command used by projectile to list submodules of a given git repository.
@@ -862,7 +890,7 @@ Should be set via .dir-locals.el.")
 
 ;;; Version information
 
-(defconst projectile-version "2.7.0"
+(defconst projectile-version "2.8.0-snapshot"
   "The current version of Projectile.")
 
 (defun projectile--pkg-version ()
@@ -1424,7 +1452,12 @@ IGNORED-DIRECTORIES may optionally be provided."
   "Determine which external command to invoke based on the project's VCS.
 Fallback to a generic command when not in a VCS-controlled project."
   (pcase vcs
-    ('git projectile-git-command)
+    ('git (if (and projectile-git-use-fd projectile-fd-executable)
+              (concat
+               projectile-fd-executable
+               " "
+               projectile-git-fd-args)
+            projectile-git-command))
     ('hg projectile-hg-command)
     ('fossil projectile-fossil-command)
     ('bzr projectile-bzr-command)
@@ -3006,6 +3039,13 @@ it acts on the current project."
   :type 'function
   :package-version '(projectile . "1.0.0"))
 
+(defun projectile-nimble-project-p (&optional dir)
+  "Check if a project contains a Nimble project marker.
+Nim projects that use Nimble contain a <projectname>.nimble file.
+When DIR is specified it checks DIR's project, otherwise
+it acts on the current project."
+  (projectile-verify-file-wildcard "?*.nimble" dir))
+
 ;;;; Constant signifying opting out of CMake preset commands.
 (defconst projectile--cmake-no-preset "*no preset*")
 
@@ -3185,6 +3225,14 @@ a manual COMMAND-TYPE command is created with
                                   :compile "dotnet build"
                                   :run "dotnet run"
                                   :test "dotnet test")
+(projectile-register-project-type 'nim-nimble #'projectile-nimble-project-p
+                                  :project-file "?*.nimble"
+                                  :compile "nimble --noColor build --colors:off"
+                                  :install "nimble --noColor install --colors:off"
+                                  :test "nimble --noColor test -d:nimUnittestColor:off --colors:off"
+                                  :run "nimble --noColor run --colors:off"
+                                  :src-dir "src"
+                                  :test-dir "tests")
 ;; File-based detection project types
 
 ;; Universal
@@ -3320,6 +3368,12 @@ a manual COMMAND-TYPE command is created with
                                   :project-file "poetry.lock"
                                   :compile "poetry build"
                                   :test "poetry run python -m unittest discover"
+                                  :test-prefix "test_"
+                                  :test-suffix "_test")
+(projectile-register-project-type 'python-toml '("pyproject.toml")
+                                  :project-file "pyproject.toml"
+                                  :compile "python -m build"
+                                  :test "python -m unittest discover"
                                   :test-prefix "test_"
                                   :test-suffix "_test")
 ;; Java & friends
@@ -3472,6 +3526,19 @@ a manual COMMAND-TYPE command is created with
                                   :test "pub run test"
                                   :run "dart"
                                   :test-suffix "_test.dart")
+
+;; Elm
+(projectile-register-project-type 'elm '("elm.json")
+                                  :project-file "elm.json"
+                                  :compile "elm make")
+
+;; Julia
+(projectile-register-project-type 'julia '("Project.toml")
+                                  :project-file "Project.toml"
+                                  :compile "julia --project=@. -e 'import Pkg; Pkg.precompile(); Pkg.build()'"
+                                  :test "julia --project=@. -e 'import Pkg; Pkg.test()' --check-bounds=yes"
+                                  :src-dir "src"
+                                  :test-dir "test")
 
 ;; OCaml
 (projectile-register-project-type 'ocaml-dune '("dune-project")
@@ -4454,6 +4521,25 @@ Use a prefix argument ARG to indicate creation of a new process instead."
           (term-char-mode))))
     (switch-to-buffer buffer-name)))
 
+(defun projectile--vterm (&optional new-process other-window)
+  "Invoke `vterm' in the project's root.
+
+Use argument NEW-PROCESS to indicate creation of a new process instead.
+Use argument OTHER-WINDOW to indentation whether the buffer should
+be displayed in a different window.
+
+Switch to the project specific term buffer if it already exists."
+  (let* ((project (projectile-acquire-root))
+         (buffer (projectile-generate-process-name "vterm" new-process project)))
+    (unless (buffer-live-p (get-buffer buffer))
+      (unless (require 'vterm nil 'noerror)
+        (error "Package 'vterm' is not available"))
+      (projectile-with-default-dir project
+        (if other-window
+            (vterm-other-window buffer)
+          (vterm buffer))))
+    (switch-to-buffer buffer)))
+
 ;;;###autoload
 (defun projectile-run-vterm (&optional arg)
   "Invoke `vterm' in the project's root.
@@ -4462,14 +4548,17 @@ Switch to the project specific term buffer if it already exists.
 
 Use a prefix argument ARG to indicate creation of a new process instead."
   (interactive "P")
-  (let* ((project (projectile-acquire-root))
-         (buffer (projectile-generate-process-name "vterm" arg project)))
-    (unless (buffer-live-p (get-buffer buffer))
-      (unless (require 'vterm nil 'noerror)
-        (error "Package 'vterm' is not available"))
-      (projectile-with-default-dir project
-        (vterm buffer)))
-    (switch-to-buffer buffer)))
+  (projectile--vterm arg))
+
+;;;###autoload
+(defun projectile-run-vterm-other-window (&optional arg)
+  "Invoke `vterm' in the project's root.
+
+Switch to the project specific term buffer if it already exists.
+
+Use a prefix argument ARG to indicate creation of a new process instead."
+  (interactive "P")
+  (projectile--vterm arg 'other-window))
 
 (defun projectile-files-in-project-directory (directory)
   "Return a list of files in DIRECTORY."
@@ -5163,7 +5252,8 @@ with a prefix ARG."
 
 Normally you'll be prompted for a compilation command, unless
 variable `compilation-read-command'.  You can force the prompt
-with a prefix ARG."
+with a prefix ARG.  Per project default command can be set through
+`projectile-project-compilation-cmd'."
   (interactive "P")
   (let ((command (projectile-compilation-command (projectile-compilation-dir)))
         (command-map (if (projectile--cache-project-commands-p) projectile-compilation-cmd-map)))
@@ -5921,6 +6011,7 @@ thing shown in the mode line otherwise."
     (define-key map (kbd "x s") #'projectile-run-shell)
     (define-key map (kbd "x g") #'projectile-run-gdb)
     (define-key map (kbd "x v") #'projectile-run-vterm)
+    (define-key map (kbd "x 4 v") #'projectile-run-vterm-other-window)
     ;; misc
     (define-key map (kbd "z") #'projectile-cache-current-file)
     (define-key map (kbd "<left>") #'projectile-previous-project-buffer)
@@ -6026,6 +6117,42 @@ when opening new files."
       (when (> (length project-buffers) projectile-max-file-buffer-count)
         (kill-buffer (car (last project-buffers)))))))
 
+;;;; project.el integration
+;;
+;; Projectile will become the default provider for
+;; project.el project and project files lookup when
+;; projectile-mode is enabled.
+;;
+;; The integration can also be manually enabled like this:
+;;
+;; (add-hook 'project-find-functions #'project-projectile)
+;;
+;; See https://github.com/bbatsov/projectile/issues/1591 for
+;; more details.
+
+;; it's safe to require this directly, as it was added in Emacs 25.1
+(require 'project)
+
+(cl-defmethod project-root ((project (head projectile)))
+  (cdr project))
+
+(cl-defmethod project-files ((project (head projectile)) &optional _dirs)
+  (let ((root (project-root project)))
+    ;; Make paths absolute and ignore the optional dirs argument,
+    ;; see https://github.com/bbatsov/projectile/issues/1591#issuecomment-896423965
+    ;; That's needed because Projectile uses relative paths for project files
+    ;; and project.el expects them to be absolute.
+    ;; FIXME: That's probably going to be very slow in large projects.
+    (mapcar (lambda (f)
+              (concat root f))
+            (projectile-project-files root))))
+
+(defun project-projectile (dir)
+  "Return Projectile project of form ('projectile . root-dir) for DIR."
+  (let ((root (projectile-project-root dir)))
+    (when root
+      (cons 'projectile root))))
+
 ;;;###autoload
 (define-minor-mode projectile-mode
   "Minor mode to assist project management and navigation.
@@ -6062,12 +6189,14 @@ Otherwise behave as if called interactively.
     (projectile--cleanup-known-projects)
     (when projectile-auto-discover
       (projectile-discover-projects-in-search-path))
+    (add-hook 'project-find-functions #'project-projectile)
     (add-hook 'find-file-hook 'projectile-find-file-hook-function)
     (add-hook 'projectile-find-dir-hook #'projectile-track-known-projects-find-file-hook t)
     (add-hook 'dired-before-readin-hook #'projectile-track-known-projects-find-file-hook t t)
     (advice-add 'compilation-find-file :around #'compilation-find-file-projectile-find-compilation-buffer)
     (advice-add 'delete-file :before #'delete-file-projectile-remove-from-cache))
    (t
+    (remove-hook 'project-find-functions #'project-projectile)
     (remove-hook 'find-file-hook #'projectile-find-file-hook-function)
     (remove-hook 'dired-before-readin-hook #'projectile-track-known-projects-find-file-hook t)
     (advice-remove 'compilation-find-file #'compilation-find-file-projectile-find-compilation-buffer)
@@ -6084,38 +6213,6 @@ Otherwise behave as if called interactively.
 
 ;;;###autoload
 (define-obsolete-function-alias 'projectile-global-mode 'projectile-mode "1.0")
-
-;;;; project.el integration
-;;
-;; Projectile will become the default provider for
-;; project.el project and project files lookup.
-;; See https://github.com/bbatsov/projectile/issues/1591 for
-;; more details.
-
-;; it's safe to require this directly, as it was added in Emacs 25.1
-(require 'project)
-
-(cl-defmethod project-root ((project (head projectile)))
-  (cdr project))
-
-(cl-defmethod project-files ((project (head projectile)) &optional _dirs)
-  (let ((root (project-root project)))
-    ;; Make paths absolute and ignore the optional dirs argument,
-    ;; see https://github.com/bbatsov/projectile/issues/1591#issuecomment-896423965
-    ;; That's needed because Projectile uses relative paths for project files
-    ;; and project.el expects them to be absolute.
-    ;; FIXME: That's probably going to be very slow in large projects.
-    (mapcar (lambda (f)
-              (concat root f))
-            (projectile-project-files root))))
-
-(defun project-projectile (dir)
-  "Return Projectile project of form ('projectile . root-dir) for DIR."
-  (let ((root (projectile-project-root dir)))
-    (when root
-      (cons 'projectile root))))
-
-(add-hook 'project-find-functions #'project-projectile)
 
 (provide 'projectile)
 

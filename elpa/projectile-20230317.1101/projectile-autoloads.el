@@ -410,6 +410,15 @@ Use a prefix argument ARG to indicate creation of a new process instead.
 
 \(fn &optional ARG)" t nil)
 
+(autoload 'projectile-run-vterm-other-window "projectile" "\
+Invoke `vterm' in the project's root.
+
+Switch to the project specific term buffer if it already exists.
+
+Use a prefix argument ARG to indicate creation of a new process instead.
+
+\(fn &optional ARG)" t nil)
+
 (autoload 'projectile-replace "projectile" "\
 Replace literal string in project using non-regexp `tags-query-replace'.
 
@@ -474,7 +483,8 @@ Run project compilation command.
 
 Normally you'll be prompted for a compilation command, unless
 variable `compilation-read-command'.  You can force the prompt
-with a prefix ARG.
+with a prefix ARG.  Per project default command can be set through
+`projectile-project-compilation-cmd'.
 
 \(fn ARG)" t nil)
 
