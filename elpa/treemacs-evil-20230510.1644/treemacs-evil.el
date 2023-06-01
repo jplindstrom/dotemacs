@@ -1,10 +1,11 @@
 ;;; treemacs-evil.el --- Evil mode integration for treemacs -*- lexical-binding: t -*-
 
-;; Copyright (C) 2020 Alexander Miller
+;; Copyright (C) 2023 Alexander Miller
 
 ;; Author: Alexander Miller <alexanderm@web.de>
-;; Package-Requires: ((emacs "25") (evil "1.2.12") (treemacs "0.0"))
-;; Package-Version: 20200302.558
+;; Package-Requires: ((emacs "26.1") (evil "1.2.12") (treemacs "0.0"))
+;; Package-Version: 20230510.1644
+;; Package-Commit: 12193dfa41d73f26386eacaeafd9ffaeee6491bd
 ;; Version: 0
 ;; Homepage: https://github.com/Alexander-Miller/treemacs
 
@@ -29,7 +30,13 @@
 (require 'evil)
 (require 'treemacs)
 
+(treemacs-import-functions-from "treemacs-hydras"
+  treemacs-common-helpful-hydra
+  treemacs-advanced-helpful-hydra)
+
 (declare-function treemacs-add-bookmark "treemacs-bookmarks.el")
+
+(declare-function treemacs-git-commit-diff-mode "treemacs-commit-diff-mode.el")
 
 (evil-define-state treemacs
   "Treemacs state"
@@ -73,26 +80,41 @@ Then call ORIG-FUN with its ARGS and reopen treemacs if it was open before."
 (define-key evil-treemacs-state-map (kbd "M-J") #'treemacs-next-line-other-window)
 (define-key evil-treemacs-state-map (kbd "M-K") #'treemacs-previous-line-other-window)
 (define-key evil-treemacs-state-map (kbd "th")  #'treemacs-toggle-show-dotfiles)
+(define-key evil-treemacs-state-map (kbd "ti")  #'treemacs-hide-gitignored-files-mode)
 (define-key evil-treemacs-state-map (kbd "tw")  #'treemacs-toggle-fixed-width)
 (define-key evil-treemacs-state-map (kbd "tv")  #'treemacs-fringe-indicator-mode)
 (define-key evil-treemacs-state-map (kbd "tf")  #'treemacs-follow-mode)
 (define-key evil-treemacs-state-map (kbd "ta")  #'treemacs-filewatch-mode)
 (define-key evil-treemacs-state-map (kbd "tg")  #'treemacs-git-mode)
+(define-key evil-treemacs-state-map (kbd "tc")  #'treemacs-indicate-top-scroll-mode)
+(define-key evil-treemacs-state-map (kbd "td")  #'treemacs-git-commit-diff-mode)
+(define-key evil-treemacs-state-map (kbd "tn")  #'treemacs-indent-guide-mode)
 (define-key evil-treemacs-state-map (kbd "w")   #'treemacs-set-width)
+(define-key evil-treemacs-state-map (kbd ">")   #'treemacs-increase-width)
+(define-key evil-treemacs-state-map (kbd "<")   #'treemacs-decrease-width)
 (define-key evil-treemacs-state-map (kbd "b")   #'treemacs-add-bookmark)
-(define-key evil-treemacs-state-map (kbd "?")   #'treemacs-helpful-hydra)
+(define-key evil-treemacs-state-map (kbd "?")   #'treemacs-common-helpful-hydra)
+(define-key evil-treemacs-state-map (kbd "C-?") #'treemacs-advanced-helpful-hydra)
 (define-key evil-treemacs-state-map (kbd "RET") #'treemacs-RET-action)
+(define-key evil-treemacs-state-map (kbd "TAB") #'treemacs-TAB-action)
 (define-key evil-treemacs-state-map (kbd "H")   #'treemacs-collapse-parent-node)
 (define-key evil-treemacs-state-map (kbd "!")   #'treemacs-run-shell-command-for-current-node)
+(define-key evil-treemacs-state-map (kbd "=")   #'treemacs-fit-window-width)
+(define-key evil-treemacs-state-map (kbd "W")   #'treemacs-extra-wide-toggle)
 
-(evil-define-key 'treemacs treemacs-mode-map (kbd "yr")     #'treemacs-copy-project-root)
-(evil-define-key 'treemacs treemacs-mode-map (kbd "yy")     #'treemacs-copy-path-at-point)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "yp")     #'treemacs-copy-project-path-at-point)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "ya")     #'treemacs-copy-absolute-path-at-point)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "yr")     #'treemacs-copy-relative-path-at-point)
 (evil-define-key 'treemacs treemacs-mode-map (kbd "yf")     #'treemacs-copy-file)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "yv")     #'treemacs-paste-dir-at-point-to-minibuffer)
 (evil-define-key 'treemacs treemacs-mode-map (kbd "gr")     #'treemacs-refresh)
 (evil-define-key 'treemacs treemacs-mode-map [down-mouse-1] #'treemacs-leftclick-action)
 (evil-define-key 'treemacs treemacs-mode-map [drag-mouse-1] #'treemacs-dragleftclick-action)
-(evil-define-key 'treemacs treemacs-mode-map (kbd "h")      #'treemacs-root-up)
-(evil-define-key 'treemacs treemacs-mode-map (kbd "l")      #'treemacs-root-down)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "h")      #'treemacs-COLLAPSE-action)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "RET")    #'treemacs-RET-action)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "l")      #'treemacs-RET-action)
+(unless (window-system)
+  (evil-define-key 'treemacs treemacs-mode-map [C-i] #'treemacs-TAB-action))
 
 (provide 'treemacs-evil)
 
