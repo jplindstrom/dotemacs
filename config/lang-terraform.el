@@ -46,6 +46,10 @@
   (local-set-key "\C-oe\C-f" 'lsp-format-buffer)
   ;; Fix
   (local-set-key "\C-oef" 'lsp-ui-sideline-apply-code-actions)
+
+
+  ;; Tab - toggle heading outline
+  (define-key evil-normal-state-local-map (kbd "C-i") 'jpl/terraform-outline-toggle)
   )
 
 (defun terraform-my-setup ()
@@ -167,3 +171,27 @@ available, otherwise by running `terraform providers`."
 
 
 ;; (message (jpl/terraform--get-configured-resource-provider-namespace "aws"))
+
+
+
+
+
+;;; Toggle hide/show subtrees
+(defvar terraform-cycle-global-status 1)
+(defun jpl/terraform-outline-toggle (&optional arg)
+  "Visibility toggling for Terraform mode."
+  (interactive "P")
+
+  (cond
+   ;; Move from overview to all
+   ((eq terraform-cycle-global-status 2)
+    (outline-show-all)
+    (message "SHOW ALL")
+    (setq terraform-cycle-global-status 1))
+   ;; Defaults to overview
+   (t
+    (outline-hide-body)
+    (message "OVERVIEW")
+    (setq terraform-cycle-global-status 2)
+    )))
+
