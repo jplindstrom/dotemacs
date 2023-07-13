@@ -41,3 +41,17 @@
   )
 
 (add-to-list 'auto-mode-alist '("\\.json$" . jpl/enable-json-mode))
+
+
+
+(defun jpl/convert-json-region-to-string-literal (beg end)
+  (interactive "r")
+  (unless (use-region-p)
+    (error "Select a valid JSON construct to encode as a JSON string"))
+  (shell-command-on-region beg end "jq -sR ." nil t))
+
+(defun jpl/convert-json-string-literal-to-json (beg end)
+  (interactive "r")
+  (unless (use-region-p)
+    (error "Select a valid JSON string literal to parse as JSON"))
+  (shell-command-on-region beg end "jq -r ." nil t))
