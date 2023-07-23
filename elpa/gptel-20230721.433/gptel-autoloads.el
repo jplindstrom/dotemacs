@@ -9,6 +9,16 @@
 ;;;### (autoloads nil "gptel" "gptel.el" (0 0 0 0))
 ;;; Generated autoloads from gptel.el
 
+(autoload 'gptel-mode "gptel" "\
+Minor mode for interacting with ChatGPT.
+
+If called interactively, enable Gptel mode if ARG is positive,
+and disable it if ARG is zero or negative.  If called from Lisp,
+also enable the mode if ARG is omitted or nil, and toggle it if
+ARG is `toggle'; disable the mode otherwise.
+
+\(fn &optional ARG)" t nil)
+
 (autoload 'gptel-send "gptel" "\
 Submit this prompt to ChatGPT.
 
@@ -41,19 +51,24 @@ Retrieve response to prompt in INFO.
 
 INFO is a plist with the following keys:
 - :prompt (the prompt being sent)
-- :gptel-buffer (the gptel buffer)
-- :insert-marker (marker at which to insert the response).
+- :buffer (the gptel buffer)
+- :position (marker at which to insert the response).
 
-\(fn INFO)" nil nil)
+Call CALLBACK with the response and INFO afterwards. If omitted
+the response is inserted into the current buffer after point.
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "gptel-curl" '("gptel-curl--")))
+\(fn INFO &optional CALLBACK)" nil nil)
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "gptel-curl" '("gptel-")))
 
 ;;;***
 
 ;;;### (autoloads nil "gptel-transient" "gptel-transient.el" (0 0
 ;;;;;;  0 0))
 ;;; Generated autoloads from gptel-transient.el
- (autoload 'gptel-send-menu "gptel-transient" nil t)
+ (autoload 'gptel-menu "gptel-transient" nil t)
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "gptel-transient" '("gptel-")))
 
 ;;;***
 
