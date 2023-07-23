@@ -68,3 +68,31 @@
         (forward-sexp)
         (set-mark beg)
         t))))
+
+(defun jpl/toggle-json-string-literal-and-structure ()
+  "If point is in a string literal, this toggles it to a JSON.
+If there's an active region, this toggles it to a string literal.
+Otherwise, it will try to find the current or outer [] or {} structure and converts that."
+  (interactive)
+  (cond ((use-region-p)
+         (jpl/convert-json-region-to-string-literal (region-beginning) (region-end)))
+        ((jpl/in-string-p)
+         (when (jpl/select-string-literal-at-point)
+           (jpl/convert-json-string-literal-to-json (region-beginning) (region-end))))
+        (t
+         (when (jpl/find-and-select-surrounding-json)
+           (jpl/convert-json-region-to-string-literal (region-beginning) (region-end))))))
+
+(defun jpl/in-string-p ()
+  "Check if point is within a string."
+  (interactive)
+  (nth 3 (syntax-ppss)))
+
+(defun jpl/find-and-select-surrounding-json ()
+  "Find the current or outer [] or {} structure and select it."
+  (interactive)
+  (ignore-errors
+    (when (search-forward-regexp "\\[\\|{" nil 'go-end)
+      (backward-char)
+      (mark-sexp)
+      t)))
