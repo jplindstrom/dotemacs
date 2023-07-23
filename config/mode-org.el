@@ -508,3 +508,7 @@ markup"
 (define-key org-mode-map "\C-oDr" 'org-download-rename-at-point)
 
 
+
+(fset 'jpl/markdown-make-code-block
+   (kmacro-lambda-form [?V ?o ?` ?` ?` escape ?g ?v ?o ?V ?O ?` ?` ?` escape ?g ?v ?o ?V ?j ?j] 0 "%d"))
+
