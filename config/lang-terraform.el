@@ -195,3 +195,84 @@ available, otherwise by running `terraform providers`."
     (setq terraform-cycle-global-status 2)
     )))
 
+
+;;; Render markdown for terraform resource
+;; https://registry.terraform.io/v2/providers/hashicorp/aws?include=categories,moved-to,potential-fork-of,provider-versions,top-modules&include=categories%2Cmoved-to%2Cpotential-fork-of%2Cprovider-versions%2Ctop-modules&name=aws&namespace=hashicorp
+;; https://registry.terraform.io/v2/provider-docs?filter%5Bprovider-version%5D=39513&filter%5Bcategory%5D=resources&filter%5Bslug%5D=lambda_function&page%5Bsize%5D=1
+;;    RESOURCE=lambda_function; curl $(curl "https://registry.terraform.io/v2/provider-docs?filter%5Bprovider-version%5D=39513&filter%5Bcategory%5D=resources&filter%5Bslug%5D=$RESOURCE&page%5Bsize%5D=1" | jq '"https://registry.terraform.io" + .data[0].links.self' -r) | jq .data.attributes.content -r 
+;;    RESOURCE=lambda_function; curl "https://registry.terraform.io/v2/provider-docs?filter%5Bprovider-version%5D=39513&filter%5Bcategory%5D=resources&filter%5Bslug%5D=$RESOURCE&page%5Bsize%5D=1"
+
+(defun jpl/terraform-doc-markdown-for-resource-at-point ()
+  (interactive)
+  )
+
+
+;; https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function
+;; https://registry.terraform.io/v2/providers/hashicorp/aws?include=categories,moved-to,potential-fork-of,provider-versions,top-modules&include=categories%2Cmoved-to%2Cpotential-fork-of%2Cprovider-versions%2Ctop-modules&name=aws&namespace=hashicorp
+;; https://registry.terraform.io/v2/provider-versions/40112?include=provider-docs%2Chas-cdktf-docs
+;; https://registry.terraform.io/v2/provider-docs/2664154
+
+
+
+
+(require 'json)
+(require 'request)
+
+(defun jpl/request-json (url)
+  "Make a GET request to URL and parse the JSON response."
+  (let (response-data)
+    (request url
+             :parser 'json-read
+             :success (cl-function
+                       (lambda (&key data &allow-other-keys)
+                         (setq response-data data)))
+             :sync t)
+    response-data))
+
+(defun jpl/extract-data-attributes-source-url (json)
+  "Extract data.attributes.source-url from JSON."
+  (cdr (assoc 'source-url (cdr (assoc 'attributes (assoc 'data json))))))
+
+(defun jpl/extract-data-relationships-provider-versions-data-id (json)
+  "Extract data.relationships.provider-versions.data.id from JSON."
+  (cdr (assoc 'id (cdr (assoc 'data (assoc 'provider-versions (assoc 'relationships (assoc 'data json))))))))
+
+(defun jpl/extract-data-relationships-provider-docs-data-id (json)
+  "Extract data.relationships.provider-docs.data.id from JSON."
+  (cdr (assoc 'id (cdr (assoc 'data (assoc 'provider-docs (assoc 'relationships (assoc 'data json))))))))
+
+(defun jpl/extract-data-attributes-body (json)
+  "Extract data.attributes.body from JSON."
+  (cdr (assoc 'body (cdr (assoc 'attributes (assoc 'data json))))))
+
+(defun jpl/terraform-doc-url-to-markdown (url)
+  "Fetch the Terraform documentation from URL and return it as Markdown."
+  (let* ((json1 (jpl/request-json url))
+         (source-url (jpl/extract-data-attributes-source-url json1))
+         (json2 (jpl/request-json source-url))
+         (provider-versions-id (jpl/extract-data-relationships-provider-versions-data-id json2))
+         (json3 (jpl/request-json (format "https://registry.terraform.io/v2/provider-versions/%s?include=provider-docs%%2Chas-cdktf-docs" provider-versions-id)))
+         (provider-docs-id (jpl/extract-data-relationships-provider-docs-data-id json3))
+         (json4 (jpl/request-json (format "https://registry.terraform.io/v2/provider-docs/%s" provider-docs-id))))
+    (jpl/extract-data-attributes-body json4)))
+
+
+
+(message "JPL: markdown: %s" (jpl/terraform-doc-url-to-markdown "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function"))
+
+
+
+(defun jpl/terraform-resource-markdown-doc (provider-resource-name)
+  "Fetch the Terraform documentation for PROVIDER-RESOURCE-NAME and display it in a buffer."
+  (interactive "sEnter provider and resource name (e.g., aws_lambda_function): ")
+  (let* ((provider-resource-list (split-string provider-resource-name "_"))
+         (provider-name (car provider-resource-list))
+         (resource-name (mapconcat 'identity (cdr provider-resource-list) "_"))
+         (url (format "https://registry.terraform.io/providers/hashicorp/%s/latest/docs/resources/%s" provider-name resource-name))
+         (markdown (jpl/terraform-doc-url-to-markdown url))
+         (buffer (get-buffer-create provider-resource-name)))
+    (with-current-buffer buffer
+      (erase-buffer)
+      (insert markdown)
+      (gfm-view-mode))
+    (switch-to-buffer buffer)))
