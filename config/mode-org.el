@@ -509,6 +509,24 @@ markup"
 
 
 
+;;; todo status
+
+;; Go to DONE
+(defun jpl/org-mode-set-todo-DONE ()
+  (interactive)
+  (org-todo "DONE")
+  )
+
+;; Should really be y and o, but for ergonomics x usability, let's use
+;; these instead
+(define-key org-mode-map "\M-\C-u" 'org-shiftleft)
+(define-key org-mode-map "\M-\C-i" 'org-shiftright)
+(define-key org-mode-map "\M-\C-p" 'jpl/org-mode-set-todo-DONE)
+
+
+
+
+
 (fset 'jpl/markdown-make-code-block
    (kmacro-lambda-form [?V ?o ?` ?` ?` escape ?g ?v ?o ?V ?O ?` ?` ?` escape ?g ?v ?o ?V ?j ?j] 0 "%d"))
 
