@@ -422,7 +422,7 @@ markup"
 (defun jpl/org-current-branch-name ()
   (interactive)
   (save-excursion
-    (if (not (re-search-backward "* \\(\\w+ \\)?\\(\\b\\w+/\\w+-[0-9]+-.+\\)" nil t))
+    (if (not (re-search-backward "^\\*\\* \\(\\w+ \\)?\\(\\b\\w+/\\w+-[0-9]+-.+\\)" nil t))
         nil
       (match-string 2))))
 
