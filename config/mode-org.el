@@ -145,6 +145,7 @@ markup"
    (shell . t)
    (calc . t)
    (verb . t)
+   (chatgpt-shell . t)
    ))
 
 (defun my/org-confirm-babel-evaluate (lang body)
