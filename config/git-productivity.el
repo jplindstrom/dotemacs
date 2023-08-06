@@ -17,4 +17,23 @@
 
 ;; git-link
 ;; https://github.com/sshaw/git-link
-(global-set-key (kbd "C-o e c g") 'git-link)
+(global-set-key (kbd "C-o e c g") 'jpl/git-link-dwim-branch)
+
+
+
+;;; copy git-link for master branch
+
+(defun jpl/git-link-master-branch ()
+  (interactive)
+  (let ((git-link-default-branch "master")
+        (current-prefix-arg nil))
+    (call-interactively 'git-link)))
+
+
+(defun jpl/git-link-dwim-branch (arg)
+  "Call git-link to copy a git link for the current branch. If
+called with a prefix argument, use the 'master' branch instead."
+  (interactive "P")
+  (if arg
+      (jpl/git-link-master-branch)
+    (call-interactively 'git-link)))
