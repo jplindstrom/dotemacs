@@ -17,7 +17,7 @@
 
 ;; git-link
 ;; https://github.com/sshaw/git-link
-(global-set-key (kbd "C-o e c g") 'jpl/git-link-dwim-branch)
+(global-set-key (kbd "C-o e c g") 'jpl/git-link-for-branch)
 
 
 
@@ -30,7 +30,7 @@
     (call-interactively 'git-link)))
 
 
-(defun jpl/git-link-dwim-branch (arg)
+(defun jpl/git-link-for-branch (arg)
   "Call git-link to copy a git link for the current branch. If
 called with a prefix argument, use the 'master' branch instead."
   (interactive "P")
