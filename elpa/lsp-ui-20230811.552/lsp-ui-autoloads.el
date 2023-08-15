@@ -41,7 +41,7 @@ omitted or nil, and toggle it if ARG is ‘toggle’.
 ;;;### (autoloads nil "lsp-ui-imenu" "lsp-ui-imenu.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-ui-imenu.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-ui-imenu" '("lsp-ui-imenu")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-ui-imenu" '("lsp-ui-imenu" "overlay-priority")))
 
 ;;;***
 
