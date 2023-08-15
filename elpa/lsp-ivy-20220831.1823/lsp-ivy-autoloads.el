@@ -28,6 +28,10 @@ Remove a project-root from the list of workspace folders." t nil)
 
 ;;;***
 
+;;;### (autoloads nil nil ("lsp-ivy-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
