@@ -520,9 +520,9 @@ markup"
 
 ;; Should really be y and o, but for ergonomics x usability, let's use
 ;; these instead
-(define-key org-mode-map "\M-\C-u" 'org-shiftleft)
-(define-key org-mode-map "\M-\C-i" 'org-shiftright)
-(define-key org-mode-map "\M-\C-p" 'jpl/org-mode-set-todo-DONE)
+(define-key org-mode-map "\M-\S-u" 'org-shiftleft)
+(define-key org-mode-map "\M-\S-i" 'org-shiftright)
+(define-key org-mode-map "\M-\S-p" 'jpl/org-mode-set-todo-DONE)
 
 
 
