@@ -326,7 +326,7 @@ markup"
 
 
 (defun org-export-subtree-as-markdown (prefix-arg)
-  "Export current subtreee."
+  "Export current subtree."
   (interactive "P")
   (save-excursion
     ;; Copy tree to temp buffer
