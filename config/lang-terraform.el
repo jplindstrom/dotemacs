@@ -235,26 +235,53 @@ available, otherwise by running `terraform providers`."
 
 (defun jpl/extract-data-relationships-provider-versions-data-id (json)
   "Extract data.relationships.provider-versions.data.id from JSON."
-  (cdr (assoc 'id (cdr (assoc 'data (assoc 'provider-versions (assoc 'relationships (assoc 'data json))))))))
+  (let* ((data (assoc 'data json))
+         (_ (message "JPL: data: %s" data))
+         (relationships (assoc 'relationships data))
+         (_ (message "JPL: relationships: %s" relationships))
+         (provider-versions (assoc 'provider-versions relationships))
+         (_ (message "JPL: provider-versions: %s" provider-versions))
+         (data2 (elt (cdr (assoc 'data provider-versions)) 0)) ;; get the first element of the array
+         (_ (message "JPL: data2: %s" data2))
+         (id (cdr (assoc 'id data2))))
+    (message "JPL: id: %s" id)
+    id))
 
 (defun jpl/extract-data-relationships-provider-docs-data-id (json)
   "Extract data.relationships.provider-docs.data.id from JSON."
-  (cdr (assoc 'id (cdr (assoc 'data (assoc 'provider-docs (assoc 'relationships (assoc 'data json))))))))
+  (let* ((data (assoc 'data json))
+         (_ (message "JPL: data: %s" data))
+         (relationships (assoc 'relationships data))
+         (_ (message "JPL: relationships: %s" relationships))
+         (provider-docs (assoc 'provider-docs relationships))
+         (_ (message "JPL: provider-docs: %s" provider-docs))
+         (data2 (assoc 'data provider-docs))
+         (_ (message "JPL: data2: %s" data2))
+         (id (cdr (assoc 'id data2))))
+    (message "JPL: id: %s" id)
+    id))
 
 (defun jpl/extract-data-attributes-body (json)
   "Extract data.attributes.body from JSON."
   (cdr (assoc 'body (cdr (assoc 'attributes (assoc 'data json))))))
 
+(defun jpl/extract-resource-name (url)
+  "Extract the resource name from the URL."
+  (car (last (split-string url "/"))))
+
 (defun jpl/terraform-doc-url-to-markdown (url)
   "Fetch the Terraform documentation from URL and return it as Markdown."
-  (let* ((json1 (jpl/request-json url))
-         (source-url (jpl/extract-data-attributes-source-url json1))
-         (json2 (jpl/request-json source-url))
-         (provider-versions-id (jpl/extract-data-relationships-provider-versions-data-id json2))
-         (json3 (jpl/request-json (format "https://registry.terraform.io/v2/provider-versions/%s?include=provider-docs%%2Chas-cdktf-docs" provider-versions-id)))
-         (provider-docs-id (jpl/extract-data-relationships-provider-docs-data-id json3))
-         (json4 (jpl/request-json (format "https://registry.terraform.io/v2/provider-docs/%s" provider-docs-id))))
-    (jpl/extract-data-attributes-body json4)))
+  (let* ((resource-name (jpl/extract-resource-name url))
+         (jpl1 (message "JPL: resource-name %s" resource-name))
+         (json1 (jpl/request-json "https://registry.terraform.io/v2/providers/hashicorp/aws?include=categories,moved-to,potential-fork-of,provider-versions,top-modules&include=categories%2Cmoved-to%2Cpotential-fork-of%2Cprovider-versions%2Ctop-modules&name=aws&namespace=hashicorp"))
+         (jpl2 (message "JPL: json1 %s" (json-encode json1)))
+         (provider-versions-id (jpl/extract-data-relationships-provider-versions-data-id json1))
+         (jpl3 (message "JPL: provider-versions-id %s" provider-versions-id))
+         (json2 (jpl/request-json (format "https://registry.terraform.io/v2/provider-versions/%s?include=provider-docs%%2Chas-cdktf-docs" provider-versions-id)))
+         (jpl22 (message "JPL: json2 %s" json2))
+         (provider-docs-id (jpl/extract-data-relationships-provider-docs-data-id json2))
+         (json3 (jpl/request-json (format "https://registry.terraform.io/v2/provider-docs/%s" provider-docs-id))))
+    (jpl/extract-data-attributes-body json3)))
 
 
 
