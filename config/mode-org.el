@@ -383,6 +383,12 @@ markup"
         (goto-char (point-min))
         (replace-string "#+end_src" "```")
 
+        ;; Convert org-mode links to markdown e.g.
+        ;; [[https://example.com/abc][Abc]] becomes [Abc](https://example.com/abc)
+        (goto-char (point-min))
+        (while (re-search-forward "\\[\\[\\(.*?\\)\\]\\[\\(.*?\\)]]" nil t)
+          (replace-match "[\\2](\\1)"))
+
         ;; Copy
         (kill-new (buffer-substring-no-properties (point-min) (point-max)))
         )
