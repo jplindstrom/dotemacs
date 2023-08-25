@@ -232,6 +232,8 @@
  '(tab-width 4)
  '(terraform-doc-markdown-mode-function 'gfm-view-mode)
  '(tide-server-max-response-length 1024000)
+ '(tide-user-preferences
+   '(:includeCompletionsForModuleExports t :includeCompletionsWithInsertText t :allowTextChangesInNewFiles t :generateReturnInDocTemplate nil))
  '(transient-mark-mode 'identity)
  '(treemacs-is-never-other-window t)
  '(truncate-lines t)
