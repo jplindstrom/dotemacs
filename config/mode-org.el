@@ -332,60 +332,60 @@ markup"
     ;; Copy tree to temp buffer
     (org-mark-subtree)
     (let ((original-org-text (buffer-substring-no-properties (point) (mark))))
-    (with-temp-buffer
-      (org-mode)
-      (insert original-org-text)
-      (goto-char (point-min))
+      (with-temp-buffer
+        (org-mode)
+        (insert original-org-text)
+        (goto-char (point-min))
 
-      ;; Promote subtree to top level
-      (while (> (or (org-current-level) 1) 1)
-        (org-promote-subtree)
-        )
+        ;; Promote subtree to top level
+        (while (> (or (org-current-level) 1) 1)
+          (org-promote-subtree)
+          )
 
-      (goto-char (point-min))
-      (insert "
+        (goto-char (point-min))
+        (insert "
 ")
-      ;; Rename * to #
-      (goto-char (point-min))
-      (replace-string "\n* " "\n\n\n\n# ")
-
-      ;; rename ** to h2.
-      (goto-char (point-min))
-      (replace-string "\n** " "\n\n\n## ")
-
-      (if prefix-arg
-          (progn
-            ;; rename *** to h3.
-            (goto-char (point-min))
-            (replace-string "\n*** " "\n\n### ")
-
-            ;; rename **** and below to * and below
-            (goto-char (point-min))
-            (replace-string "\n****" "\n*")
-            )
-        ;; rename *** and below to * and below
+        ;; Rename * to #
         (goto-char (point-min))
-        (replace-string "\n***" "\n*")
+        (replace-string "\n* " "\n\n\n\n# ")
+
+        ;; rename ** to h2.
+        (goto-char (point-min))
+        (replace-string "\n** " "\n\n\n## ")
+
+        (if prefix-arg
+            (progn
+              ;; rename *** to h3.
+              (goto-char (point-min))
+              (replace-string "\n*** " "\n\n### ")
+
+              ;; rename **** and below to * and below
+              (goto-char (point-min))
+              (replace-string "\n****" "\n*")
+              )
+          ;; rename *** and below to * and below
+          (goto-char (point-min))
+          (replace-string "\n***" "\n*")
+          )
+
+        ;; Indent remaining stars into nested bullet points
+        (goto-char (point-min))
+        (replace-string "\n**" "\n    *")
+
+        (dotimes (i 10)
+          (goto-char (point-min))
+          (replace-string "    **" "        *"))
+
+
+        ;; Make code blocks ```
+        (goto-char (point-min))
+        (replace-string "#+begin_src" "```")
+        (goto-char (point-min))
+        (replace-string "#+end_src" "```")
+
+        ;; Copy
+        (kill-new (buffer-substring-no-properties (point-min) (point-max)))
         )
-
-      ;; Indent remaining stars into nested bullet points
-      (goto-char (point-min))
-      (replace-string "\n**" "\n    *")
-
-      (dotimes (i 10)
-        (goto-char (point-min))
-        (replace-string "    **" "        *"))
-
-
-      ;; Make code blocks ```
-      (goto-char (point-min))
-      (replace-string "#+begin_src" "```")
-      (goto-char (point-min))
-      (replace-string "#+end_src" "```")
-
-      ;; Copy
-      (kill-new (buffer-substring-no-properties (point-min) (point-max)))
-      )
       )
     )
   )
