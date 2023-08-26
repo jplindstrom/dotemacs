@@ -20,8 +20,8 @@
 
 
 
-(defun jpl/message-busy (message)
-  "Display MESSAGE in the minibuffer with vivid color and bold."
+(defun jpl/propertize-busy (message)
+  "Return message with a vivid color and bold."
   (message (propertize message 'face '(:foreground "red" :weight "bold"))))
 
 (defun jpl/llm-run-template (template)
@@ -30,10 +30,10 @@ Specify the llm variable 'major_mode'"
   (interactive "sTemplate name: ")
   (let* ((start (if (use-region-p) (region-beginning) (point-min)))
          (end (if (use-region-p) (region-end) (point-max)))
-         (major-mode-string (replace-regexp-in-string "-mode$" "" (symbol-name major-mode)))
-         (command (concat "llm -t " template " -p major_mode " major-mode-string))
+         (programming-language (replace-regexp-in-string "-mode$" "" (symbol-name major-mode)))
+         (command (concat "llm -t " template " -p programming_language " programming-language))
          (original-point (point)))
-    (jpl/message-busy (format "Running llm... (%s)" major-mode-string))
+    (message (format "%s (%s)" (jpl/propertize-busy "Running llm...") command))
     (shell-command-on-region start end command nil t)
     (goto-char original-point)))
 
