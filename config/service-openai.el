@@ -20,17 +20,24 @@
 
 
 
-(defun llm-run-template (template)
-  "Run the specific 'llm' TEMPLATE on current selection or entire buffer."
+(defun jpl/llm-run-template (template)
+  "Run the specific 'llm' TEMPLATE on current selection or entire buffer.
+Specify the llm variable 'major_mode'"
   (interactive)
-  (let ((start (if (use-region-p) (region-beginning) (point-min)))
-        (end (if (use-region-p) (region-end) (point-max))))
-    (shell-command-on-region start end (concat "llm -t " template) nil t)))
+  (let* ((start (if (use-region-p) (region-beginning) (point-min)))
+         (end (if (use-region-p) (region-end) (point-max)))
+         (major-mode-string (symbol-name major-mode))
+         (command (concat "llm -t " template " -p major_mode " major-mode-string))
+         (original-point (point))
+         )
+    (shell-command-on-region start end command nil t)
+    (goto-char original-point)
+    ))
 
-(defun llm-fix ()
+(defun jpl/llm-fix ()
   "Run 'llm' using the 'fix' template on current selection or entire buffer."
   (interactive)
-  (llm-run-template "fix"))
+  (jpl/llm-run-template "fix"))
 
 
-(global-set-key (kbd "C-o a f") 'llm-fix)
+(global-set-key (kbd "C-o a f") 'jpl/llm-fix)
