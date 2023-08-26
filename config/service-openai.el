@@ -36,17 +36,23 @@
     (shell-command-on-region start end command nil t)
     (goto-char original-point)))
 
-;; FIX: Write an Emacs lisp "transient" menu (not using a hydra, but
-;; the "transient" package that's used by Magit) with:
-;; * Description "Run llm to do stuff"
-;; * Option "template" default "fix"
-;; * Option "model" default "4"
-;; * Action "llm" to call 'jpl/llm-run-template' with appropriate options
-;; * Action "quit"
-;; Use the menu in `jpl/llm-fix' to allow the user to select/confirm the options before running the comment.
-(defun jpl/llm-fix ()
+(transient-define-prefix jpl/llm-fix ()
   "Run 'llm' using the 'fix' template on current selection or entire buffer."
-  (interactive)
-  (jpl/llm-run-template "fix" "4"))
+  ["Arguments"
+   ("-t" "template" ("-t" "--template") :value "fix")
+   ("-m" "model" ("-m" "--model") :value "4")]
+  [["Run llm"
+    ("l" "llm" jpl/llm-run-template-transient)
+    ("q" "quit" transient-quit-one)]])
+
+(defun jpl/llm-run-template-transient (template model)
+  "Run 'llm' using the 'TEMPLATE' and 'MODEL'."
+  (interactive
+   (list
+    (transient-arg-value "-t" transient-current-cmd)
+    (transient-arg-value "-m" transient-current-cmd)
+   ))
+  (jpl/llm-run-template template model)
+  )
 
 (global-set-key (kbd "C-o a f") 'jpl/llm-fix)
