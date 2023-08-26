@@ -40,21 +40,12 @@
 
 (require 'transient)
 
-(transient-define-infix jpl/llm-fix-transient:--model
-  :description "Model"
-  :class 'transient-option
-  :shortarg "-m"
-  :argument "--model")
-
-(defvar jpl/llm-fix--model "4" "The llm model to use")
-
 (transient-define-prefix jpl/llm-fix-transient ()
   "Run 'llm' using the 'fix' template on current selection or entire buffer."
   [["Arguments"
     ("-m" "model" "--model="
      :always-read t
      :init-value (lambda (obj) (oset obj value "4"))
-     :variable jpl/llm-fix--model
      )
     ("-t" "model" "--template="
      :always-read t
@@ -65,19 +56,19 @@
     ("l" "llm" jpl/llm-fix-transient:llm)]]
   )
 
-(transient-define-suffix jpl/llm-fix-transient:llm ()
+(transient-define-suffix jpl/llm-fix-transient:llm (&optional args)
   "Show this command"
   :description "current command"
-  (interactive)
+  (interactive (list (transient-args transient-current-command)))
   (transient-save)
-  (message "model: %s" jpl/llm-fix--model)
-  ;;JPL (message "%s" (transient-args (oref transient-current-prefix command)))
-  ;; (jpl/llm-run-template template model)
+  (let* ((template (transient-arg-value "--template=" args))
+         (model (transient-arg-value "--model=" args)))
+    (jpl/llm-run-template template model)
+    )
   )
 
 (defun jpl/llm-fix ()
   (interactive)
-  (jpl/llm-fix-transient)
-  )
+  (jpl/llm-fix-transient))
 
 (global-set-key (kbd "C-o a f") 'jpl/llm-fix)
