@@ -24,12 +24,16 @@
   "Return message with a vivid color and bold."
   (message (propertize message 'face '(:foreground "red" :weight "bold"))))
 
-(defun jpl/llm-run-template (template model)
-  "Run the specific 'llm' TEMPLATE and MODEL on current selection or entire buffer."
-  (interactive "sTemplate name: \nsModel: ")
+(defun jpl/get-programming-language ()
+  "Return the current programming language based on the major mode."
+  (replace-regexp-in-string "-mode$" "" (symbol-name major-mode)))
+
+(defun jpl/llm-run-template (template model programming-language)
+  "Run the specific 'llm' TEMPLATE, MODEL, and
+PROGRAMMING-LANGUAGE on current selection or entire buffer."
+  (interactive "sTemplate name: \nsModel: \nsProgramming language: ")
   (let* ((start (if (use-region-p) (region-beginning) (point-min)))
          (end (if (use-region-p) (region-end) (point-max)))
-         (programming-language (replace-regexp-in-string "-mode$" "" (symbol-name major-mode)))
          (command (concat "llm -t " template " -m " model " -p programming_language " programming-language))
          (original-point (point)))
     (message (format "%s (%s)" (jpl/propertize-busy "Running llm...") command))
@@ -51,6 +55,10 @@
      :always-read t
      :init-value (lambda (obj) (oset obj value "fix"))
      )
+    ("-l" "programming language" "--programming-language="
+     :always-read t
+     :init-value (lambda (obj) (oset obj value (jpl/get-programming-language)))
+     )
     ]]
   [["Run"
     ("l" "llm" jpl/llm-fix-transient:llm)]]
@@ -62,8 +70,9 @@
   (interactive (list (transient-args transient-current-command)))
   (transient-save)
   (let* ((template (transient-arg-value "--template=" args))
-         (model (transient-arg-value "--model=" args)))
-    (jpl/llm-run-template template model)
+         (model (transient-arg-value "--model=" args))
+         (programming-language (transient-arg-value "--programming-language=" args)))
+    (jpl/llm-run-template template model programming-language)
     )
   )
 
