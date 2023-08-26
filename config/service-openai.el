@@ -14,3 +14,17 @@
 
 
 (setq chatgpt-shell-openai-key (lambda () (jpl/gptel-get-api-key)))
+
+
+
+
+
+
+;; FIX: add a doc string for this, with the outcome of the code. "llm
+;; -t fix" will fix/action all "FIX" comments and send back the
+;; full output.
+(defun llm-fix ()
+  (interactive)
+  (let ((start (if (use-region-p) (region-beginning) (point-min)))
+        (end (if (use-region-p) (region-end) (point-max))))
+    (shell-command-on-region start end "llm -t fix" nil t)))
