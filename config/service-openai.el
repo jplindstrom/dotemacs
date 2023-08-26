@@ -36,6 +36,10 @@
     (shell-command-on-region start end command nil t)
     (goto-char original-point)))
 
+;; FIX: Write an Emacs lisp "hydra" menu to control which template and
+;; model to use. The template and model should be options that can be
+;; changed by the user to any string. Use the existing values as the
+;; default. Use the hydra in `jpl/llm-fix'.
 (defun jpl/llm-fix ()
   "Run 'llm' using the 'fix' template on current selection or entire buffer."
   (interactive)
