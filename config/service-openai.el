@@ -30,14 +30,12 @@ Specify the llm variable 'major_mode'"
   (interactive "sTemplate name: ")
   (let* ((start (if (use-region-p) (region-beginning) (point-min)))
          (end (if (use-region-p) (region-end) (point-max)))
-         (major-mode-string (symbol-name major-mode))
+         (major-mode-string (replace-regexp-in-string "-mode$" "" (symbol-name major-mode)))
          (command (concat "llm -t " template " -p major_mode " major-mode-string))
-         (original-point (point))
-         )
-    (jpl/message-busy "Running llm...")
+         (original-point (point)))
+    (jpl/message-busy (format "Running llm... (%s)" major-mode-string))
     (shell-command-on-region start end command nil t)
-    (goto-char original-point)
-    ))
+    (goto-char original-point)))
 
 (defun jpl/llm-fix ()
   "Run 'llm' using the 'fix' template on current selection or entire buffer."
