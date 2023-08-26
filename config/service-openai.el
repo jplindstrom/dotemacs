@@ -20,6 +20,10 @@
 
 
 
+(defun jpl/message-busy (message)
+  "Display MESSAGE in the minibuffer with orange color."
+  (message (propertize message 'face '(:foreground "orange"))))
+
 (defun jpl/llm-run-template (template)
   "Run the specific 'llm' TEMPLATE on current selection or entire buffer.
 Specify the llm variable 'major_mode'"
@@ -30,6 +34,7 @@ Specify the llm variable 'major_mode'"
          (command (concat "llm -t " template " -p major_mode " major-mode-string))
          (original-point (point))
          )
+    (jpl/message-busy "Running llm...")
     (shell-command-on-region start end command nil t)
     (goto-char original-point)
     ))
@@ -41,3 +46,4 @@ Specify the llm variable 'major_mode'"
 
 
 (global-set-key (kbd "C-o a f") 'jpl/llm-fix)
+
