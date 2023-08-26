@@ -27,7 +27,7 @@
 (defun jpl/llm-run-template (template)
   "Run the specific 'llm' TEMPLATE on current selection or entire buffer.
 Specify the llm variable 'major_mode'"
-  (interactive)
+  (interactive "sTemplate name: ")
   (let* ((start (if (use-region-p) (region-beginning) (point-min)))
          (end (if (use-region-p) (region-end) (point-max)))
          (major-mode-string (symbol-name major-mode))
