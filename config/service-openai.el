@@ -20,11 +20,17 @@
 
 
 
-;; FIX: add a doc string for this, with the outcome of the code. "llm
-;; -t fix" will fix/action all "FIX" comments and send back the
-;; full output.
-(defun llm-fix ()
+(defun llm-run-template (template)
+  "Run the specific 'llm' TEMPLATE on current selection or entire buffer."
   (interactive)
   (let ((start (if (use-region-p) (region-beginning) (point-min)))
         (end (if (use-region-p) (region-end) (point-max))))
-    (shell-command-on-region start end "llm -t fix" nil t)))
+    (shell-command-on-region start end (concat "llm -t " template) nil t)))
+
+(defun llm-fix ()
+  "Run 'llm' using the 'fix' template on current selection or entire buffer."
+  (interactive)
+  (llm-run-template "fix"))
+
+
+(global-set-key (kbd "C-o a f") 'llm-fix)
