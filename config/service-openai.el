@@ -21,8 +21,8 @@
 
 
 (defun jpl/message-busy (message)
-  "Display MESSAGE in the minibuffer with orange color."
-  (message (propertize message 'face '(:foreground "orange"))))
+  "Display MESSAGE in the minibuffer with vivid color and bold."
+  (message (propertize message 'face '(:foreground "red" :weight "bold"))))
 
 (defun jpl/llm-run-template (template)
   "Run the specific 'llm' TEMPLATE on current selection or entire buffer.
