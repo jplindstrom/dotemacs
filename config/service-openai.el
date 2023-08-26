@@ -36,24 +36,43 @@
     (shell-command-on-region start end command nil t)
     (goto-char original-point)))
 
+
+
 (require 'transient)
+
+(transient-define-infix jpl/llm-fix-transient:--model
+  :description "Model"
+  :class 'transient-option
+  :shortarg "-m"
+  :argument "--model")
+
+(defvar jpl/llm-fix--model "4" "The llm model to use")
+
 (transient-define-prefix jpl/llm-fix-transient ()
   "Run 'llm' using the 'fix' template on current selection or entire buffer."
-  ["Arguments"
-   ("-t" "template" ("-t" "--template") :value "fix")
-   ("-m" "model" ("-m" "--model") :value "4")]
-  [["Run llm"
-    ("l" "llm" jpl/llm-fix-transient-llm-run-template)
-    ("q" "quit" transient-quit-one)]])
+  [["Arguments"
+    ("-m" "model" "--model="
+     :always-read t
+     :init-value (lambda (obj) (oset obj value "4"))
+     :variable jpl/llm-fix--model
+     )
+    ("-t" "model" "--template="
+     :always-read t
+     :init-value (lambda (obj) (oset obj value "fix"))
+     )
+    ]]
+  [["Run"
+    ("l" "llm" jpl/llm-fix-transient:llm)]]
+  )
 
-(defun jpl/llm-fix-transient-llm-run-template (template model)
-  "Run 'llm' using the 'TEMPLATE' and 'MODEL'."
-  (interactive
-   (list
-    (transient-arg-value "-t" transient-current-cmd)
-    (transient-arg-value "-m" transient-current-cmd)
-   ))
-  (jpl/llm-run-template template model)
+(transient-define-suffix jpl/llm-fix-transient:llm ()
+  "Show this command"
+  :description "current command"
+  (interactive)
+  (transient-save)
+  (message "model: %s" jpl/llm-fix--model)
+  ;;JPL (message "%s" (transient-args (oref transient-current-prefix command)))
+  ;; (jpl/llm-run-template template model)
   )
 
 (defun jpl/llm-fix ()
