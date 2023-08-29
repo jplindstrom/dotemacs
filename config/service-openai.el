@@ -59,7 +59,6 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
                                   (point)))))
            (token-count-int (string-to-number token-count)))
       (kill-buffer output-buffer)
-      (message "Token count: %d" token-count-int)
       token-count-int)))
 
 
