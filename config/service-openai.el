@@ -44,6 +44,9 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
     (shell-command-on-region start end command nil t)
     (goto-char original-point)))
 
+;; FIX change the function so that
+;; The jpl/llm-get-token-count function takes an argument "callback" which is a function, which takes on argument which is the "token-count-int"
+;; The shell-command-on-region is changed so that the shell command is run async. And after it's done, it calls the "callback" function with the token-count-int
 (defun jpl/llm-get-token-count ()
   (interactive)
   (let* ((region (jpl/llm--get-region))
