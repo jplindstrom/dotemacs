@@ -103,21 +103,6 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
     )
   )
 
-(defvar jpl/llm-model-details
-      '((gpt-3.5-turbo . ((token-limit . 4096)
-                          (cost . ((input-token-cost . 10)
-                                   (output-token-cost . 10)))))
-        (gpt-4 . ((token-limit . 4096)
-                  (cost . ((input-token-cost . 20)
-                           (output-token-cost . 20)))))
-        (default . ((token-limit . 4096)
-                  (cost . ((input-token-cost . 0)
-                           (output-token-cost . 0)))))
-        )
-      "Model details like token-limit and cost per token")
-
-;; FIX: write jpl/llm--get-model-details based on the variable above and an input argument 'model-name'
-
 (defun jpl/llm-message-token-info ()
   (let* ((token-count (jpl/llm-get-token-count))
          (token-count-limit 4096)  ;; TODO: Use limit of current model
@@ -125,7 +110,7 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
           (if (> token-count token-count-limit)
               (jpl/propertize-warn (number-to-string token-count)) token-count))
          )
-    ;; Cost:
+    ;; Cost: (but turns out this isn't very interesting, so don't bother)
     ;; gpt-3.5-turbo: $0.002 / 1,000 tokens
     ;; gpt-4: is $0.03 / 1,000 tokens of input and $0.06 / 1,000 for output
     (message "Tokens: %s" token-count-color)))
