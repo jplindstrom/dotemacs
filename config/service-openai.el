@@ -103,17 +103,22 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
     )
   )
 
-(defun jpl/llm-fix ()
-  (interactive)
+(defun jpl/llm-message-token-info ()
   (let* ((token-count (jpl/llm-get-token-count))
          (token-count-limit 4096)  ;; TODO: Use limit of current model
          (token-count-color
           (if (> token-count token-count-limit)
               (jpl/propertize-warn (number-to-string token-count)) token-count))
          )
-    (message "Tokens: %s" token-count-color)
-    (jpl/llm-fix-transient)
-    )
+    ;; Cost:
+    ;; gpt-3.5-turbo: $0.002 / 1,000 tokens
+    ;; gpt-4: is $0.03 / 1,000 tokens of input and $0.06 / 1,000 for output
+    (message "Tokens: %s" token-count-color)))
+
+(defun jpl/llm-fix ()
+  (interactive)
+  (jpl/llm-message-token-info)
+  (jpl/llm-fix-transient)
   )
 
 (global-set-key (kbd "C-o a f") 'jpl/llm-fix)
