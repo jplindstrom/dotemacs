@@ -50,9 +50,9 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
 ;; which is a function, which takes on argument which is the
 ;; "token-count-int"
 ;;
-;; The shell-command-on-region is replaced with something that calls
-;; the shell command async. And after the shell command has finished done, it calls the
-;; "callback" function with the token-count-int
+;; Don't call "shell-command-on-region". Instead start a process and
+;; call the "ttok" asynchronoysly. Make it so that after the shell command has finished, it
+;; calls the "callback" function with the token-count-int
 (defun jpl/llm-get-token-count ()
   (interactive)
   (let* ((region (jpl/llm--get-region))
