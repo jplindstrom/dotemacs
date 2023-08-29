@@ -24,6 +24,10 @@
   "Return message with a vivid color and bold."
   (message (propertize message 'face '(:foreground "red" :weight "bold"))))
 
+(defun jpl/propertize-warn (message)
+  "Return message with a vivid color and bold."
+  (message (propertize message 'face '(:foreground "red" :weight "bold"))))
+
 (defun jpl/get-programming-language ()
   "Return the current programming language based on the major mode."
   (replace-regexp-in-string "-mode$" "" (symbol-name major-mode)))
@@ -40,17 +44,24 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
     (shell-command-on-region start end command nil t)
     (goto-char original-point)))
 
-(defun jpl/llm-get-token-cunt ()
+(defun jpl/llm-get-token-count ()
   (interactive)
-  ;; FIX: run shell-command-on-region with the `begin` and `end`
-  ;; with the result ending up in a temp buffer. Assign the output to a variable `token-count`, and display it using a (message).
-  ;; Then return the token-count from the function
   (let* ((region (jpl/llm--get-region))
          (begin (car region))
          (end (car (cdr region)))
-         )
-    )
-  )
+         (output-buffer (get-buffer-create "*temp*")))
+    (shell-command-on-region begin end "ttok" output-buffer)
+    (let* ((token-count (with-current-buffer output-buffer
+                          (buffer-substring-no-properties
+                           (point-min)
+                           (progn (goto-char (point-max))
+                                  (skip-chars-backward "\n")
+                                  (point)))))
+           (token-count-int (string-to-number token-count)))
+      (kill-buffer output-buffer)
+      (message "Token count: %d" token-count-int)
+      token-count-int)))
+
 
 (defun jpl/llm--get-region ()
   (let* ((begin (if (use-region-p) (region-beginning) (point-min)))
@@ -62,9 +73,6 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
 
 (transient-define-prefix jpl/llm-fix-transient ()
   "Run 'llm' using the 'fix' template on current selection or entire buffer."
-  [["ttok tokens: 2343"
-    ("l" "llm" jpl/llm-fix-transient:llm)
-    ]]
   [["Arguments"
     ("-m" "model" "--model="
      :always-read t
@@ -97,7 +105,16 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
 
 (defun jpl/llm-fix ()
   (interactive)
-  (jpl/llm-fix-transient))
+  (let* ((token-count (jpl/llm-get-token-count))
+         (token-count-limit 4096)  ;; TODO: Use limit of current model
+         (token-count-color
+          (if (> token-count token-count-limit)
+              (jpl/propertize-warn (number-to-string token-count)) token-count))
+         )
+    (message "Tokens: %s" token-count-color)
+    (jpl/llm-fix-transient)
+    )
+  )
 
 (global-set-key (kbd "C-o a f") 'jpl/llm-fix)
 
