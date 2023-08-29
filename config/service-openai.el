@@ -102,8 +102,8 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
     )
   )
 
-(defun jpl/llm-message-token-info ()
-  (let* ((token-count (jpl/llm-get-token-count))
+(defun jpl/llm-message-token-info (token-count)
+  (let* (
          (token-count-limit 4096)  ;; TODO: Use limit of current model
          (token-count-color
           (if (> token-count token-count-limit)
@@ -116,7 +116,7 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
 
 (defun jpl/llm-fix ()
   (interactive)
-  (jpl/llm-message-token-info)
+  (jpl/llm-message-token-info (jpl/llm-get-token-count))
   (jpl/llm-fix-transient)
   )
 
