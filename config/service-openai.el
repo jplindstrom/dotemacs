@@ -103,6 +103,21 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
     )
   )
 
+(defvar jpl/llm-model-details
+      '((gpt-3.5-turbo . ((token-limit . 4096)
+                          (cost . ((input-token-cost . 10)
+                                   (output-token-cost . 10)))))
+        (gpt-4 . ((token-limit . 4096)
+                  (cost . ((input-token-cost . 20)
+                           (output-token-cost . 20)))))
+        (default . ((token-limit . 4096)
+                  (cost . ((input-token-cost . 0)
+                           (output-token-cost . 0)))))
+        )
+      "Model details like token-limit and cost per token")
+
+;; FIX: write jpl/llm--get-model-details based on the variable above and an input argument 'model-name'
+
 (defun jpl/llm-message-token-info ()
   (let* ((token-count (jpl/llm-get-token-count))
          (token-count-limit 4096)  ;; TODO: Use limit of current model
