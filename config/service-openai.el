@@ -40,12 +40,31 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
     (shell-command-on-region start end command nil t)
     (goto-char original-point)))
 
+(defun jpl/llm-get-token-cunt ()
+  (interactive)
+  ;; FIX: run shell-command-on-region with the `begin` and `end`
+  ;; with the result ending up in a temp buffer. Assign the output to a variable `token-count`, and display it using a (message).
+  ;; Then return the token-count from the function
+  (let* ((region (jpl/llm--get-region))
+         (begin (car region))
+         (end (car (cdr region)))
+         )
+    )
+  )
+
+(defun jpl/llm--get-region ()
+  (let* ((begin (if (use-region-p) (region-beginning) (point-min)))
+         (end (if (use-region-p) (region-end) (point-max))))
+    (list begin end)))
 
 
 (require 'transient)
 
 (transient-define-prefix jpl/llm-fix-transient ()
   "Run 'llm' using the 'fix' template on current selection or entire buffer."
+  [["ttok tokens: 2343"
+    ("l" "llm" jpl/llm-fix-transient:llm)
+    ]]
   [["Arguments"
     ("-m" "model" "--model="
      :always-read t
@@ -81,3 +100,8 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
   (jpl/llm-fix-transient))
 
 (global-set-key (kbd "C-o a f") 'jpl/llm-fix)
+
+
+
+;; Ideas
+;; tiktokens count in the menu, and $ cost (x2 for output)
