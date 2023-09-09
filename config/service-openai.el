@@ -137,20 +137,30 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
 
 ;;;; llm-prompt-on-region
 
-(defun jpl/llm-prompt-on-region--display-prompt-buffer
-    ;; FIX implement this function as per the spec in the comment below
-    ;;
-    ;; Display new empty prompt buffer in a split window next to the
-    ;; current buffer
-    ;;
-    ;; The buffer should be deleted and the focus returned to the
-    ;; initial buffer if the user types C-c C-k.
-    ;;
-    ;; If the user confirms using C-c C-c, get the text of the buffer,
-    ;; delete the buffer and call the functino jpl/llm-prompt-on-region--run-llm
-    ;;
-    ;; The key bindings should only be active in this buffer.
-    )
+
+(defun jpl/llm-prompt-on-region--run-llm (text)
+  (message "JPL: text: %s" text)
+  )
+
+(defun jpl/llm-prompt-on-region--display-prompt-buffer ()
+  (let* ((buffer (generate-new-buffer "*llm-prompt*"))
+         (initial-buffer (current-buffer)))
+    (switch-to-buffer-other-window buffer)
+    (local-set-key
+     (kbd "C-c C-k")
+     `(lambda ()
+        (interactive)
+        (kill-buffer ,buffer)
+        (select-window (get-buffer-window ,initial-buffer))))
+    (local-set-key
+     (kbd "C-c C-c")
+     `(lambda ()
+        (interactive)
+        (let ((text (buffer-substring-no-properties (point-min) (point-max))))
+          (kill-buffer ,buffer)
+          (select-window (get-buffer-window ,initial-buffer))
+          (jpl/llm-prompt-on-region--run-llm text))))))
+
 
 
 (defun jpl/llm-prompt-on-region ()
@@ -160,7 +170,7 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
   (jpl/llm-prompt-on-region--display-prompt-buffer)
   )
 
-
+(global-set-key (kbd "C-o a p") 'jpl/llm-prompt-on-region)
 
 
 ;; Ideas
