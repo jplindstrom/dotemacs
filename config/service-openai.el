@@ -133,5 +133,35 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
 
 
 
+
+
+;;;; llm-prompt-on-region
+
+(defun jpl/llm-prompt-on-region--display-prompt-buffer
+    ;; FIX implement this function as per the spec in the comment below
+    ;;
+    ;; Display new empty prompt buffer in a split window next to the
+    ;; current buffer
+    ;;
+    ;; The buffer should be deleted and the focus returned to the
+    ;; initial buffer if the user types C-c C-k.
+    ;;
+    ;; If the user confirms using C-c C-c, get the text of the buffer,
+    ;; delete the buffer and call the functino jpl/llm-prompt-on-region--run-llm
+    ;;
+    ;; The key bindings should only be active in this buffer.
+    )
+
+
+(defun jpl/llm-prompt-on-region ()
+  (interactive)
+  ;; Display new  empty prompt buffer in a split window next to the current buffer
+  ;; The buffer
+  (jpl/llm-prompt-on-region--display-prompt-buffer)
+  )
+
+
+
+
 ;; Ideas
 ;; tiktokens count in the menu, and $ cost (x2 for output)
