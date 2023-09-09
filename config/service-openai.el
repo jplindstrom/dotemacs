@@ -137,14 +137,65 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
 
 ;;;; llm-prompt-on-region
 
+(defun jpl/llm-run-system-prompt (system-prompt model programming-language)
+  "Run the specific 'llm' with a SYSTEM-PROMPT, MODEL, and
+PROGRAMMING-LANGUAGE on current selection or entire buffer."
+  (interactive "sSystem prompt: \nsModel: \nsProgramming language: ")
+  (let* ((start (if (use-region-p) (region-beginning) (point-min)))
+         (end (if (use-region-p) (region-end) (point-max)))
+         (command (concat "llm --system " system-prompt " -m " model " -p programming_language " programming-language))
+         (original-point (point)))
+    (message (format "%s (%s)" (jpl/propertize-busy "Running llm...") command))
+    (shell-command-on-region start end command nil t)
+    (goto-char original-point)))
 
-(defun jpl/llm-prompt-on-region--run-llm (text)
-  (message "JPL: text: %s" text)
+
+(transient-define-suffix jpl/llm-prompt-on-region-transient:llm (&optional args)
+  "Show this command"
+  :description "current command"
+  (interactive (list (transient-args transient-current-command)))
+  (transient-save)
+  (let* ((system (transient-arg-value "--system=" args))
+         (model (transient-arg-value "--model=" args))
+         (programming-language (transient-arg-value "--programming-language=" args)))
+    (jpl/llm-run-system-prompt system model programming-language)
+    )
+  )
+
+
+(transient-define-prefix jpl/llm-prompt-on-region-transient ()
+  "Run 'llm' using the TEXT."
+  [["Arguments"
+    ("-s" "system" "--system="
+     :always-read t
+     :init-value (lambda (obj) (oset obj value jpl/llm-prompt-on-region--current-system-prompt))
+     )
+    ("-m" "model" "--model="
+     :always-read t
+     :init-value (lambda (obj) (oset obj value "4"))
+     )
+    ("-l" "programming language" "--programming-language="
+     :always-read t
+     :init-value (lambda (obj) (oset obj value (jpl/get-programming-language)))
+     )
+    ]]
+  [["Run"
+    ("l" "llm" jpl/llm-prompt-on-region-transient:llm)]]
+  )
+
+
+(defvar jpl/llm-prompt-on-region--current-system-prompt "" "Current system prompt")
+(defun jpl/llm-prompt-on-region--get-options (system-prompt)
+  (setq jpl/llm-prompt-on-region--current-system-prompt system-prompt)
+  (jpl/llm-prompt-on-region-transient)
   )
 
 (defun jpl/llm-prompt-on-region--display-prompt-buffer ()
+  ;; Use text-mode in the new buffer, not fundamental-mode
   (let* ((buffer (generate-new-buffer "*llm-prompt*"))
          (initial-buffer (current-buffer)))
+    (with-current-buffer buffer
+      (text-mode))
     (switch-to-buffer-other-window buffer)
     (local-set-key
      (kbd "C-c C-k")
@@ -159,7 +210,7 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
         (let ((text (buffer-substring-no-properties (point-min) (point-max))))
           (kill-buffer ,buffer)
           (select-window (get-buffer-window ,initial-buffer))
-          (jpl/llm-prompt-on-region--run-llm text))))))
+          (jpl/llm-prompt-on-region--get-options text))))))
 
 
 
@@ -167,6 +218,7 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
   (interactive)
   ;; Display new  empty prompt buffer in a split window next to the current buffer
   ;; The buffer
+  (jpl/llm-message-token-info (jpl/llm-get-token-count))
   (jpl/llm-prompt-on-region--display-prompt-buffer)
   )
 
