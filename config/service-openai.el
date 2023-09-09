@@ -86,7 +86,7 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
      :always-read t
      :init-value (lambda (obj) (oset obj value "4"))
      )
-    ("-t" "model" "--template="
+    ("-t" "template" "--template="
      :always-read t
      :init-value (lambda (obj) (oset obj value "fix"))
      )
