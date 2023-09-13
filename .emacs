@@ -154,7 +154,6 @@
 (jpl/load "lang-yaml")
 (jpl/load "lang-json")
 (jpl/load "rnc") ;; XML Relax NG schema
-(jpl/load "lang-csv")
 (jpl/load "mode-org") ;; lang- ?
 (jpl/load "mode-org-level-faces")
 (jpl/load "mode-org-keys")
