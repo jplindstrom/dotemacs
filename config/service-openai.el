@@ -133,6 +133,9 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
 
 
 
+(defun test (arg)
+  (format t "JPL: ~a" arg)
+)
 
 
 ;;;; llm-prompt-on-region
@@ -143,7 +146,8 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
   (interactive "sSystem prompt: \nsModel: \nsProgramming language: ")
   (let* ((start (if (use-region-p) (region-beginning) (point-min)))
          (end (if (use-region-p) (region-end) (point-max)))
-         (command (concat "llm --system " system-prompt " -m " model " -p programming_language " programming-language))
+         (escaped-system-prompt (shell-quote-argument system-prompt))
+         (command (concat "llm --system " escaped-system-prompt " -m " model " -p programming_language " programming-language))
          (original-point (point)))
     (message (format "%s (%s)" (jpl/propertize-busy "Running llm...") command))
     (shell-command-on-region start end command nil t)
