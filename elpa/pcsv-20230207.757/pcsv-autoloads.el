@@ -2,9 +2,11 @@
 ;;
 ;;; Code:
 
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads (pcsv-file-parser pcsv-parser pcsv-parse-file pcsv-parse-buffer
-;;;;;;  pcsv-parse-region) "pcsv" "pcsv.el" (21682 58895))
+;;;### (autoloads nil "pcsv" "pcsv.el" (0 0 0 0))
 ;;; Generated autoloads from pcsv.el
 
 (autoload 'pcsv-parse-region "pcsv" "\
@@ -38,7 +40,8 @@ Example:
 
 (autoload 'pcsv-file-parser "pcsv" "\
 Create a csv parser to read huge FILE.
-This csv parser accept a optional arg which non-nil means terminate the parser.
+This csv parser accept a optional arg.
+ You must call this parser with optional non-nil arg to terminate the parser.
 
 Optional arg BLOCK-SIZE indicate bytes to read FILE each time.
 
@@ -53,13 +56,14 @@ Example:
 
 \(fn FILE &optional CODING-SYSTEM BLOCK-SIZE)" nil nil)
 
-;;;***
-
-;;;### (autoloads nil nil ("pcsv-pkg.el") (21682 58895 445990))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pcsv" '("pcsv-")))
 
 ;;;***
 
-(provide 'pcsv-autoloads)
+;;;### (autoloads nil nil ("pcsv-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
