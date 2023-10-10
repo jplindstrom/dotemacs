@@ -142,20 +142,17 @@
   "Find the local file for the git link
 
 Example link:
-https://gitlab.com/mycompany/subgroup/api/my-project/blob/master/src/user/saveUser.ts
+https://gitlab.com/mycompany/subgroup/another-group/my-project/blob/master/src/user/saveUser.ts
 "
   (interactive
    (list (read-string "Link: "
                       (when (and kill-ring (stringp (current-kill 0)))
                         (current-kill 0)))))
-  (let* (
-         (link-parts (split-string link "/blob/.+?/"))
+  (let* ((link-parts (split-string link "/blob/.+?/")) ;; Second is the ref/branch
          (dir-name (car (last (split-string (car link-parts) "/"))))
          (path-with-fragment (cadr link-parts))
          (path (replace-regexp-in-string "#.+$" "" path-with-fragment))
-         (file (concat dir-name "/" path))
-
-         )
+         (file (concat dir-name "/" path)))
     (when (not (jpl/find-file-for-filename file))
       (message "File %s ... %s not found" default-directory file))
     )
@@ -173,3 +170,5 @@ https://gitlab.com/mycompany/subgroup/api/my-project/blob/master/src/user/saveUs
           (find-file (concat current-directory file))
           )
       )))
+
+(global-set-key (kbd "C-o g g") 'jpl/find-file-for-git-link)
