@@ -130,3 +130,46 @@
 ;; machine gitlab.com/api/v4 login my.username^forge password 123456
 (require 'forge)
 
+
+
+
+
+
+;; Find file for Git link
+
+(require 's)
+(defun jpl/find-file-for-git-link (&optional link)
+  "Find the local file for the git link
+
+Example link:
+https://gitlab.com/mycompany/subgroup/api/my-project/blob/master/src/user/saveUser.ts
+"
+  (interactive
+   (list (read-string "Link: "
+                      (when (and kill-ring (stringp (current-kill 0)))
+                        (current-kill 0)))))
+  (let* (
+         (link-parts (split-string link "/blob/.+?/"))
+         (dir-name (car (last (split-string (car link-parts) "/"))))
+         (path-with-fragment (cadr link-parts))
+         (path (replace-regexp-in-string "#.+$" "" path-with-fragment))
+         (file (concat dir-name "/" path))
+
+         )
+    (when (not (jpl/find-file-for-filename file))
+      (message "File %s ... %s not found" default-directory file))
+    )
+  )
+
+(defun jpl/find-file-for-filename (file)
+  (let ((current-directory default-directory))
+    (while (let* ((prev-dir current-directory))
+             (setq current-directory (file-name-directory (directory-file-name current-directory)))
+             (and (not (string= prev-dir current-directory))
+                  (not (file-exists-p (concat current-directory file))))
+             ))
+    (if (file-exists-p (concat current-directory file))
+        (progn
+          (find-file (concat current-directory file))
+          )
+      )))
