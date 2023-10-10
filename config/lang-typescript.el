@@ -95,6 +95,28 @@
 ;;; Doesn't work? (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
 
 
+
+
+
+(defun setup-jest-test ()
+  (interactive)
+  ;; TODO: check if jest is used in this project
+  (jest-test-mode)
+  (local-set-key "\C-o\C-r" 'jest-test-run)
+  (local-set-key "\C-ort" 'jest-test-run-at-point)
+  (local-set-key "\C-orr" 'jest-test-rerun-test)
+  (local-set-key "\C-ora" 'jest-test-run-all-tests)
+
+  (local-set-key "\C-ord" 'jest-test-debug)
+  )
+
+(add-hook 'typescript-mode-hook #'setup-jest-test)
+(add-hook 'js2-mode-hook #'setup-jest-test)
+
+
+
+
+
 (use-package prettier-js
   :commands (prettier-js-mode prettier)
   :init (add-hook 'typescript-mode-hook 'prettier-js-mode)
