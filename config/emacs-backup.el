@@ -1,5 +1,8 @@
 
 
+;; https://idiomdrottning.org/bad-emacs-defaults
+(setq backup-by-copying t)
+
 (setq version-control t)
 
 (setq vc-make-backup-files t)
