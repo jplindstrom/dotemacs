@@ -17,7 +17,10 @@
 
 ;; git-link
 ;; https://github.com/sshaw/git-link
-(global-set-key (kbd "C-o e c g") 'jpl/git-link-for-branch)
+(global-set-key (kbd "C-o e c g g") 'jpl/git-link-for-branch)
+
+(global-set-key (kbd "C-o e c g f") 'jpl/git-org-link-project-file)
+
 
 
 
@@ -30,6 +33,7 @@
     (call-interactively 'git-link)))
 
 
+;; Main entry point for smart git-link
 (defun jpl/git-link-for-branch (arg)
   "Call git-link to copy a git link for the current branch. If
 called with a prefix argument, use the 'master' branch instead."
@@ -37,3 +41,46 @@ called with a prefix argument, use the 'master' branch instead."
   (if arg
       (jpl/git-link-master-branch)
     (call-interactively 'git-link)))
+
+
+
+(defun jpl/git-org-link--kill-link (title-fn)
+  "Return org-link with the LINK and the title from calling TITLE-FN"
+  (call-interactively 'jpl/git-link-for-branch)
+  (let* ((url (current-kill 0))
+         (title (funcall title-fn)))
+    (kill-new (format "[[%s][%s]]" url title) t)))
+
+
+;; General
+(defun jpl/git-org-link-project-file (arg)
+  "Copy a git-link, but as an org-mode link. Use the
+buffer (project relative) filename as the link title."
+  (interactive "P")
+  (jpl/git-org-link--kill-link
+   (lambda () (file-relative-name buffer-file-name (projectile-project-root)))))
+
+
+;; Perl
+(defun jpl/git-org-link-perl-method-name (arg)
+  "Copy a git-link, but as an org-mode link. Use the current Perl
+method as the title."
+  (interactive "P")
+  (jpl/git-org-link--kill-link
+   (lambda () (ps/current-method-name))))
+
+(defun jpl/git-org-link-perl-package-name (arg)
+  "Copy a git-link, but as an org-mode link. Use the current Perl
+package name as the title."
+  (interactive "P")
+  (jpl/git-org-link--kill-link
+   (lambda () (ps/current-package-name))))
+
+(defun jpl/git-org-link-perl-sub-name (arg)
+  "Copy a git-link, but as an org-mode link. Use the current Perl
+sub name as the title."
+  (interactive "P")
+  (jpl/git-org-link--kill-link
+   (lambda () (ps/current-sub-name))))
+
+

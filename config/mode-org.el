@@ -453,6 +453,31 @@ markup"
 
 
 
+(defun jpl/get-org-link-url-at-point ()
+  "If point is on an org-link, return the URL of the link.
+Return nil if point is not on an org-mode link."
+  (let ((elem (org-element-context)))
+    (when (and elem (eq (car elem) 'link))
+      (org-element-property :raw-link elem))))
+
+(defun jpl/copy-url-or-org-link-url-at-point ()
+  "Look at point and copy the URL or the url or the org-mode link
+to the clipboard."
+  (interactive)
+  (let* ((url
+          (or
+           (thing-at-point 'url)
+           (jpl/get-org-link-url-at-point)
+           )))
+    (if (not url)
+        (error "No url found")
+      (kill-new url)
+      (message "%s" url)
+      )))
+
+(define-key org-mode-map "\C-oecl" 'jpl/copy-url-or-org-link-url-at-point)
+
+
 ;; Insert source block with a default language
 
 (defun org-find-previous-begin_src-language ()

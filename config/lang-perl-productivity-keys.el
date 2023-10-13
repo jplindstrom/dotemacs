@@ -102,6 +102,11 @@
 
   (define-key evil-normal-state-map (kbd "M-k") 'jpl/backward-leave-perl-syntax)
   (define-key evil-normal-state-map (kbd "M-j") 'jpl/forward-into-or-over-perl-syntax)
+
+  ;; git-link from config/git-productivity.el
+  (local-set-key (kbd "C-o e c g p") 'jpl/git-org-link-perl-package-name)
+  (local-set-key (kbd "C-o e c g s") 'jpl/git-org-link-perl-sub-name)
+  (local-set-key (kbd "C-o e c g m") 'jpl/git-org-link-perl-method-name)
   )
 (add-hook 'cperl-mode-hook 'keys-cperl-mode-hook t)
 

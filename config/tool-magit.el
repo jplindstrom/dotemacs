@@ -151,14 +151,23 @@ https://gitlab.com/mycompany/subgroup/another-group/my-project/blob/master/src/u
   (let* ((link-parts (split-string link "/blob/.+?/")) ;; Second is the ref/branch
          (dir-name (car (last (split-string (car link-parts) "/"))))
          (path-with-fragment (cadr link-parts))
-         (path (replace-regexp-in-string "#.+$" "" path-with-fragment))
+         (path-fragment-parts (split-string path-with-fragment "#"))
+         (path (car path-fragment-parts))
+         (line-number (jpl/first-integer-in-string (cadr path-fragment-parts)))
          (file (concat dir-name "/" path)))
-    (when (not (jpl/find-file-for-filename file))
+    (when (not (jpl/find-file-for-filename file line-number))
       (message "File %s ... %s not found" default-directory file))
     )
   )
 
-(defun jpl/find-file-for-filename (file)
+(defun jpl/first-integer-in-string (str)
+  "Find and return the first integer in a string, or nil if none found."
+  (when str
+    (let ((start (string-match "[0-9]+" str)))
+      (when start
+        (string-to-number (match-string 0 str))))))
+
+(defun jpl/find-file-for-filename (file line-number)
   (let ((current-directory default-directory))
     (while (let* ((prev-dir current-directory))
              (setq current-directory (file-name-directory (directory-file-name current-directory)))
@@ -168,6 +177,8 @@ https://gitlab.com/mycompany/subgroup/another-group/my-project/blob/master/src/u
     (if (file-exists-p (concat current-directory file))
         (progn
           (find-file (concat current-directory file))
+          (when line-number
+            (goto-line line-number))
           )
       )))
 
