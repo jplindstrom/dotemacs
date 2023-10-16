@@ -20,6 +20,7 @@
 (global-set-key (kbd "C-o e c g g") 'jpl/git-link-for-branch)
 
 (global-set-key (kbd "C-o e c g f") 'jpl/git-org-link-project-file)
+(global-set-key (kbd "C-o e c g l") 'jpl/git-org-link-current-line-text)
 
 
 
@@ -60,6 +61,18 @@ buffer (project relative) filename as the link title."
   (interactive "P")
   (jpl/git-org-link--kill-link
    (lambda () (file-relative-name buffer-file-name (projectile-project-root)))))
+
+(defun jpl/git-org-link--current-line-text ()
+  (buffer-substring
+     (save-excursion (beginning-of-line-text) (point))
+     (line-end-position)))
+(defun jpl/git-org-link-current-line-text (arg)
+  "Copy a git-link, but as an org-mode link. Use the current line
+(without indentation) as the link title."
+  (interactive "P")
+  (jpl/git-org-link--kill-link
+   (lambda () (jpl/git-org-link--current-line-text))))
+
 
 
 ;; Perl
