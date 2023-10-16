@@ -49,7 +49,8 @@ called with a prefix argument, use the 'master' branch instead."
   (call-interactively 'jpl/git-link-for-branch)
   (let* ((url (current-kill 0))
          (title (funcall title-fn)))
-    (kill-new (format "[[%s][%s]]" url title) t)))
+    (kill-new (format "[[%s][%s]]" url title) t)
+    (message "%s --> %s" title url)))
 
 
 ;; General
