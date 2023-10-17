@@ -65,10 +65,13 @@ called with a prefix argument, use the 'master' branch instead."
     (message "Copied %s link: %s --> %s" formatter-name title url)))
 
 
-;; FIX: duplicate each of these functions (put each duplicate just
-;; below the original). Instead of the org-mode links with "org" and
+;; FIX: duplicate (create a copy) each of these functions (put each duplicate just
+;; below the original function). Instead of the org-mode links with "org" and
 ;; "Org", use "markdown" and "Markdown" for the function names and
-;; arguments.
+;; arguments. So e.g. there should be the existing function
+;; jpl/git-org-link-project-file, and a new function
+;; jpl/git-markdown-link-project-file which calls its markdown
+;; specific functions.
 (defun jpl/git-org-link-project-file (arg)
   "Copy a git-link, but as an org-mode link. Use the
 buffer (project relative) filename as the link title."
