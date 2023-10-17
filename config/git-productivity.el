@@ -47,7 +47,7 @@ called with a prefix argument, use the 'master' branch instead."
 (defun jpl/git-org-link--formatter-org-link (url title)
   (format "[[%s][%s]]" url title))
 
-(defun jpl/git-org-link--kill-link (formatter-name title-fn formatter-fn)
+(defun jpl/git-org-link--kill-link (title-fn formatter-fn formatter-name)
   "Return org-link with the LINK and the title from calling TITLE-FN"
   (call-interactively 'jpl/git-link-for-branch)
   (let* ((url (current-kill 0))
@@ -56,16 +56,14 @@ called with a prefix argument, use the 'master' branch instead."
     (kill-new formatted-link t)
     (message "Copied %s link: %s --> %s" formatter-name title url)))
 
-
-;; General
 (defun jpl/git-org-link-project-file (arg)
   "Copy a git-link, but as an org-mode link. Use the
 buffer (project relative) filename as the link title."
   (interactive "P")
   (jpl/git-org-link--kill-link
-   "Org"
    (lambda () (file-relative-name buffer-file-name (projectile-project-root)))
-   'jpl/git-org-link--formatter-org-link))
+   'jpl/git-org-link--formatter-org-link
+   "Org"))
 
 (defun jpl/git-org-link--current-line-text ()
   (buffer-substring
@@ -76,38 +74,33 @@ buffer (project relative) filename as the link title."
 (without indentation) as the link title."
   (interactive "P")
   (jpl/git-org-link--kill-link
-   "Org"
    (lambda () (jpl/git-org-link--current-line-text))
-   'jpl/git-org-link--formatter-org-link))
+   'jpl/git-org-link--formatter-org-link
+   "Org"))
 
-
-
-;; Perl
 (defun jpl/git-org-link-perl-method-name (arg)
   "Copy a git-link, but as an org-mode link. Use the current Perl
 method as the title."
   (interactive "P")
   (jpl/git-org-link--kill-link
-   "Org"
    (lambda () (ps/current-method-name))
-   'jpl/git-org-link--formatter-org-link))
+   'jpl/git-org-link--formatter-org-link
+   "Org"))
 
 (defun jpl/git-org-link-perl-package-name (arg)
   "Copy a git-link, but as an org-mode link. Use the current Perl
 package name as the title."
   (interactive "P")
   (jpl/git-org-link--kill-link
-   "Org"
    (lambda () (ps/current-package-name))
-   'jpl/git-org-link--formatter-org-link))
+   'jpl/git-org-link--formatter-org-link
+   "Org"))
 
 (defun jpl/git-org-link-perl-sub-name (arg)
   "Copy a git-link, but as an org-mode link. Use the current Perl
 sub name as the title."
   (interactive "P")
   (jpl/git-org-link--kill-link
-   "Org"
    (lambda () (ps/current-sub-name))
-   'jpl/git-org-link--formatter-org-link))
-
-
+   'jpl/git-org-link--formatter-org-link
+   "Org"))
