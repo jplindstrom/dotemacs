@@ -47,6 +47,9 @@ called with a prefix argument, use the 'master' branch instead."
 (defun jpl/git-org-link--formatter-org-link (url title)
   (format "[[%s][%s]]" url title))
 
+(defun jpl/git-org-link--formatter-markdown-link (url title)
+  (format "[%s](%s)" title url))
+
 (defun jpl/git-org-link--kill-link (title-fn formatter-fn formatter-name)
   "Return org-link with the LINK and the title from calling TITLE-FN"
   (call-interactively 'jpl/git-link-for-branch)
