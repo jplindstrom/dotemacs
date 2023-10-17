@@ -44,10 +44,10 @@ called with a prefix argument, use the 'master' branch instead."
     (call-interactively 'git-link)))
 
 
-(defun jpl/git-org-link--formatter-org-link (url title)
+(defun jpl/git-org-link--formatter (url title)
   (format "[[%s][%s]]" url title))
 
-(defun jpl/git-org-link--formatter-markdown-link (url title)
+(defun jpl/git-markdown-link--formatter (url title)
   (format "[%s](%s)" title url))
 
 (defun jpl/git-org-link--kill-link (title-fn formatter-fn formatter-name)
@@ -65,7 +65,7 @@ buffer (project relative) filename as the link title."
   (interactive "P")
   (jpl/git-org-link--kill-link
    (lambda () (file-relative-name buffer-file-name (projectile-project-root)))
-   'jpl/git-org-link--formatter-org-link
+   'jpl/git-org-link--formatter
    "Org"))
 
 (defun jpl/git-org-link--current-line-text ()
@@ -78,7 +78,7 @@ buffer (project relative) filename as the link title."
   (interactive "P")
   (jpl/git-org-link--kill-link
    (lambda () (jpl/git-org-link--current-line-text))
-   'jpl/git-org-link--formatter-org-link
+   'jpl/git-org-link--formatter
    "Org"))
 
 (defun jpl/git-org-link-perl-method-name (arg)
@@ -87,7 +87,7 @@ method as the title."
   (interactive "P")
   (jpl/git-org-link--kill-link
    (lambda () (ps/current-method-name))
-   'jpl/git-org-link--formatter-org-link
+   'jpl/git-org-link--formatter
    "Org"))
 
 (defun jpl/git-org-link-perl-package-name (arg)
@@ -96,7 +96,7 @@ package name as the title."
   (interactive "P")
   (jpl/git-org-link--kill-link
    (lambda () (ps/current-package-name))
-   'jpl/git-org-link--formatter-org-link
+   'jpl/git-org-link--formatter
    "Org"))
 
 (defun jpl/git-org-link-perl-sub-name (arg)
@@ -105,5 +105,5 @@ sub name as the title."
   (interactive "P")
   (jpl/git-org-link--kill-link
    (lambda () (ps/current-sub-name))
-   'jpl/git-org-link--formatter-org-link
+   'jpl/git-org-link--formatter
    "Org"))
