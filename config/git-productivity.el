@@ -78,7 +78,7 @@ buffer (project relative) filename as the link title."
    'jpl/git-link--org-link-formatter
    "Org"))
 
-(defun jpl/git-org-link--current-line-text ()
+(defun jpl/git-link--current-line-text ()
   (buffer-substring
      (save-excursion (beginning-of-line-text) (point))
      (line-end-position)))
@@ -87,7 +87,7 @@ buffer (project relative) filename as the link title."
 (without indentation) as the link title."
   (interactive "P")
   (jpl/git-link--kill-formatted-link
-   (lambda () (jpl/git-org-link--current-line-text))
+   (lambda () (jpl/git-link--current-line-text))
    'jpl/git-link--org-link-formatter
    "Org"))
 
