@@ -47,14 +47,14 @@ called with a prefix argument, use the 'master' branch instead."
 (defun jpl/git-org-link--formatter-org-link (url title)
   (format "[[%s][%s]]" url title))
 
-(defun jpl/git-org-link--kill-link (title-fn formatter-fn)
+(defun jpl/git-org-link--kill-link (formatter-name title-fn formatter-fn)
   "Return org-link with the LINK and the title from calling TITLE-FN"
   (call-interactively 'jpl/git-link-for-branch)
   (let* ((url (current-kill 0))
          (title (funcall title-fn))
          (formatted-link (funcall formatter-fn url title)))
     (kill-new formatted-link t)
-    (message "%s --> %s" title url)))
+    (message "Copied %s link: %s --> %s" formatter-name title url)))
 
 
 ;; General
@@ -63,6 +63,7 @@ called with a prefix argument, use the 'master' branch instead."
 buffer (project relative) filename as the link title."
   (interactive "P")
   (jpl/git-org-link--kill-link
+   "Org"
    (lambda () (file-relative-name buffer-file-name (projectile-project-root)))
    'jpl/git-org-link--formatter-org-link))
 
@@ -75,6 +76,7 @@ buffer (project relative) filename as the link title."
 (without indentation) as the link title."
   (interactive "P")
   (jpl/git-org-link--kill-link
+   "Org"
    (lambda () (jpl/git-org-link--current-line-text))
    'jpl/git-org-link--formatter-org-link))
 
@@ -86,6 +88,7 @@ buffer (project relative) filename as the link title."
 method as the title."
   (interactive "P")
   (jpl/git-org-link--kill-link
+   "Org"
    (lambda () (ps/current-method-name))
    'jpl/git-org-link--formatter-org-link))
 
@@ -94,6 +97,7 @@ method as the title."
 package name as the title."
   (interactive "P")
   (jpl/git-org-link--kill-link
+   "Org"
    (lambda () (ps/current-package-name))
    'jpl/git-org-link--formatter-org-link))
 
@@ -102,6 +106,7 @@ package name as the title."
 sub name as the title."
   (interactive "P")
   (jpl/git-org-link--kill-link
+   "Org"
    (lambda () (ps/current-sub-name))
    'jpl/git-org-link--formatter-org-link))
 
