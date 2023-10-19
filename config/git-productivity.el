@@ -20,7 +20,10 @@
 (global-set-key (kbd "C-o e c g g") 'jpl/git-link-for-branch)
 
 (global-set-key (kbd "C-o e c g f") 'jpl/git-org-link-project-file)
+(global-set-key (kbd "C-o e c g F") 'jpl/git-markdown-link-project-file)
+
 (global-set-key (kbd "C-o e c g l") 'jpl/git-org-link-current-line-text)
+(global-set-key (kbd "C-o e c g L") 'jpl/git-markdown-link-current-line-text)
 
 
 
@@ -65,13 +68,6 @@ called with a prefix argument, use the 'master' branch instead."
     (message "Copied %s link: %s --> %s" formatter-name title url)))
 
 
-;; FIX: duplicate (create a copy) each of these functions (put each duplicate just
-;; below the original function). Instead of the org-mode links with "org" and
-;; "Org", use "markdown" and "Markdown" for the function names and
-;; arguments. So e.g. there should be the existing function
-;; jpl/git-org-link-project-file, and a new function
-;; jpl/git-markdown-link-project-file which calls its markdown
-;; specific functions.
 (defun jpl/git-org-link-project-file (arg)
   "Copy a git-link, but as an org-mode link. Use the
 buffer (project relative) filename as the link title."
@@ -80,6 +76,16 @@ buffer (project relative) filename as the link title."
    (lambda () (file-relative-name buffer-file-name (projectile-project-root)))
    'jpl/git-link--org-link-formatter
    "Org"))
+
+(defun jpl/git-markdown-link-project-file (arg)
+  "Copy a git-link, but as an markdown-mode link. Use the
+buffer (project relative) filename as the link title."
+  (interactive "P")
+  (jpl/git-link--kill-formatted-link
+   (lambda () (file-relative-name buffer-file-name (projectile-project-root)))
+   'jpl/git-link--markdown-link-formatter
+   "Markdown"))
+
 
 (defun jpl/git-link--current-line-text ()
   (buffer-substring
@@ -94,6 +100,16 @@ buffer (project relative) filename as the link title."
    'jpl/git-link--org-link-formatter
    "Org"))
 
+(defun jpl/git-markdown-link-current-line-text (arg)
+  "Copy a git-link, but as an markdown-mode link. Use the current line
+(without indentation) as the link title."
+  (interactive "P")
+  (jpl/git-link--kill-formatted-link
+   (lambda () (jpl/git-link--current-line-text))
+   'jpl/git-link--markdown-link-formatter
+   "Markdown"))
+
+
 (defun jpl/git-org-link-perl-method-name (arg)
   "Copy a git-link, but as an org-mode link. Use the current Perl
 method as the title."
@@ -103,12 +119,41 @@ method as the title."
    'jpl/git-link--org-link-formatter
    "Org"))
 
+(defun jpl/git-markdown-link-perl-method-name (arg)
+  "Copy a git-link, but as an markdown-mode link. Use the current Perl
+method as the title."
+  (interactive "P")
+  (jpl/git-link--kill-formatted-link
+   (lambda () (ps/current-method-name))
+   'jpl/git-link--markdown-link-formatter
+   "Markdown"))
+
+
 (defun jpl/git-org-link-perl-package-name (arg)
   "Copy a git-link, but as an org-mode link. Use the current Perl
 package name as the title."
   (interactive "P")
   (jpl/git-link--kill-formatted-link
    (lambda () (ps/current-package-name))
+   'jpl/git-link--org-link-formatter
+   "Org"))
+
+(defun jpl/git-markdown-link-perl-package-name (arg)
+  "Copy a git-link, but as an markdown-mode link. Use the current Perl
+package name as the title."
+  (interactive "P")
+  (jpl/git-link--kill-formatted-link
+   (lambda () (ps/current-package-name))
+   'jpl/git-link--markdown-link-formatter
+   "Markdown"))
+
+
+(defun jpl/git-org-link-perl-sub-name (arg)
+  "Copy a git-link, but as an org-mode link. Use the current Perl
+sub name as the title."
+  (interactive "P")
+  (jpl/git-link--kill-formatted-link
+   (lambda () (ps/current-sub-name))
    'jpl/git-link--org-link-formatter
    "Org"))
 
@@ -120,3 +165,4 @@ sub name as the title."
    (lambda () (ps/current-sub-name))
    'jpl/git-link--org-link-formatter
    "Org"))
+
