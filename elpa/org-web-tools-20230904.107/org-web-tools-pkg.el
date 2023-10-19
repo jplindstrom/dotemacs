@@ -1,11 +1,13 @@
-(define-package "org-web-tools" "20201212.1058" "Display and capture web content with Org-mode"
+(define-package "org-web-tools" "20230904.107" "Display and capture web content with Org-mode"
   '((emacs "25.1")
     (org "9.0")
     (dash "2.12")
     (esxml "0.3.4")
     (s "1.10.0")
     (request "0.3.0"))
-  :commit "b94a07add8558ef7b0666173dbb8a2554f1d41a6" :authors
+  :commit "d5bdeb7a772082885a77e98279ad63307977cef7" :authors
+  '(("Adam Porter" . "adam@alphapapa.net"))
+  :maintainers
   '(("Adam Porter" . "adam@alphapapa.net"))
   :maintainer
   '("Adam Porter" . "adam@alphapapa.net")
