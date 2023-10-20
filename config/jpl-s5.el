@@ -44,14 +44,14 @@
 ;;  Replace the content in the <div class="handout"></div>
 (fset 'jpl-org-s5-insert-handout-html-from-region
    [?\M-x ?j ?p ?l ?- ?o ?r ?g ?- ?s ?5 ?- ?u ?l ?- ?t ?o ?- ?h ?t ?m ?l ?- ?c ?o ?p ?y tab return C-tab ?\C-r ?c ?l ?a ?s ?s ?= ?\" ?s ?l ?i ?d ?e ?\" end ?\C-s ?c ?l ?a ?s ?s ?= ?\" ?h ?a ?n ?d ?o ?u ?t ?\" end down home ?\C-  ?\C-s ?< ?/ ?d ?i ?v home delete S-insert ?\M-x ?i ?n ?d ?e ?n ?t ?  ?r ?e ?g ?  return ?\C-r ?c ?l ?a ?s ?s ?= ?\" ?h ?a ?n ?d ?o ?u ?t ?\" end ?\C-s ?< ?l ?i ?> left right])
-(global-set-key (kbd "C-c h") 'jpl-org-s5-insert-handout-html-from-region)
+;; (global-set-key (kbd "C-c h") 'jpl-org-s5-insert-handout-html-from-region)
 
 ;; Bold region
 ;; In the org-buffer, *surround* the region with stars, i.e. it'll
 ;; become bold once in the presentation
 (fset 'jpl-org-s5-star_region
    "\C-x\C-x*\C-x\C-x*")
-(global-set-key (kbd "C-c b") 'jpl-org-s5-star_region)
+;; (global-set-key (kbd "C-c b") 'jpl-org-s5-star_region)
 
 ;; Insert takahashi_two heading text into presentation
 ;; Assuming a split window
@@ -61,7 +61,7 @@
 ;; Make the class takahashi_two, and insert the heading as the text, with / converted to <br />
 (fset 'jpl-org-s5-insert-takahashi_two
    [?\M-w C-tab ?\C-r ?c ?l ?a ?s ?s ?= ?\" ?s ?l ?i ?d ?e ?\" right end ?\C-s ?< ?d ?i ?v ?  ?c ?l ?a ?s ?s ?= ?\" left right ?\C-  ?\C-s ?\" left delete ?t ?a ?k ?a ?h ?a ?s ?h ?i ?_ ?t ?w ?o right right ?\C-  ?\C-s ?< left delete S-insert ?\C-r ?/ left right delete ?< ?b ?r backspace backspace backspace backspace ?< ?b ?r ?/ right delete left right C-tab])
-(global-set-key (kbd "C-c t") 'jpl-org-s5-insert-takahashi_two)
+;; (global-set-key (kbd "C-c t") 'jpl-org-s5-insert-takahashi_two)
 
 
 
