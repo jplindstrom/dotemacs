@@ -415,13 +415,27 @@ markup"
 
 (defun jpl/org-jira-issue-url-property-from-branch-name (branch-name)
   (interactive)
-  (let* ((jira-issue-url (jpl/org-jira-link-from-branch-name branch-name)))
+  (let* ((jira-issue-url (jpl/org-jira-link-from-branch-name branch-name))
+         (created-time (jpl/current-org-time-stamp-string t)))
     (if jira-issue-url
         (format ":PROPERTIES:
 :issue-url: %s
+:created-time: %s
 :END:
-" jira-issue-url)
+" jira-issue-url created-time)
       "")))
+
+
+(defun jpl/current-org-time-stamp-string (&optional inactive)
+  "Return the current timestamp in the format of org-mode's time-stamp."
+  (interactive "P")
+  (if inactive
+      (format-time-string "[%Y-%m-%d %a %H:%M]")
+    (format-time-string "<%Y-%m-%d %a %H:%M>")))
+
+
+
+
 
 
 ;; Copy current jira URL, branch name
