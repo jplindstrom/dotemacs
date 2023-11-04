@@ -273,6 +273,30 @@ markup"
 ;; #+results: name: my_gui_result
 
 
+;; Example of component-diagram from https://www.reddit.com/r/emacs/comments/17m6fes/comment/k7nu4js/?utm_source=reddit&utm_medium=web2x&context=3
+
+;; #+BEGIN_SRC plantuml :eval never-export :exports results :file (make-temp-file "plantuml-" nil ".png")
+;; ' http://plantuml.com/component-diagram
+
+;; skinparam componentStyle rectangle
+
+;; [start]
+
+;; package "This is a group" {
+;;   component [item1] #red
+;;   [start] -down-> [item1]
+;;   [item1] -right-> [another item]
+
+;;   [a thing with a rather\nlong **description**\nover //several// lines\nThat __go on__\nwith bold, italic\nand underlines] as long
+
+;;   [another item] -down-> [long]
+;;   [long] -left-> [the last one]
+;;   [the last one] -up-> [ah no, one more]
+;;   [ah no, one more] -left-> [another last one]
+;; }
+;; #+END_SRC
+
+
 
 (defun org-export-subtree-as-confluence-wiki-markup (prefix-arg)
   "Export current subtreee."
