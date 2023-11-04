@@ -8,3 +8,6 @@ ${1:$(jpl/org-jira-issue-url-property-from-branch-name yas-text)}*** branch
 *** code review
 *** merge to master
 *** deploy
+:PROPERTIES:
+:LOGGING: DONE(n!)
+:END:
