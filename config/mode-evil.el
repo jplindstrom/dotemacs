@@ -159,10 +159,10 @@ already there, to the beginning of the line."
 ;; Remap org-mode meta keys for convenience
 (mapcar (lambda (state)
     (evil-declare-key state org-mode-map
-      (kbd "M-j") 'org-forward-heading-same-level
-      (kbd "M-k") 'org-backward-heading-same-level
-      (kbd "M-h") 'outline-up-heading
-      (kbd "M-l") 'outline-next-visible-heading
+      (kbd "M-j") 'jpl/org-forward-heading-same-level
+      (kbd "M-k") 'jpl/org-backward-heading-same-level
+      (kbd "M-h") 'jpl/outline-up-heading
+      (kbd "M-l") 'jpl/outline-next-visible-heading
 
       (kbd "M-J") 'org-shiftmetadown
       (kbd "M-K") 'org-shiftmetaup
@@ -177,6 +177,32 @@ already there, to the beginning of the line."
       (kbd "C-a") 'org-beginning-of-line
       ))
   '(normal insert visual))
+
+;; Ensure the point is on the beginning of the content line, not at col 0
+(defun jpl/org-forward-heading-same-level ()
+  (interactive)
+  (org-forward-heading-same-level nil)
+  (beginning-of-line)
+  (org-beginning-of-line))
+
+(defun jpl/org-backward-heading-same-level ()
+  (interactive)
+  (org-backward-heading-same-level nil)
+  (beginning-of-line)
+  (org-beginning-of-line))
+
+(defun jpl/outline-up-heading ()
+  (interactive)
+  (call-interactively 'outline-up-heading)
+  (beginning-of-line)
+  (org-beginning-of-line))
+
+(defun jpl/outline-next-visible-heading ()
+  (interactive)
+  (call-interactively 'outline-next-visible-heading)
+  (beginning-of-line)
+  (org-beginning-of-line))
+
 
 
 
