@@ -17,7 +17,8 @@
 
 ;; git-link
 ;; https://github.com/sshaw/git-link
-(global-set-key (kbd "C-o e c g g") 'jpl/git-link-for-branch)
+(global-set-key (kbd "C-o e c g g") 'jpl/git-maybe-formatted-link-for-branch)
+(global-set-key (kbd "C-o e c g G") 'jpl/git-markdown-link-region-text)
 
 (global-set-key (kbd "C-o e c g f") 'jpl/git-org-link-project-file)
 (global-set-key (kbd "C-o e c g F") 'jpl/git-markdown-link-project-file)
@@ -56,35 +57,8 @@ If there's an active region, make it an org link with the region
 as the title, otherwise just copy the link URL."
   (interactive "P")
   (if (region-active-p)
-      (jpl/git-link-for-branch arg)
-    (jpl/git-org-link-region-text arg)))
-
-
-  ;;; JPL: move these to the others
-(defun jpl/git-link--region-text ()
-  ;; FIX: Change this to not use the current line, but the current region
-  (buffer-substring
-     (save-excursion (beginning-of-line-text) (point))
-     (line-end-position)))
-
-(defun jpl/git-org-link-region-text (arg)
-  "Copy a git-link, but as an org-mode link. Use the current line
-(without indentation) as the link title."
-  (interactive "P")
-  (jpl/git-link--kill-formatted-link
-   (lambda () (jpl/git-link--region-text))
-   'jpl/git-link--org-link-formatter
-   "Org"))
-
-(defun jpl/git-markdown-link-region-text (arg)
-  "Copy a git-link, but as an markdown-mode link. Use the current line
-(without indentation) as the link title."
-  (interactive "P")
-  (jpl/git-link--kill-formatted-link
-   (lambda () (jpl/git-link--region-text))
-   'jpl/git-link--markdown-link-formatter
-   "Markdown"))
-
+      (jpl/git-org-link-region-text arg)
+    (jpl/git-link-for-branch arg)))
 
 
 
@@ -149,6 +123,31 @@ buffer (project relative) filename as the link title."
    "Markdown"))
 
 
+;; region
+(defun jpl/git-link--region-text ()
+  (buffer-substring (region-beginning) (region-end)))
+
+(defun jpl/git-org-link-region-text (arg)
+  "Copy a git-link, but as an org-mode link. Use the current
+region as the link title."
+  (interactive "P")
+  (jpl/git-link--kill-formatted-link
+   (lambda () (jpl/git-link--region-text))
+   'jpl/git-link--org-link-formatter
+   "Org"))
+
+(defun jpl/git-markdown-link-region-text (arg)
+  "Copy a git-link, but as an markdown-mode link. Use the current
+region as the link title."
+  (interactive "P")
+  (jpl/git-link--kill-formatted-link
+   (lambda () (jpl/git-link--region-text))
+   'jpl/git-link--markdown-link-formatter
+   "Markdown"))
+
+
+;;; Perl
+;; Perl method
 (defun jpl/git-org-link-perl-method-name (arg)
   "Copy a git-link, but as an org-mode link. Use the current Perl
 method as the title."
