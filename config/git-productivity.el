@@ -81,6 +81,7 @@ as the title, otherwise just copy the link URL."
     (message "Copied %s link: %s --> %s" formatter-name title url)))
 
 
+;; project-file
 (defun jpl/git-org-link-project-file (arg)
   "Copy a git-link, but as an org-mode link. Use the
 buffer (project relative) filename as the link title."
@@ -100,6 +101,7 @@ buffer (project relative) filename as the link title."
    "Markdown"))
 
 
+;; current-line
 (defun jpl/git-link--current-line-text ()
   (buffer-substring
      (save-excursion (beginning-of-line-text) (point))
@@ -167,6 +169,7 @@ method as the title."
    "Markdown"))
 
 
+;; Perl package name
 (defun jpl/git-org-link-perl-package-name (arg)
   "Copy a git-link, but as an org-mode link. Use the current Perl
 package name as the title."
@@ -186,6 +189,7 @@ package name as the title."
    "Markdown"))
 
 
+;; Perl sub name
 (defun jpl/git-org-link-perl-sub-name (arg)
   "Copy a git-link, but as an org-mode link. Use the current Perl
 sub name as the title."
