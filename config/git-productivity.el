@@ -48,6 +48,45 @@ called with a prefix argument, use the 'master' branch instead."
 
 
 
+(defun jpl/git-maybe-formatted-link-for-branch (arg)
+  "Call git-link to copy a git link for the current branch. If
+called with a prefix argument, use the 'master' branch instead.
+
+If there's an active region, make it an org link with the region
+as the title, otherwise just copy the link URL."
+  (interactive "P")
+  (if (region-active-p)
+      (jpl/git-link-for-branch arg)
+    (jpl/git-org-link-region-text arg)))
+
+
+  ;;; JPL: move these to the others
+(defun jpl/git-link--region-text ()
+  ;; FIX: Change this to not use the current line, but the current region
+  (buffer-substring
+     (save-excursion (beginning-of-line-text) (point))
+     (line-end-position)))
+
+(defun jpl/git-org-link-region-text (arg)
+  "Copy a git-link, but as an org-mode link. Use the current line
+(without indentation) as the link title."
+  (interactive "P")
+  (jpl/git-link--kill-formatted-link
+   (lambda () (jpl/git-link--region-text))
+   'jpl/git-link--org-link-formatter
+   "Org"))
+
+(defun jpl/git-markdown-link-region-text (arg)
+  "Copy a git-link, but as an markdown-mode link. Use the current line
+(without indentation) as the link title."
+  (interactive "P")
+  (jpl/git-link--kill-formatted-link
+   (lambda () (jpl/git-link--region-text))
+   'jpl/git-link--markdown-link-formatter
+   "Markdown"))
+
+
+
 
 ;;;; Copy links with different titles into org and markdown link formats
 
