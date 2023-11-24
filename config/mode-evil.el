@@ -193,6 +193,7 @@ already there, to the beginning of the line."
 
 (defun jpl/outline-up-heading ()
   (interactive)
+  (push-mark)
   (call-interactively 'outline-up-heading)
   (beginning-of-line)
   (org-beginning-of-line))
