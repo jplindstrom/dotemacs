@@ -14,6 +14,7 @@
 
 (load "git-gutter-fringe") ;; require doesn't work for some reason
 (setq git-gutter-fr:side 'right-fringe)
+(setq git-gutter:disabled-modes '(org-mode))
 (global-git-gutter-mode +1)
 
 (set-face-foreground 'git-gutter-fr:added "royal blue")
