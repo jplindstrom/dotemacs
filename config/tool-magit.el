@@ -128,7 +128,8 @@
 ;; https://gitlab.com/-/profile/personal_access_tokens (api permissions)
 ;; ~/.authinfo
 ;; machine gitlab.com/api/v4 login my.username^forge password 123456
-(require 'forge)
+
+;; (require 'forge)  ;; disable, doesn't work on dev machine
 
 
 
