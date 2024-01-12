@@ -76,6 +76,10 @@
 
   (py-setup-python-lsp)
 
+  ;; pytest
+  (add-to-list 'pytest-project-root-files "pyproject.toml")
+  (add-to-list 'pytest-project-root-files "pytest.ini")
+
   (local-set-key (kbd "C-; C-l") 'insert-python-self)
   )
 
