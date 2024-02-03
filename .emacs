@@ -252,6 +252,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ediff-current-diff-B ((t (:extend t :background "DarkSeaGreen2" :foreground "#2c3e50"))))
+ '(ediff-even-diff-B ((t (:extend t :background "light gray"))))
+ '(ediff-fine-diff-A ((t (:background "coral2" :foreground "#2c3e50" :weight bold))))
+ '(ediff-fine-diff-B ((t (:background "DarkSeaGreen2" :foreground "#2c3e50" :weight bold))))
  '(font-lock-builtin-face ((t (:foreground "#16a085" :underline t :weight bold))))
  '(highlight ((t (:background "light steel blue"))))
  '(highlight-indentation-current-column-face ((t (:background "gainsboro"))))
