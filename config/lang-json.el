@@ -96,3 +96,8 @@ Otherwise, it will try to find the current or outer [] or {} structure and conve
       (backward-char)
       (mark-sexp)
       t)))
+
+
+;; Beautify / reformat JSON globally
+(global-set-key (kbd "C-o m j") 'json-mode-beautify)
+
