@@ -2,8 +2,14 @@
 (defun insert-python-self ()
   (interactive)
   (insert "self.")
-  (company-complete)
-  )
+  (company-complete))
+
+(defun insert-python-block ()
+  "Insert `:` and open a new indented line."
+  (interactive)
+  (insert ":")
+  (newline)
+  (indent-according-to-mode))
 
 (defun py-setup-python-lsp ()
 
@@ -79,9 +85,17 @@
   ;; pytest
   (add-to-list 'pytest-project-root-files "pyproject.toml")
   (add-to-list 'pytest-project-root-files "pytest.ini")
+  (local-set-key "\C-o \C-r" 'pytest-all)
 
   (local-set-key (kbd "C-; C-l") 'insert-python-self)
+  (local-set-key (kbd "C-; C-;") 'insert-python-block)
   )
+
+(defun temp-jpl-setup-py ()
+  (interactive)
+  (local-set-key (kbd "C-; C-l") 'insert-python-self)
+  (local-set-key (kbd "C-; C-;") 'insert-python-block)
+)
 
 
 (add-hook 'python-mode-hook 'py-my-setup)
