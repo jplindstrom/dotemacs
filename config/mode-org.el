@@ -4,7 +4,6 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
 
-
 ;; Performance workaround for large org files: slow if in overview
 ;; mode, but fast with unfolded
 ; So start unfolded to cache(?) all the lines
@@ -22,6 +21,7 @@
                            (push '("BLOCKED" . ?⨻) prettify-symbols-alist)
                            (push '("WONTDO"  . ?✅) prettify-symbols-alist)
                            (prettify-symbols-mode)
+                           (org-indent-mode)
                            ))
 ;; △ ⎊ ⨻ ◃ ⧐
 
