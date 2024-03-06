@@ -208,3 +208,15 @@ sub name as the title."
    'jpl/git-link--org-link-formatter
    "Org"))
 
+
+
+(defun jpl/git-absorb ()
+  "Run `git absorb -r` and let the user confirm the rebase in the
+currently running Emacs."
+  (interactive)
+  (server-start)
+  (setenv "EDITOR" "emacsclient")
+  (async-shell-command "git absorb -r"))
+
+(global-set-key (kbd "C-o v a") 'jpl/git-absorb)
+
