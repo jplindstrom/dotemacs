@@ -208,15 +208,19 @@ sub name as the title."
    'jpl/git-link--org-link-formatter
    "Org"))
 
-
-
 (defun jpl/git-absorb ()
   "Run `git absorb -r` and let the user confirm the rebase in the
 currently running Emacs."
   (interactive)
   (server-start)
-  (setenv "EDITOR" "emacsclient")
-  (async-shell-command "git absorb -r"))
+  (let* ((current-server-name server-name)
+         (emacsclient-command (format "emacsclient --socket-name=%s" current-server-name))
+         (process-environment (cons (concat "EDITOR=" emacsclient-command) process-environment)))
+    (make-process :name "git-absorb"
+                  :command '("git" "absorb" "-r")
+                  :sentinel (lambda (process event)
+                              (when (string= event "finished\n")
+                                (magit-status))))))
 
 (global-set-key (kbd "C-o v a") 'jpl/git-absorb)
 
