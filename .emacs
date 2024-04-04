@@ -122,6 +122,7 @@
 
 
 ;; Languages
+(jpl/load "mode-copilot")
 (jpl/load "lang-perl")
 (jpl/load "lang-perl-productivity")
 (jpl/load "lang-perl-perlysense")
