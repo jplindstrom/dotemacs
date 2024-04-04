@@ -219,6 +219,7 @@ This hook will be run even when there are no matching sections in
                  fsharp-indent-level
                  fsharp-indent-offset)
     (gdscript-mode gdscript-indent-offset)
+    (graphql-mode graphql-indent-level)
     (groovy-mode groovy-indent-offset)
     (go-ts-mode go-ts-mode-indent-offset)
     (haskell-mode haskell-indent-spaces
@@ -245,6 +246,7 @@ This hook will be run even when there are no matching sections in
     (js3-mode js3-indent-level)
     (json-mode js-indent-level)
     (json-ts-mode json-ts-mode-indent-offset)
+    (jsonian-mode jsonian-default-indentation)
     (julia-mode julia-indent-offset)
     (kotlin-mode kotlin-tab-width)
     (kotlin-ts-mode kotlin-ts-mode-indent-offset)
@@ -287,6 +289,7 @@ This hook will be run even when there are no matching sections in
     (scss-mode css-indent-offset)
     (sgml-mode sgml-basic-offset)
     (sh-mode sh-basic-offset sh-indentation)
+    (swift-mode swift-mode:basic-offset)
     (bash-ts-mode sh-basic-offset sh-indentation)
     (slim-mode slim-indent-offset)
     (sml-mode sml-indent-level)
@@ -313,7 +316,8 @@ This hook will be run even when there are no matching sections in
               web-mode-script-padding
               web-mode-style-padding)
     (yaml-mode yaml-indent-offset)
-    (yaml-ts-mode yaml-indent-offset))
+    (yaml-ts-mode yaml-indent-offset)
+    (zig-mode zig-indent-offset))
   "Alist of indentation setting methods by modes.
 
 Each element looks like (MODE . FUNCTION) or (MODE . INDENT-SPEC-LIST).
