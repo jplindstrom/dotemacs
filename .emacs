@@ -34,6 +34,7 @@
 
 
 (jpl/load "emacs-performance")
+(jpl/load "emacs-json")
 
 (jpl/load "emacs-packages")
 (jpl/load "emacs-load-path")
