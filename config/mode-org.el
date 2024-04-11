@@ -31,6 +31,9 @@
  (lambda ()
    (require 'verb)
    (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
+
+   (define-key org-mode-map (kbd "C-o g b") #'org-mark-ring-goto)
+
    (company-mode)
    )
  )
