@@ -32,8 +32,9 @@ is available. Useful if you tend to hammer your keys like I do."
   (if (copilot--overlay-visible)
       (progn
         (copilot-accept-completion)
-        (open-line 1)
-        (next-line))
+        ;; (open-line 1)
+        ;; (next-line)
+        )
     (copilot-complete)))
 
 (define-key copilot-mode-map (kbd "C-o c n") #'copilot-next-completion)
