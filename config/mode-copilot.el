@@ -5,6 +5,12 @@
 
 (setq copilot-idle-delay 0.5)
 
+(defun jpl/maybe-enable-copilot-mode ()
+  "Enable copilot-mode if this is not an org-mode source block"
+  (interactive)
+  (when (not (jpl/is-org-source-block))
+    (copilot-mode)))
+
 ;; Don't use global-copilot-mode, it seems broken
 ;; https://github.com/copilot-emacs/copilot.el/issues/226
 (dolist (hook '(typescript-mode-hook
@@ -18,7 +24,7 @@
                 json-mode-hook
                 yaml-mode-hook
                 ))
-  (add-hook hook 'copilot-mode))
+  (add-hook hook 'jpl/maybe-enable-copilot-mode))
 
 
 ;; https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/

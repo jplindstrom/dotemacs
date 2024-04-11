@@ -121,6 +121,12 @@
 (jpl/load "mode-indent-guide")
 (jpl/load "mode-highlight-indentation")
 
+;; Org mode (has langauge specific code blocks)
+(jpl/load "mode-org") ;; lang- ?
+(jpl/load "mode-org-level-faces")
+(jpl/load "mode-org-keys")
+
+
 
 ;; Languages
 (jpl/load "lang-perl")
@@ -155,9 +161,6 @@
 (jpl/load "lang-yaml")
 (jpl/load "lang-json")
 (jpl/load "rnc") ;; XML Relax NG schema
-(jpl/load "mode-org") ;; lang- ?
-(jpl/load "mode-org-level-faces")
-(jpl/load "mode-org-keys")
 
 
 ;; Dev

@@ -519,6 +519,18 @@ to the clipboard."
 (define-key org-mode-map "\C-oecl" 'jpl/copy-url-or-org-link-url-at-point)
 
 
+(defun jpl/is-org-source-block ()
+  "Is this an org-mode source block buffer? Makes sense to call
+during fontification, i.e. in a language specific mode hook.
+
+Called by e.g. mode-copilot."
+  (interactive)
+  (string-prefix-p " *org-src-fontification:" (buffer-name)))
+
+
+
+
+
 ;; Insert source block with a default language
 
 (defun org-find-previous-begin_src-language ()
