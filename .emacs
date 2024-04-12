@@ -160,6 +160,7 @@
 (jpl/load "nxml")
 (jpl/load "lang-yaml")
 (jpl/load "lang-json")
+(jpl/load "lang-text-utils")
 (jpl/load "rnc") ;; XML Relax NG schema
 
 
