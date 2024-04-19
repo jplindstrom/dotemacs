@@ -65,7 +65,7 @@
 
   ;;; Formatting
   ;; Prefer the project version, not the global version
-  (setq prettier-js-command "npx prettier")
+  (setq prettier-js-command "npx-prettier")
   ;; formats the buffer before saving
   (add-hook 'before-save-hook 'jpl/tide-mode-maybe-format-before-save)
 
