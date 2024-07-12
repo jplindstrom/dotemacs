@@ -43,11 +43,12 @@ is available. Useful if you tend to hammer your keys like I do."
         )
     (copilot-complete)))
 
-(define-key copilot-mode-map (kbd "C-o c n") #'copilot-next-completion)
-(define-key copilot-mode-map (kbd "C-o c p") #'copilot-previous-completion)
-(define-key copilot-mode-map (kbd "C-o c l") #'copilot-accept-completion-by-word)
-(define-key copilot-mode-map (kbd "C-o c j") #'copilot-accept-completion-by-line)
-(define-key global-map (kbd "C-o c c") #'rk/copilot-complete-or-accept)
+(define-key copilot-mode-map (kbd "C-o C-p") #'rk/copilot-complete-or-accept)
+(define-key copilot-mode-map (kbd "C-o p n") #'copilot-next-completion)
+(define-key copilot-mode-map (kbd "C-o p p") #'copilot-previous-completion)
+(define-key copilot-mode-map (kbd "C-o p l") #'copilot-accept-completion-by-word)
+(define-key copilot-mode-map (kbd "C-o p j") #'copilot-accept-completion-by-line)
+(define-key global-map (kbd "C-o C-p") #'rk/copilot-complete-or-accept)
 
 
 
