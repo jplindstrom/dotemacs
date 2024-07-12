@@ -35,7 +35,7 @@
   (local-set-key "\C-odh" 'lsp-ui-doc-hide)
 
   ;; Edit
-  (local-set-key "\C-oe\C-f" 'lsp-format-buffer)
+  (local-set-key "\C-oe\C-f" 'json-pretty-print)
   ;; Fix
   (local-set-key "\C-oef" 'lsp-ui-sideline-apply-code-actions)
   )
