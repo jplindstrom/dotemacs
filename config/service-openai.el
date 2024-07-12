@@ -49,7 +49,7 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
   [["Arguments"
     ("-m" "model" "--model="
      :always-read t
-     :init-value (lambda (obj) (oset obj value "4"))
+     :init-value (lambda (obj) (oset obj value "fix"))
      )
     ("-t" "model" "--template="
      :always-read t
