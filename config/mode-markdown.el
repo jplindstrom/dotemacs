@@ -50,7 +50,18 @@
   (define-key evil-normal-state-local-map (kbd "C-M-k") 'markdown-move-subtree-up)
   (define-key evil-normal-state-local-map (kbd "C-M-h") 'markdown-promote-subtree)
   (define-key evil-normal-state-local-map (kbd "C-M-l") 'markdown-demote-subtree)
+
+  (define-key evil-normal-state-local-map (kbd "C-o e t i") 'markdown-toc-generate-or-refresh-toc)
+  (define-key evil-insert-state-local-map (kbd "C-o e t i") 'markdown-toc-generate-or-refresh-toc)
+  (define-key evil-normal-state-local-map (kbd "C-o e t d") 'markdown-toc-delete-toc)
+  (define-key evil-insert-state-local-map (kbd "C-o e t d") 'markdown-toc-delete-toc)
   )
 
 (add-hook 'markdown-mode-hook 'jpl/setup-markdown-mode)
 (add-hook 'gfm-mode-hook 'jpl/setup-markdown-mode)
+
+
+
+
+(require 'markdown-toc)
+
