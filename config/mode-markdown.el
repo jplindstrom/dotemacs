@@ -26,6 +26,16 @@
     (markdown-outline-fix-visibility))))
 
 
+(defun jpl/markdown-hide-url-toggle ()
+  (interactive)
+  (setq markdown-hide-urls (not markdown-hide-urls))
+  (font-lock-fontify-buffer))
+
+(defun jpl/markdown-hide-markup-toggle ()
+  (interactive)
+  (setq markdown-hide-markup (not markdown-hide-markup))
+  (font-lock-fontify-buffer))
+
 
 (defun jpl/setup-markdown-mode ()
   (interactive)
@@ -51,10 +61,14 @@
   (define-key evil-normal-state-local-map (kbd "C-M-h") 'markdown-promote-subtree)
   (define-key evil-normal-state-local-map (kbd "C-M-l") 'markdown-demote-subtree)
 
+
   (define-key evil-normal-state-local-map (kbd "C-o e t i") 'markdown-toc-generate-or-refresh-toc)
   (define-key evil-insert-state-local-map (kbd "C-o e t i") 'markdown-toc-generate-or-refresh-toc)
   (define-key evil-normal-state-local-map (kbd "C-o e t d") 'markdown-toc-delete-toc)
   (define-key evil-insert-state-local-map (kbd "C-o e t d") 'markdown-toc-delete-toc)
+
+  (define-key evil-normal-state-local-map (kbd "C-o v l") 'jpl/markdown-hide-url-toggle)
+  (define-key evil-normal-state-local-map (kbd "C-o v m") 'jpl/markdown-hide-markup-toggle)
   )
 
 (add-hook 'markdown-mode-hook 'jpl/setup-markdown-mode)
@@ -64,4 +78,3 @@
 
 
 (require 'markdown-toc)
-
