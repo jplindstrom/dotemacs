@@ -5,6 +5,11 @@
 
 (setq copilot-idle-delay 0.5)
 
+(add-to-list
+ 'copilot-indentation-alist
+ '(elisp-mode 2))
+
+
 (defun jpl/maybe-enable-copilot-mode ()
   "Enable copilot-mode if this is not an org-mode source block"
   (interactive)
