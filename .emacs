@@ -121,7 +121,7 @@
 (jpl/load "mode-indent-guide")
 (jpl/load "mode-highlight-indentation")
 
-;; Org mode (has langauge specific code blocks)
+;; Org mode (has language specific code blocks)
 (jpl/load "mode-org") ;; lang- ?
 (jpl/load "mode-org-level-faces")
 (jpl/load "mode-org-keys")
