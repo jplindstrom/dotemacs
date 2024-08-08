@@ -189,6 +189,7 @@
 (jpl/load "tool-irc")
 (jpl/load "tool-browse-kill-ring")
 (jpl/load "tool-sort")
+(jpl/load "tool-spellcheck")
 
 
 ;; Projects
@@ -296,5 +297,6 @@
  '(outline-7 ((t (:inherit font-lock-builtin-face :height 0.9))))
  '(outline-8 ((t (:inherit font-lock-string-face :height 0.9))))
  '(secondary-selection ((t (:extend t :background "LightYellow3"))))
+ '(spell-fu-incorrect-face ((t (:underline (:color "sandy brown" :style wave)))))
  '(terraform-resource-name-face ((t (:foreground "dark green" :underline t))))
  '(terraform-resource-type-face ((t (:foreground "medium sea green" :underline t)))))

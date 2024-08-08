@@ -13,10 +13,13 @@
     (spell-fu-dictionary-add
      (spell-fu-get-personal-dictionary "en-personal" filename)))
 
+  (setq spell-fu-idle-delay 0.25) ;; 2s
   (spell-fu-mode)
 
   (define-key evil-normal-state-local-map (kbd "C-o s C-n") 'spell-fu-goto-next-error)
+  (define-key evil-normal-state-local-map (kbd "C-o s n") 'spell-fu-goto-next-error)
   (define-key evil-normal-state-local-map (kbd "C-o s C-p") 'spell-fu-goto-previous-error)
+  (define-key evil-normal-state-local-map (kbd "C-o s p") 'spell-fu-goto-previous-error)
   (define-key evil-normal-state-local-map (kbd "C-o s i") 'spell-fu-word-add)
   (define-key evil-normal-state-local-map (kbd "C-o s I") 'spell-fu-word-remove)
   (define-key evil-normal-state-local-map (kbd "C-o s b") 'spell-fu-buffer)
@@ -42,7 +45,7 @@
        org-src
        org-tag
        org-verbatim))
-    (spell-fu-mode)))
+    (jpl/setup-spell-fu-mode)))
 
 (add-hook 'prog-mode-hook (lambda () (jpl/setup-spell-fu-mode)))
 (add-hook 'text-mode-hook (lambda () (jpl/setup-spell-fu-mode)))
