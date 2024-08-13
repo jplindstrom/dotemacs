@@ -53,6 +53,9 @@
 ;; Beginning of line means after the stars
 (setq org-special-ctrl-a/e t)
 
+;; Don't split the line, you can manually do that with a newline and then M-RET
+(setq org-M-RET-may-split-line nil)
+
 
 (setq org-link-abbrev-alist
       '(
