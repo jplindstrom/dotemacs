@@ -214,13 +214,6 @@ already there, to the beginning of the line."
 
 
 
-(require 'expand-region)
-(evil-leader/set-key "a" 'er/expand-region)
-(evil-leader/set-key "s" 'er/contract-region)
-
-
-
-
 (require 'evil-args)
 
 ;; bind evil-args text objects
