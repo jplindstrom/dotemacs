@@ -14,9 +14,5 @@
 (global-set-key (kbd "\C-o m c") 'jpl-reformat-collapse-param-list)
 
 
-;; (require 'jpl-refactor)
-;; (global-set-key (kbd "\C-o e a u") 'add-use)
-
-
 
 
