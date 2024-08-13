@@ -86,7 +86,6 @@
 (jpl/load "emacs-buffer-scroll")
 (jpl/load "emacs-revert-buffer")
 (jpl/load "emacs-printer")
-(jpl/load "emacs-win32-printing") ;; May work?
 (jpl/load "emacs-win32-shell-mode")
 
 (jpl/load "mode-helpful")
