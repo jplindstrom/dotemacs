@@ -95,7 +95,6 @@
 
 
 ;; Modes
-(jpl/load "mode-newsticker") ;; disabled, unused
 (jpl/load "mode-autopair")
 (jpl/load "buffer-file-eol-type") ;; Used at all?
 (jpl/load "goto-last-edit-point") ;; Unused
