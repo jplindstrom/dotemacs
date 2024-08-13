@@ -132,9 +132,6 @@ markup"
    [?\C-s ?\C-q ?\C-j ?* ?  home delete ?= end ?  ?= right])
 
 
-(require 'org-fstree)
-
-
 
 
 
