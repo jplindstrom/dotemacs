@@ -101,7 +101,6 @@
 (jpl/load "buffer-file-eol-type") ;; Used at all?
 (jpl/load "goto-last-edit-point") ;; Unused
 (jpl/load "mode-align-string")
-(jpl/load "mode-ee") ;; disabled, unused
 (jpl/load "mode-highlight-tail") ;; Disabled. Useless, but cool
 (jpl/load "mode-graphviz")
 (jpl/load "mode-evil")
