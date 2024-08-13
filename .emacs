@@ -143,7 +143,6 @@
 (jpl/load "lang-python")
 (jpl/load "lang-go")
 (jpl/load "lang-C++-boss")
-(jpl/load "lang-haskell")
 (jpl/load "lang-elisp-eval-and-replace")
 (jpl/load "lang-clojure")
 
