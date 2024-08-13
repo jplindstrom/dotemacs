@@ -109,7 +109,6 @@
 (jpl/load "mode-helm")
 (jpl/load "mode-projectile")
 (jpl/load "lib-jpl-popup")
-(jpl/load "mode-confluence")
 (jpl/load "mode-longlines")
 (jpl/load "mode-iedit")
 (jpl/load "mode-avy")
