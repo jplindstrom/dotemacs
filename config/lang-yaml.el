@@ -120,9 +120,6 @@
   ;; ((yaml-mode . ((evil-shift-width . 2))))
 
 
-  ;; Can't use this, it's too slow with origami-mode folding
-  ;; (highlight-indentation-current-column-mode)
-
   (yaml-setup-yaml-lsp)
   )
 

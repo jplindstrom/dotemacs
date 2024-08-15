@@ -112,7 +112,6 @@
 (jpl/load "jpl-jira")
 (jpl/load "mode-markdown")
 (jpl/load "mode-indent-guide")
-(jpl/load "mode-highlight-indentation")
 
 ;; Org mode (has language specific code blocks)
 (jpl/load "mode-org") ;; lang- ?
@@ -255,7 +254,6 @@
  '(ediff-fine-diff-B ((t (:background "DarkSeaGreen2" :foreground "#2c3e50" :weight bold))))
  '(font-lock-builtin-face ((t (:foreground "#16a085" :underline t :weight bold))))
  '(highlight ((t (:background "light steel blue"))))
- '(highlight-indentation-current-column-face ((t (:background "gainsboro"))))
  '(hl-line ((t (:extend t :underline "black"))))
  '(markdown-code-face ((t (:inherit fixed-pitch :extend t :background "gainsboro" :height 0.8))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0))))
