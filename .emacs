@@ -53,7 +53,7 @@
 (jpl/load "emacs-buffer-name")
 (jpl/load "emacs-buffer-menu")
 (jpl/load "emacs-global-replace")
-(jpl/load "emacs-confing-insert-mode")
+(jpl/load "emacs-config-insert-mode")
 (jpl/load "emacs-font-lock")
 (jpl/load "emacs-completion-ignored-extensions")
 (jpl/load "emacs-auto-mode-alist") ;; Lang. Should be split up to el, py, h
