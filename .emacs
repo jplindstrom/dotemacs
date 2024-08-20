@@ -42,7 +42,6 @@
 
 (jpl/load "emacs-clipboard")
 (jpl/load "emacs-mouse-scroll")
-(jpl/load "emacs-uniquify")
 (jpl/load "emacs-server-start")
 (jpl/load "emacs-whitespace")
 (jpl/load "emacs-80-column-marker")

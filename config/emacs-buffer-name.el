@@ -5,4 +5,5 @@
 ;; Don't display "index.js<product>", display "product/index.js"
 
 (require 'uniquify)
+(setq uniquify-after-kill-buffer-p t)
 (setq uniquify-buffer-name-style 'forward)
