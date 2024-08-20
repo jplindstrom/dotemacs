@@ -43,7 +43,7 @@
 
 (jpl/load "emacs-load-default-but-dont-init")
 (jpl/load "emacs-set-font") ;;; Not used
-(jpl/load "emcas-cliboard")
+(jpl/load "emacs-clipboard")
 (jpl/load "emacs-mouse-scroll")
 (jpl/load "emacs-uniquify")
 (jpl/load "emacs-server-start")
