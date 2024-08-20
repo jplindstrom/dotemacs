@@ -25,7 +25,7 @@
 
 
 (defun jpl/load (config-file)
-  (load (concat config-file)))
+  (load config-file))
 
 
 (jpl/load "emacs-performance")
