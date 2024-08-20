@@ -40,7 +40,6 @@
 (jpl/load "emacs-global-unset-keys")
 
 
-(jpl/load "emacs-set-font") ;;; Not used
 (jpl/load "emacs-clipboard")
 (jpl/load "emacs-mouse-scroll")
 (jpl/load "emacs-uniquify")
