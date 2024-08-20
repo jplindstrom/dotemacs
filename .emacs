@@ -21,7 +21,6 @@
   )
 (jpl/add-to-load-path "config")
 (jpl/add-to-load-path "lib")
-(jpl/add-to-load-path "local-lib")
 
 
 (defun jpl/load (config-file)
