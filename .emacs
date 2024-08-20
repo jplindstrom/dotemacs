@@ -19,6 +19,7 @@
 (defun jpl/add-to-load-path (dir)
   (add-to-list 'load-path (concat elisp-home-directory "/" dir))
   )
+(jpl/add-to-load-path "")
 (jpl/add-to-load-path "config")
 (jpl/add-to-load-path "lib")
 
@@ -31,7 +32,6 @@
 (jpl/load "emacs-json")
 
 (jpl/load "emacs-packages")
-(jpl/load "emacs-load-path")
 (jpl/load "emacs-set-path-from-env")
 (jpl/load "emacs-with-library") ;; used by irc, move up
 
