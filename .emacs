@@ -28,11 +28,6 @@
   (load (concat config-file)))
 
 
-(fset 'jpl/extract-dotemacs-chunk
-   [?d ?\C-l ?k ?% ?h ?h ?y ?i ?\" ?\C-x ?\C-f ?c ?o ?n ?f ?i ?g ?/ ?\C-y ?. ?e ?l return ?\C-j ?\C-j ?P ?\C-p ?\C-x ?\C-s ?\C-x ?b return ?\C-a C-tab ?\C-x ?b return C-tab])
-(global-set-key (kbd "\C-c \C-d") 'jpl/extract-dotemacs-chunk)
-
-
 (jpl/load "emacs-performance")
 (jpl/load "emacs-json")
 
