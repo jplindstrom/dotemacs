@@ -59,10 +59,11 @@
       (set-face-background 'flymake-warnline "lavender")
       (set-face-foreground 'flymake-warnline "black")
 
-      (set-face-background 'dropdown-list-face "lightgrey")
-      (set-face-foreground 'dropdown-list-face "black")
-      (set-face-background 'dropdown-list-selection-face "grey")
-      (set-face-foreground 'dropdown-list-selection-face "black")
+      ;; JPL: disable since the dropdown-list package isn't working
+      ;; (set-face-background 'dropdown-list-face "lightgrey")
+      ;; (set-face-foreground 'dropdown-list-face "black")
+      ;; (set-face-background 'dropdown-list-selection-face "grey")
+      ;; (set-face-foreground 'dropdown-list-selection-face "black")
 
       )
   (message "Could not identify PerlySense install dir.
