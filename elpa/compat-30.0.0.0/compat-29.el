@@ -1,6 +1,6 @@
 ;;; compat-29.el --- Functionality added in Emacs 29.1 -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2021-2023 Free Software Foundation, Inc.
+;; Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -25,11 +25,21 @@
 (compat-require compat-28 "28.1")
 
 ;; Preloaded in loadup.el
-;; TODO Update to 29.1 as soon as the Emacs emacs-29 branch version bumped
-(compat-require seq "29.0") ;; <compat-tests:seq>
+(compat-require seq "29.1") ;; <compat-tests:seq>
 
-;; TODO Update to 29.1 as soon as the Emacs emacs-29 branch version bumped
-(compat-version "29.0")
+(compat-version "29.1")
+
+;;;; Defined in startup.el
+
+(compat-defvar lisp-directory ;; <compat-tests:lisp-directory>
+    (file-truename
+     (file-name-directory
+      (locate-file "simple" load-path (get-load-suffixes))))
+  "Directory where Emacs's own *.el and *.elc Lisp files are installed.")
+
+;;;; Defined in window.c
+
+(compat-defalias window-configuration-equal-p compare-window-configurations) ;; <compat-tests:window-configuration-equal-p>
 
 ;;;; Defined in xdisp.c
 
@@ -92,38 +102,40 @@ Unibyte strings are converted to multibyte for comparison."
 (compat-defun plist-get (plist prop &optional predicate) ;; <compat-tests:plist-get>
   "Handle optional argument PREDICATE."
   :extended t
-  (if (or (null predicate) (eq predicate 'eq))
-      (plist-get plist prop)
-    (catch 'found
-      (while (consp plist)
-        (when (funcall predicate prop (car plist))
-          (throw 'found (cadr plist)))
-        (setq plist (cddr plist))))))
+  (pcase predicate
+    ((or `nil `eq) (plist-get plist prop))
+    (`equal (lax-plist-get plist prop))
+    (_ (catch 'found
+         (while (consp plist)
+           (when (funcall predicate prop (car plist))
+             (throw 'found (cadr plist)))
+           (setq plist (cddr plist)))))))
 
 (compat-defun plist-put (plist prop val &optional predicate) ;; <compat-tests:plist-get>
   "Handle optional argument PREDICATE."
   :extended t
-  (if (or (null predicate) (eq predicate 'eq))
-      (plist-put plist prop val)
-    (catch 'found
-      (let ((tail plist))
-        (while (consp tail)
-          (when (funcall predicate prop (car tail))
-            (setcar (cdr tail) val)
-            (throw 'found plist))
-          (setq tail (cddr tail))))
-      (nconc plist (list prop val)))))
+  (pcase predicate
+    ((or `nil `eq) (plist-put plist prop val))
+    (`equal (lax-plist-put plist prop val))
+    (_ (catch 'found
+         (let ((tail plist))
+           (while (consp tail)
+             (when (funcall predicate prop (car tail))
+               (setcar (cdr tail) val)
+               (throw 'found plist))
+             (setq tail (cddr tail))))
+         (nconc plist (list prop val))))))
 
 (compat-defun plist-member (plist prop &optional predicate) ;; <compat-tests:plist-get>
   "Handle optional argument PREDICATE."
   :extended t
-  (if (or (null predicate) (eq predicate 'eq))
-      (plist-member plist prop)
-    (catch 'found
-      (while (consp plist)
-        (when (funcall predicate prop (car plist))
-          (throw 'found plist))
-        (setq plist (cddr plist))))))
+  (pcase predicate
+    ((or `nil `eq) (plist-member plist prop))
+    (_ (catch 'found
+         (while (consp plist)
+           (when (funcall predicate prop (car plist))
+             (throw 'found plist))
+           (setq plist (cddr plist)))))))
 
 ;;;; Defined in gv.el
 
@@ -278,7 +290,7 @@ in order to restore the state of the local variables set via this macro.
      (,(if (fboundp 'compat--setq-local) 'compat--setq-local 'setq-local)
       ,@pairs)))
 
-(compat-defun list-of-strings-p (object) ;; <compat-tests:lists-of-strings-p>
+(compat-defun list-of-strings-p (object) ;; <compat-tests:list-of-strings-p>
   "Return t if OBJECT is nil or a list of strings."
   (declare (pure t) (side-effect-free t))
   (while (and (consp object) (stringp (car object)))
@@ -306,6 +318,7 @@ to other portions of the buffer, use `without-restriction' with the
 same LABEL argument.
 
 \(fn START END [:label LABEL] BODY)"
+  (declare (indent 0) (debug t))
   `(save-restriction
      (narrow-to-region ,start ,end)
      ;; Locking is ignored
@@ -321,6 +334,7 @@ restrictions set by `with-restriction' with the same LABEL argument
 are lifted.
 
 \(fn [:label LABEL] BODY)"
+  (declare (indent 0) (debug t))
   `(save-restriction
      (widen)
      ;; Locking is ignored
@@ -498,6 +512,14 @@ thus overriding the value of the TIMEOUT argument to that function.")
 
 ;;;; Defined in simple.el
 
+(compat-defun char-uppercase-p (char) ;; <compat-tests:char-uppercase-p>
+  "Return non-nil if CHAR is an upper-case character.
+If the Unicode tables are not yet available, e.g. during bootstrap,
+then gives correct answers only for ASCII characters."
+  (cond ((unicode-property-table-internal 'lowercase)
+         (characterp (get-char-code-property char 'lowercase)))
+        ((and (>= char ?A) (<= char ?Z)))))
+
 (compat-defun use-region-noncontiguous-p () ;; <compat-tests:region-noncontiguous-p>
   "Return non-nil for a non-contiguous region if `use-region-p'."
   (and (use-region-p) (region-noncontiguous-p)))
@@ -620,6 +642,31 @@ The variable list SPEC is the same as in `if-let*'."
            (throw ',done nil))))))
 
 ;;;; Defined in files.el
+
+(compat-defun directory-abbrev-make-regexp (directory) ;; <compat-tests:directory-abbrev-make-regexp>
+  "Create a regexp to match DIRECTORY for `directory-abbrev-alist'."
+  (let ((regexp
+         ;; We include a slash at the end, to avoid spurious
+         ;; matches such as `/usr/foobar' when the home dir is
+         ;; `/usr/foo'.
+         (concat "\\`" (regexp-quote directory) "\\(/\\|\\'\\)")))
+    ;; The value of regexp could be multibyte or unibyte.  In the
+    ;; latter case, we need to decode it.
+    (if (multibyte-string-p regexp)
+        regexp
+      (decode-coding-string regexp
+                            (if (eq system-type 'windows-nt)
+                                'utf-8
+                              locale-coding-system)))))
+
+(compat-defun directory-abbrev-apply (filename) ;; <compat-tests:directory-abbrev-apply>
+  "Apply the abbreviations in `directory-abbrev-alist' to FILENAME.
+Note that when calling this, you should set `case-fold-search' as
+appropriate for the filesystem used for FILENAME."
+  (dolist (dir-abbrev directory-abbrev-alist filename)
+    (when (string-match (car dir-abbrev) filename)
+         (setq filename (concat (cdr dir-abbrev)
+                                (substring filename (match-end 0)))))))
 
 (compat-defun file-name-split (filename) ;; <compat-tests:file-name-split>
   "Return a list of all the components of FILENAME.
@@ -1182,14 +1229,17 @@ value can also be a property list with properties `:enter' and
      :repeat (:enter (commands ...) :exit (commands ...))
 
 `:enter' specifies the list of additional commands that only
-enter `repeat-mode'.  When the list is empty, then by default all
-commands in the map enter `repeat-mode'.  This is useful when
-there is a command that has the `repeat-map' symbol property, but
-doesn't exist in this specific map.  `:exit' is a list of
-commands that exit `repeat-mode'.  When the list is empty, no
-commands in the map exit `repeat-mode'.  This is useful when a
-command exists in this specific map, but it doesn't have the
-`repeat-map' symbol property on its symbol.
+enter `repeat-mode'.  When the list is empty, then only the
+commands defined in the map enter `repeat-mode'.  Specifying a
+list of commands is useful when there are commands that have the
+`repeat-map' symbol property, but don't exist in this specific
+map.
+
+`:exit' is a list of commands that exit `repeat-mode'.  When the
+list is empty, no commands in the map exit `repeat-mode'.
+Specifying a list of commands is useful when those commands exist
+in this specific map, but should not have the `repeat-map' symbol
+property.
 
 \(fn VARIABLE-NAME &key DOC FULL PARENT SUPPRESS NAME PREFIX KEYMAP REPEAT &rest [KEY DEFINITION]...)"
   (declare (indent 1))

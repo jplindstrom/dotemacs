@@ -21,7 +21,8 @@
 ;;;***
 
 ;;;### (autoloads nil nil ("compat-25.el" "compat-26.el" "compat-27.el"
-;;;;;;  "compat-28.el" "compat-29.el" "compat-pkg.el") (0 0 0 0))
+;;;;;;  "compat-28.el" "compat-29.el" "compat-30.el" "compat-pkg.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 
