@@ -28,7 +28,7 @@
 
 
      (add-hook 'ediff-cleanup-hook
-               '(lambda ()
+               #'(lambda ()
                   (dolist (tmp-buf (list ediff-buffer-A
                                          ediff-buffer-B
                                          ediff-buffer-C))

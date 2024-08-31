@@ -1,5 +1,5 @@
 
-(add-hook 'sql-mode-hook '(lambda () (setq tab-width 4)))
+(add-hook 'sql-mode-hook #'(lambda () (setq tab-width 4)))
 
 
 
