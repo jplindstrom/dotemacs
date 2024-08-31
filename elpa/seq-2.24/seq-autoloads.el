@@ -16,7 +16,7 @@
 ;;;### (autoloads nil "seq-25" "seq-25.el" (0 0 0 0))
 ;;; Generated autoloads from seq-25.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "seq-25" '("seq--when-emacs-25-p")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "seq-25" '("seq--")))
 
 ;;;***
 
