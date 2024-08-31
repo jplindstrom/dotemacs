@@ -98,7 +98,6 @@
 (jpl/load "mode-longlines")
 (jpl/load "mode-iedit")
 (jpl/load "mode-avy")
-(jpl/load "jpl-s5")
 (jpl/load "jpl-jira")
 (jpl/load "mode-markdown")
 (jpl/load "mode-indent-guide")
