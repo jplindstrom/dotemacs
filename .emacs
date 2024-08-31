@@ -151,7 +151,6 @@
 (jpl/load "dev-indent-tabstep")
 (jpl/load "dev-jpl-reformat")
 (jpl/load "jpl-extend-region-to-enclosing-block") ;; unused by this config
-(jpl/load "dev-camel-case")
 (jpl/load "tool-cede") ;; disabled CEDET and ECB
 
 
