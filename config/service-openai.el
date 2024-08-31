@@ -2,10 +2,26 @@
 (defun jpl/gptel-get-api-key ()
   (getenv "OPENAI_API_KEY"))
 
+(defun jpl/gptel-get-anthropic-api-key ()
+  (getenv "ANTHROPIC_API_KEY"))
+
+
 ;; https://github.com/karthink/gptel
 (setq gptel-api-key 'jpl/gptel-get-api-key)
-(global-set-key (kbd "C-o a a") 'gptel-send)
+(global-set-key (kbd "C-o C-a") 'gptel-menu)
 (global-set-key (kbd "C-o a c") 'gptel)        ;; Chat
+
+(global-set-key (kbd "C-o a a") 'gptel-add)
+(global-set-key (kbd "C-o a f") 'gptel-add-file)
+(global-set-key (kbd "C-o a t") 'gptel-org-set-topic)
+(global-set-key (kbd "C-o a t") 'gptel-org-set-properties)
+
+
+
+(gptel-make-anthropic "Anthropic"
+  :stream t
+  :key (jpl/gptel-get-anthropic-api-key))
+
 
 
 ;; https://github.com/rksm/org-ai
@@ -81,4 +97,4 @@ PROGRAMMING-LANGUAGE on current selection or entire buffer."
   (interactive)
   (jpl/llm-fix-transient))
 
-(global-set-key (kbd "C-o a f") 'jpl/llm-fix)
+(define-key global-map (kbd "C-o a f") 'jpl/llm-fix)
