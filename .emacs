@@ -129,7 +129,7 @@
 (jpl/load "lang-go")
 (jpl/load "lang-C++-boss")
 (jpl/load "lang-elisp-eval-and-replace")
-(jpl/load "lang-clojure")
+;; (jpl/load "lang-clojure")  ;;;JPL: upgrade with 29
 
 ;; Config language
 (jpl/load "lang-terraform")
