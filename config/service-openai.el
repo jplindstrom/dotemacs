@@ -5,6 +5,7 @@
 ;; https://github.com/karthink/gptel
 (setq gptel-api-key 'jpl/gptel-get-api-key)
 (global-set-key (kbd "C-o a a") 'gptel-send)
+(global-set-key (kbd "C-o a c") 'gptel)        ;; Chat
 
 
 ;; https://github.com/rksm/org-ai
