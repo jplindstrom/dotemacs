@@ -1,8 +1,8 @@
 ;;; polymode-base.el --- Root Host and Polymode Configuration Objects -*- lexical-binding: t -*-
 ;;
-;; Copyright (C) 2013-2019, Vitalie Spinu
+;; Copyright (C) 2013-2022  Free Software Foundation, Inc.
 ;; Author: Vitalie Spinu
-;; URL: https://github.com/vspinu/polymode
+;; URL: https://github.com/polymode/polymode
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

@@ -1,8 +1,8 @@
 ;;; polymode-classes.el --- Core polymode classes -*- lexical-binding: t -*-
 ;;
-;; Copyright (C) 2013-2019, Vitalie Spinu
+;; Copyright (C) 2013-2022  Free Software Foundation, Inc.
 ;; Author: Vitalie Spinu
-;; URL: https://github.com/vspinu/polymode
+;; URL: https://github.com/polymode/polymode
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -30,11 +30,6 @@
 (require 'eieio)
 (require 'eieio-base)
 (require 'eieio-custom)
-
-;; FIXME: fix emacs eieo-named bug #22840 where they wrongly set name of the
-;; parent object in clone method
-
-(setq eieio-backward-compatibility nil)
 
 (defvar pm--object-counter 0)
 
@@ -300,7 +295,7 @@ the trailing white spaces if any.")
    (adjust-face
     :initarg :adjust-face
     :initform nil
-    :type (or number face list)
+    :type (or number symbol list)
     :custom (choice number face sexp)
     :documentation
     "Fontification adjustment for the body of the chunk.
@@ -417,29 +412,30 @@ If set to 'host or 'body use host or body's mode respectively.")
     :type (or string cons function)
     :custom (choice string (cons string integer) function)
     :documentation
-    "A regexp, a cons (REGEXP . SUB-MATCH) or a function.
+    "A REGEXP, a cons (REGEXP . SUB-MATCH) or a function.
 When a function, the matcher must accept one argument that can
 take either values 1 (forwards search) or -1 (backward search)
 and behave similarly to how search is performed by
 `re-search-forward' function. This function must return either
-nil (no match) or a (cons BEG END) representing the span of the
-head or tail respectively. See the code of `pm-fun-matcher' for a
-simple example.")
+nil (no match) or a (cons BEG END) representing the head span.
+See the code of `pm-fun-matcher' for how REGEXP and (REGEXP .
+SUB-MATCH) are converted to a function internally..")
    (tail-matcher
     :initarg :tail-matcher
     :type (or string cons function)
     :custom (choice string (cons string integer) function)
     :documentation
     "A regexp, a cons (REGEXP . SUB-MATCH) or a function.
-Like :head-matcher but for the chunk's tail. Currently, it is
-always called with the point at the end of the matched head and
-with the positive argument (aka match forward).")
+Like :head-matcher but for the chunk's tail. Unlike
+:head-matcher, it is always called with the point at the end of
+the matched head and with the positive argument (aka match
+forward). See `pm-forward-sexp-tail-matcher' for an example.")
    (adjust-face
     :initform 2)
    (head-adjust-face
     :initarg :head-adjust-face
     :initform 'bold
-    :type (or number face list)
+    :type (or number symbol list)
     :custom (choice number face sexp)
     :documentation
     "Head's face adjustment.
@@ -447,7 +443,7 @@ Can be a number, a list of properties or a face.")
    (tail-adjust-face
     :initarg :tail-adjust-face
     :initform nil
-    :type (or null number face list)
+    :type (or null number symbol list)
     :custom (choice (const :tag "From Head" nil)
                     number face sexp)
     :documentation
@@ -488,8 +484,6 @@ called at the beginning of the head span."))
   "Inner chunkmodes with unknown (at definition time) mode of the
 body span. The body mode is determined dynamically by retrieving
 the name with the :mode-matcher.")
-
-(setq eieio-backward-compatibility t)
 
 (provide 'polymode-classes)
 ;;; polymode-classes.el ends here
