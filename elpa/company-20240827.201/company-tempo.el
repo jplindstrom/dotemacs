@@ -1,6 +1,6 @@
-;;; company-tempo.el --- company-mode completion backend for tempo
+;;; company-tempo.el --- company-mode completion backend for tempo  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2009-2011, 2013-2016  Free Software Foundation, Inc.
+;; Copyright (C) 2009-2011, 2013-2016, 2023  Free Software Foundation, Inc.
 
 ;; Author: Nikolaj Schumacher
 
@@ -56,13 +56,14 @@
          (car (split-string doc "\n" t)))))
 
 ;;;###autoload
-(defun company-tempo (command &optional arg &rest ignored)
+(defun company-tempo (command &optional arg &rest _ignored)
   "`company-mode' completion backend for tempo."
   (interactive (list 'interactive))
   (cl-case command
     (interactive (company-begin-backend 'company-tempo))
     (prefix (or (car (tempo-find-match-string tempo-match-finder)) ""))
     (candidates (all-completions arg (tempo-build-collection)))
+    (kind 'snippet)
     (meta (company-tempo-meta arg))
     (post-completion (when company-tempo-expand (company-tempo-insert arg)))
     (sorted t)))
