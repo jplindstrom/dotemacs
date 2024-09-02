@@ -159,20 +159,24 @@ already there, to the beginning of the line."
 ;; Remap org-mode meta keys for convenience
 (mapcar (lambda (state)
     (evil-declare-key state org-mode-map
+      ;; Navigate - Meta
       (kbd "M-j") 'jpl/org-forward-heading-same-level
       (kbd "M-k") 'jpl/org-backward-heading-same-level
       (kbd "M-h") 'jpl/outline-up-heading
       (kbd "M-l") 'jpl/outline-next-visible-heading
 
+      ;; Move heading - Meta Shift
       (kbd "M-J") 'org-shiftmetadown
       (kbd "M-K") 'org-shiftmetaup
       (kbd "M-H") 'org-metaleft
       (kbd "M-L") 'org-metaright
 
-      (kbd "C-M-j") 'org-metadown
-      (kbd "C-M-k") 'org-metaup
-      (kbd "C-M-h") 'org-shiftmetaleft
-      (kbd "C-M-l") 'org-shiftmetaright
+      ;; Move tree - Meta Shift Ctrl
+      (kbd "C-M-J") 'org-metadown
+      (kbd "C-M-K") 'org-metaup
+      (kbd "C-M-H") 'org-shiftmetaleft
+      (kbd "C-M-L") 'org-shiftmetaright
+      (kbd "C-M-S-l") 'org-shiftmetaright  ;; Need to override another binding somehow...
 
       (kbd "C-a") 'org-beginning-of-line
       ))
