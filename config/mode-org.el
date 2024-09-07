@@ -152,10 +152,11 @@ markup"
    (verb . t)
    (chatgpt-shell . t)
    (sql . t)
+   (sqlite . t)
    ))
 
 (defun my/org-confirm-babel-evaluate (lang body)
-  (not (member lang '("dot" "plantuml" "python" "R" "sql"))))
+  (not (member lang '("dot" "plantuml" "python" "R" "sql" "sqlite"))))
 (setq org-confirm-babel-evaluate 'my/org-confirm-babel-evaluate)
 
 
@@ -181,6 +182,35 @@ markup"
 ;; | It works |
 ;; |----------|
 ;; |        1 |
+
+
+;;; SQlite
+;; *** Test db
+;; :PROPERTIES:
+;;   :header-args+: :results table
+;;   :header-args+: :db test.sqlite
+;;   :END:
+;; **** Create
+;; #+begin_src sqlite :results silent
+;;   drop table if exists car;
+;;   CREATE TABLE car (
+;;     id INTEGER PRIMARY KEY AUTOINCREMENT,
+;;     brand TEXT,
+;;     make TEXT
+;;   );
+;; #+end_src
+;; **** Insert
+;; #+begin_src sqlite :results silent
+;;   insert into car (brand, make) values ("Ford", "Fiesta"), ("Fiat", "Uno");
+;; #+end_src
+;; **** Select
+;; #+begin_src sqlite
+;; Select * from car;
+;; #+end_src
+
+;; #+RESULTS:
+;; | 1 | Ford | Fiesta |
+;; | 2 | Fiat | Uno    |
 
 
 
