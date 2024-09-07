@@ -142,6 +142,7 @@ markup"
  'org-babel-load-languages
  '(
    (emacs-lisp . t)
+   (perl . t)
    (python . t)
    (dot . t)
    (plantuml . t)
