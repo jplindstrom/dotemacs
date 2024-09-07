@@ -150,10 +150,11 @@ markup"
    (calc . t)
    (verb . t)
    (chatgpt-shell . t)
+   (sql . t)
    ))
 
 (defun my/org-confirm-babel-evaluate (lang body)
-  (not (member lang '("dot" "plantuml" "python" "R"))))
+  (not (member lang '("dot" "plantuml" "python" "R", "sql"))))
 (setq org-confirm-babel-evaluate 'my/org-confirm-babel-evaluate)
 
 
