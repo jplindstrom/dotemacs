@@ -261,7 +261,7 @@
  '(org-level-7 ((t (:inherit outline-7 :underline nil))))
  '(org-level-9 ((t (:inherit outline-8 :foreground "dark orange"))))
  '(org-meta-line ((t (:inherit font-lock-comment-face :foreground "light gray" :height 0.6))))
- '(org-property-value ((t (:height 0.7))) t)
+ '(org-property-value ((t (:height 0.7))))
  '(org-special-keyword ((t (:inherit font-lock-keyword-face :foreground "light gray" :height 0.7))))
  '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "#16a085" :height 1.4))))
  '(outline-2 ((t (:inherit font-lock-variable-name-face :foreground "#2980b9" :height 1.2))))
