@@ -160,6 +160,31 @@ markup"
 
 
 
+;; SQL block example
+;;
+;; *** Dev
+;; :PROPERTIES:
+;;   :header-args+: :results table
+;;   :header-args+: :engine postgres
+;;   :header-args+: :dbhost 127.0.0.1
+;;   :header-args+: :dbport 35432
+;;   :header-args+: :dbuser postgres
+;;   :header-args+: :dbpassword postgres
+;;   :header-args+: :database my_db
+;;   :END:
+;; **** Test
+;; #+BEGIN_SRC sql
+;; select 1 "It works"
+;; #+END_SRC
+
+;; #+RESULTS:
+;; | It works |
+;; |----------|
+;; |        1 |
+
+
+
+
 (setq org-startup-with-inline-images t)
 
 (defun my/org-redisplay-inline-images ()
