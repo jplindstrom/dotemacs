@@ -60,7 +60,7 @@
   (define-key evil-normal-state-local-map (kbd "C-M-k") 'markdown-move-subtree-up)
   (define-key evil-normal-state-local-map (kbd "C-M-h") 'markdown-promote-subtree)
   (define-key evil-normal-state-local-map (kbd "C-M-l") 'markdown-demote-subtree)
-
+  (define-key evil-normal-state-local-map (kbd "C-M-S-l") 'markdown-demote-subtree)
 
   (define-key evil-normal-state-local-map (kbd "C-o e t i") 'markdown-toc-generate-or-refresh-toc)
   (define-key evil-insert-state-local-map (kbd "C-o e t i") 'markdown-toc-generate-or-refresh-toc)
