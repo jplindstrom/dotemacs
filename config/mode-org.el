@@ -155,7 +155,7 @@ markup"
    ))
 
 (defun my/org-confirm-babel-evaluate (lang body)
-  (not (member lang '("dot" "plantuml" "python" "R", "sql"))))
+  (not (member lang '("dot" "plantuml" "python" "R" "sql"))))
 (setq org-confirm-babel-evaluate 'my/org-confirm-babel-evaluate)
 
 
