@@ -162,6 +162,22 @@ markup"
 
 
 
+
+
+(setq mermaid-flags "-b transparent")
+;; Mermaid diagrams
+;; http://mermaid.js.org/syntax/flowchart.html
+
+;; Example sequenceDiagram
+;; #+begin_src mermaid :file /tmp/mermaid-sequenceDiagram.png
+;;   sequenceDiagram
+;;       A-->B: Works!
+;;       B-->C: Ok then
+;; #+end_src
+
+
+
+
 ;; SQL block example
 ;;
 ;; *** Dev
