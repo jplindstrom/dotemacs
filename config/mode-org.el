@@ -146,6 +146,7 @@ markup"
    (python . t)
    (dot . t)
    (plantuml . t)
+   (mermaid . t)
    (R . t)
    (shell . t)
    (calc . t)
@@ -156,7 +157,7 @@ markup"
    ))
 
 (defun my/org-confirm-babel-evaluate (lang body)
-  (not (member lang '("dot" "plantuml" "python" "R" "sql" "sqlite"))))
+  (not (member lang '("dot" "plantuml" "mermaid" "python" "R" "sql" "sqlite"))))
 (setq org-confirm-babel-evaluate 'my/org-confirm-babel-evaluate)
 
 
