@@ -676,7 +676,7 @@ Called by e.g. mode-copilot."
 ;; Insert Clipboard image
 (define-key org-mode-map "\C-oeic" 'org-download-clipboard)
 ;; Insert Screenshot
-(define-key org-mode-map "\C-oeiS" 'org-download-screenshot)
+(define-key org-mode-map "\C-oei C-S" 'org-download-screenshot)
 ;; Insert Image from URL
 (define-key org-mode-map "\C-oeii" 'org-download-yank)
 
