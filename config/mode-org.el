@@ -653,7 +653,13 @@ Called by e.g. mode-copilot."
     (forward-line)
     (open-line 1)))
 
-(define-key org-mode-map "\C-oeis" 'org-insert-src-block)
+(define-key org-mode-map "\C-oeis" #'org-insert-src-block)
+
+
+
+(require 'org-rich-yank)
+(define-key org-mode-map "\C-oeiS" #'org-rich-yank)  ;; Insert code block from last kill
+
 
 
 ;; Insert images from clipboard, screenshots, URLs
