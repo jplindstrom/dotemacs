@@ -661,6 +661,43 @@ Called by e.g. mode-copilot."
 (define-key org-mode-map "\C-oeiS" #'org-rich-yank)  ;; Insert code block from last kill
 
 
+(defun jpl/brief-filename (filename)
+  (let ((home (expand-file-name "~/")))
+    (if (string-prefix-p home filename)
+        (concat "~/" (substring filename (length home)))
+      filename)))
+
+(defun jpl/add-org-link-title (org-link title)
+  ;; Example org-link
+  ;; [[file:~/the-file::some search term]]
+  ;; Make link not end with "]]" but with "][(buffer-file-name)]]"
+  (concat (substring org-link 0 -2) "][" title "]]"))
+
+(autoload 'org-escape-code-in-string "org-src")
+(defun jpl/org-rich-kill-src-block ()
+  (interactive)
+  ;; Take the
+  (let* ((region-text (buffer-substring-no-properties (region-beginning) (region-end)))
+         (org-link (org-rich-yank--store-link))
+         (filename (jpl/brief-filename (buffer-file-name)))
+         (link (jpl/add-org-link-title org-link filename))
+         (kill-text
+          (funcall
+           org-rich-yank-format-paste
+           (org-rich-yank--get-lang)
+           (org-escape-code-in-string region-text)
+           link
+           ))
+         )
+    (deactivate-mark)
+    (kill-new kill-text)
+    (message "Copied region as org src block")
+    )
+  )
+(define-key global-map "\C-oecS" #'jpl/org-rich-kill-src-block)
+
+
+
 
 ;; Insert images from clipboard, screenshots, URLs
 
@@ -707,4 +744,3 @@ Called by e.g. mode-copilot."
 
 (fset 'jpl/markdown-make-code-block
    (kmacro-lambda-form [?V ?o ?` ?` ?` escape ?g ?v ?o ?V ?O ?` ?` ?` escape ?g ?v ?o ?V ?j ?j] 0 "%d"))
-
