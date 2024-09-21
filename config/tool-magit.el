@@ -16,12 +16,6 @@
 ;; (set-face-background 'magit-item-highlight "DarkSeaGreen1")
 
 
-(add-hook
- 'git-commit-mode-hook
- (lambda () (setq git-commit-summary-max-length 80))
- )
-
-
 (add-hook 'magit-mode-hook 'helm-mode)
 
 
@@ -102,6 +96,15 @@
 ;; Show fine differences for all displayed diff hunks.
 (setq magit-diff-refine-hunk 'all)
 
+
+
+
+(defun jpl/magit-commit-setup-hook ()
+  (interactive)
+  (evil-magit-insert-commit-message-prefix)
+  (setq git-commit-summary-max-length 80)
+  )
+(add-hook 'git-commit-setup-hook #'jpl/magit-commit-setup-hook)
 
 
 ;; Override magit-mode.el magit-mode-map
