@@ -22,6 +22,8 @@
  )
 
 
+(add-hook 'magit-mode-hook 'helm-mode)
+
 
 
 ;;JPL: does this still work?
