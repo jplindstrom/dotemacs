@@ -17,6 +17,8 @@
 
 
 (add-hook 'magit-mode-hook 'helm-mode)
+(magit-todos-mode 1)
+
 
 
 
