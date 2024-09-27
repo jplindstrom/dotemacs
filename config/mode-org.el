@@ -178,6 +178,10 @@ markup"
 
 (setq mermaid-flags "-b transparent")
 ;; Mermaid diagrams
+;; Install:
+;;     npm install -g @mermaid-js/mermaid-cli
+;;
+;; Syntax:
 ;; http://mermaid.js.org/syntax/flowchart.html
 
 ;; Example sequenceDiagram
