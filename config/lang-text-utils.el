@@ -10,3 +10,7 @@
 
 (global-set-key (kbd "\C-o e n i") 'jpl/increase-number-at-point)
 
+
+
+(global-set-key (kbd "M-C-q") 'unfill-toggle)
+
