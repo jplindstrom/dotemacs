@@ -610,6 +610,7 @@ to the clipboard."
 (define-key org-mode-map "\C-oecl" 'jpl/copy-url-or-org-link-url-at-point)
 
 
+;; Used by copilot-mode
 (defun jpl/is-org-source-block ()
   "Is this an org-mode source block buffer? Makes sense to call
 during fontification, i.e. in a language specific mode hook.
