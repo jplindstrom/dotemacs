@@ -29,6 +29,7 @@
   (push '("#+end_src"  . ?◣) prettify-symbols-alist)
   (push '("#+END_SRC"  . ?◣) prettify-symbols-alist)
   (push '("#+RESULTS:"  . ?☷) prettify-symbols-alist)
+  (push '("#+DOWNLOADED: "  . ?◤) prettify-symbols-alist)
   (prettify-symbols-mode))
 
 (add-hook 'org-mode-hook (lambda ()
