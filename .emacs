@@ -112,7 +112,8 @@
 ;; Languages
 (jpl/load "lang-perl")
 (jpl/load "lang-perl-productivity")
-(jpl/load "lang-perl-perlysense")
+;; (jpl/load "lang-perl-perlysense")    ;; Too low on work Mac
+(jpl/load "lang-perl-perlysense-mini")  ;; Port the used bits
 (jpl/load "lang-perl-productivity-keys")
 (jpl/load "lang-perl-perltidy")
 (jpl/load "lang-perl-prove")
