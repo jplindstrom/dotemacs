@@ -28,7 +28,7 @@ region is active"
 (defun ps/project-dir ()
   "Return the project dir of the current buffer, or nil of no
 project was found"
-  (let ((dir (file-name-directory buffer-file-name)))
+  (let ((dir (file-name-directory (or buffer-file-name "./dummy"))))
     ;; (projectile-acquire-root dir)
     (projectile-project-root dir)
     )
@@ -161,3 +161,7 @@ If not, search for an empty string.
 
 
 (global-set-key (format "%sgv" ps/key-prefix) 'magit-status)
+(global-set-key (format "%sgV" ps/key-prefix) 'magit-status)
+
+
+(global-set-key (kbd "\C-o \C-t") 'treemacs-select-window)
