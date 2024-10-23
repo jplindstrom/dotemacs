@@ -10,6 +10,7 @@
   (global-set-key (kbd "s-j") nil)
   (global-set-key (kbd "s-k") nil)
   (global-set-key (kbd "s-l") nil)
+  (global-set-key (kbd "s-q") nil)
   )
 
 
