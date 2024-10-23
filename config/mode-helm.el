@@ -29,11 +29,9 @@
     ))
 
 
-(global-set-key (kbd "s-SPC") 'helm-projectile)
+(global-set-key (kbd "s-SPC") 'helm-projectile)    ;; For Linux
 
-(global-set-key (kbd "C-M-SPC") 'helm-projectile)  ;; for macOS, where Cmd-SPC is taken by Spotlight
+;; for macOS, where Cmd-SPC is taken by Spotlight
+(global-set-key (kbd "s-C-SPC") 'helm-projectile)
 
 ;; (helm-mode 1)
-
-
-
