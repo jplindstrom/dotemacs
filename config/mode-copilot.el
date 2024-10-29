@@ -3,6 +3,7 @@
 ;; (setq max-specpdl-size 3000)     ;; defaut 1600
 (require 'copilot)
 
+(setq copilot-max-char 500000)
 (setq copilot-idle-delay 0.5)
 
 (add-to-list
