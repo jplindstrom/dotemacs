@@ -16,7 +16,8 @@
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t)
+  ;; disable to not mess to much wiht existing projects
+  ;; (add-hook 'before-save-hook #'lsp-organize-imports t t)
 
   (lsp-headerline-breadcrumb-mode)
   (lsp-ui-doc-frame-mode)
