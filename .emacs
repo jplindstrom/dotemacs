@@ -108,6 +108,8 @@
 (jpl/load "mode-org-keys")
 
 
+;; Editors
+(jpl/load "mode-editorconfig")
 
 ;; Languages
 (jpl/load "lang-perl")
