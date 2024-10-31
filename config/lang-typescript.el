@@ -14,6 +14,7 @@
 
   ;; Docs
   (local-set-key "\C-o\C-d" 'tide-documentation-at-point)
+  (local-set-key "\C-odt" 'eldoc-doc-buffer)
 
   ;; Find
   (local-set-key "\C-ofr" 'tide-references)
