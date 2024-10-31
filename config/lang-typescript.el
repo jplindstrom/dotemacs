@@ -1,4 +1,5 @@
 (require 'flycheck)
+(require 'prettier-js)
 
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
 
@@ -66,26 +67,12 @@
   ;;; Formatting
   ;; Prefer the project version, not the global version
   (setq prettier-js-command "npx-prettier")
-  ;; formats the buffer before saving
-  (add-hook 'before-save-hook 'jpl/tide-mode-maybe-format-before-save)
 
   (setup-tide-keys)
 
   ;; Restore original functionality, don't call prettier
   (local-set-key "\M-q" 'fill-paragraph)
   )
-
-;; Disable `jpl/tide-mode-format-before-save` in .dir-locals if needed
-;;
-;; If it doesn't format, ensure that `prettier` is installed into the
-;; active nvm environment. Maybe install it using
-;;
-;;    npm install -g prettier
-;;
-(setq jpl/tide-mode-format-before-save t)
-(defun jpl/tide-mode-maybe-format-before-save ()
-  (when jpl/tide-mode-format-before-save
-    (tide-format-before-save)))
 
 
 ;; aligns annotation to the right hand side
@@ -115,7 +102,8 @@
 (add-hook 'typescript-mode-hook #'setup-jest-test)
 (add-hook 'js2-mode-hook #'setup-jest-test)
 
-
+(add-hook 'typescript-mode-hook #'prettier-js-mode)
+(add-hook 'js2-mode-hook #'prettier-js-mode)
 
 
 
