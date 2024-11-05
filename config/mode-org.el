@@ -14,23 +14,25 @@
 
 (defun jpl/org-mode-prettify-symbols ()
   (interactive)
-  (push '("TODO"    . ?✗) prettify-symbols-alist)
-  ;; (push '("TODO"    . ?□) prettify-symbols-alist)
-  ;; (push '("DOING"   . ?♻) prettify-symbols-alist)
-  (push '("DOING"    . ?✘) prettify-symbols-alist)
-  (push '("DONE"    . ?✔) prettify-symbols-alist)
-  (push '("WAIT" . ?⨻) prettify-symbols-alist)
-  (push '("BLOCKED" . ?⨻) prettify-symbols-alist)
-  (push '("WONTDO"  . ?⨯) prettify-symbols-alist)
-  (push '(":PROPERTIES:"  . ?✎) prettify-symbols-alist)
-  (push '(":END:"  . ?✎) prettify-symbols-alist)
-  (push '("#+begin_src"  . ?◤) prettify-symbols-alist)
-  (push '("#+BEGIN_SRC"  . ?◤) prettify-symbols-alist)
-  (push '("#+end_src"  . ?◣) prettify-symbols-alist)
-  (push '("#+END_SRC"  . ?◣) prettify-symbols-alist)
-  (push '("#+RESULTS:"  . ?☷) prettify-symbols-alist)
-  (push '("#+DOWNLOADED: "  . ?◤) prettify-symbols-alist)
-  (push '(":meeting:"  . ?📅) prettify-symbols-alist)
+  (push '("TODO"           . ?✗) prettify-symbols-alist)
+  ;; (push '("TODO"        . ?□) prettify-symbols-alist)
+  ;; (push '("DOING"       . ?♻) prettify-symbols-alist)
+  (push '("DOING"          . ?✘) prettify-symbols-alist)
+  (push '("DONE"           . ?✔) prettify-symbols-alist)
+  (push '("WAIT"           . ?⨻) prettify-symbols-alist)
+  (push '("BLOCKED"        . ?⨻) prettify-symbols-alist)
+  (push '("WONTDO"         . ?⨯) prettify-symbols-alist)
+  (push '(":PROPERTIES:"   . ?✎) prettify-symbols-alist)
+  (push '(":END:"          . ?✎) prettify-symbols-alist)
+  (push '("#+begin_src"    . ?◤) prettify-symbols-alist)
+  (push '("#+BEGIN_SRC"    . ?◤) prettify-symbols-alist)
+  (push '("#+end_src"      . ?◣) prettify-symbols-alist)
+  (push '("#+END_SRC"      . ?◣) prettify-symbols-alist)
+  (push '("#+RESULTS:"     . ?☷) prettify-symbols-alist)
+  (push '("#+DOWNLOADED: " . ?◤) prettify-symbols-alist)
+  (push '(":meeting:"      . ?📅) prettify-symbols-alist)
+  (push '(":holiday:"      . ?🌴) prettify-symbols-alist)
+
   (prettify-symbols-mode))
 
 (add-hook 'org-mode-hook (lambda ()
@@ -40,6 +42,17 @@
 ;; △ ⎊ ⨻ ◃ ⧐
 
 
+;; Show e.g. links on hover
+;; From https://new.reddit.com/r/emacs/comments/o68i0v/comment/h2rizey
+(defun echo-area-tooltips ()
+  "Show tooltips in the echo area automatically for current buffer."
+  (setq-local help-at-pt-display-when-idle t
+              help-at-pt-timer-delay 0)
+  (help-at-pt-cancel-timer)
+  (help-at-pt-set-timer))
+(add-hook 'org-mode-hook #'echo-area-tooltips)
+
+
 (add-hook
  'org-mode-hook
  (lambda ()
@@ -47,6 +60,8 @@
    (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
 
    (define-key org-mode-map (kbd "C-o g b") #'org-mark-ring-goto)
+
+   (define-key org-mode-map (kbd "C-o v l") #'org-toggle-link-display)
 
    (company-mode)
    )
