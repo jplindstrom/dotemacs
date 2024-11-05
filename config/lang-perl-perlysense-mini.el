@@ -165,3 +165,48 @@ If not, search for an empty string.
 
 
 (global-set-key (kbd "\C-o \C-t") 'treemacs-select-window)
+
+
+
+;; Snippets
+
+(defun ps/current-package-name ()
+  "Return the name of the current package statement, or nil if
+  there isn't one."
+  (save-excursion
+    (end-of-line)
+    (if (search-backward-regexp "^ *\\bpackage +\\([a-zA-Z0-9:_]+\\)" nil t)
+        (let (( package-name (match-string 1) ))
+          package-name)
+      nil)))
+
+
+
+(defun ps/package-name-from-file ()
+  "Return the name of the current file as if it was a package
+name, or return nil if not found."
+  (interactive)
+  (let* ((file-name (buffer-file-name)))
+    (if (string-match "\\blib/\\(.+?\\)\\.pm$" file-name)
+        (let* ((name-part (match-string 1 file-name)))
+          (replace-regexp-in-string "/" "::" name-part)
+          )
+      )))
+
+
+
+(defun ps/edit-copy-package-name ()
+  "Copy (put in the kill-ring) the name of the current package
+  statement, and display it in the echo area. Or, if not found,
+  use the file package name."
+  (interactive)
+  (let ((package-name
+         (or
+          (ps/current-package-name)
+          (ps/package-name-from-file))))
+    (if package-name
+        (progn
+          (kill-new package-name)
+          (message "Copied package name '%s'" package-name))
+      (error "No package found either in the source or the file name"))))
+
