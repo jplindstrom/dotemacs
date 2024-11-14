@@ -32,6 +32,7 @@
   (push '("#+DOWNLOADED: " . ?◤) prettify-symbols-alist)
   (push '(":meeting:"      . ?📅) prettify-symbols-alist)
   (push '(":holiday:"      . ?🌴) prettify-symbols-alist)
+  (push '(":waste:"      . ?💩) prettify-symbols-alist)
 
   (prettify-symbols-mode))
 
