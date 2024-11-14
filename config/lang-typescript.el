@@ -108,6 +108,7 @@
 
 
 
+(require 'typescript-mode)
 (use-package prettier-js
   :commands (prettier-js-mode prettier)
   :init (add-hook 'typescript-mode-hook 'prettier-js-mode)
