@@ -168,6 +168,35 @@ If not, search for an empty string.
 
 
 
+(defun ps/goto-buffer-name (buffer-name)
+  "Go to the currently named 'buffer-name' buffer, if any."
+  (let* ((target-buffer (get-buffer buffer-name)))
+    (if target-buffer
+        (let* ((compilation-window (get-buffer-window target-buffer "visible")))
+          (progn
+            (if compilation-window (select-window compilation-window))
+            (switch-to-buffer buffer-name)
+            )
+          )
+      (message (format "There is no %s buffer to go to." buffer-name))
+      nil)))
+
+;; Almost identical to recompile, remove duplication
+(defun ps/goto-run-buffer ()
+  "Go to the current *compilation* buffer, if any."
+  (interactive)
+  (ps/goto-buffer-name "*compilation*"))
+(global-set-key (format "%sgr" ps/key-prefix) 'ps/goto-run-buffer)
+
+(defun ps/goto-find-buffer ()
+  "Go to the current *grep* buffer, if any."
+  (interactive)
+  (ps/goto-buffer-name "*grep*"))
+(global-set-key (format "%sgf" ps/key-prefix) 'ps/goto-find-buffer)
+
+
+
+
 ;; Snippets
 
 (defun ps/current-package-name ()
