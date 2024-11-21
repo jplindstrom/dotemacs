@@ -532,6 +532,7 @@ markup"
       )
     )
   )
+(define-key org-mode-map "\C-oecs" 'org-export-subtree-as-markdown)
 
 
 
