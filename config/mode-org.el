@@ -85,7 +85,8 @@
 (setq org-special-ctrl-a/e t)
 
 ;; Don't split the line, you can manually do that with a newline and then M-RET
-(setq org-M-RET-may-split-line nil)
+;; Disabled, this turned out to be more annoying
+;; (setq org-M-RET-may-split-line nil)
 
 
 (setq org-link-abbrev-alist
