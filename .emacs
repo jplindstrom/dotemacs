@@ -211,7 +211,7 @@
  '(org-support-shift-select t)
  '(package-selected-packages
    '(unfill magit-org-todos org-rich-yank mermaid-mode ob-mermaid ob-sql-mode browse-kill-ring yaml-mode iedit htmlize eldoc spell-fu markdown-toc jsonrpc s pytest editorconfig jest-test-mode lsp-ui helpful chatgpt-shell ob-chatgpt-shell treemacs terraform-doc org-download gptel org-web-tools git-link hl-todo magit-todos evil-numbers origami yaml-pro beacon csv-mode emacsql-sqlite-module seq ghub prettier-js graphql-mode company-terraform terraform-mode tide code-review forge cask company dap-mode helm-lsp lsp-ivy lsp-treemacs x-path-walker ztree treemacs-icons-dired treemacs-magit string-inflection evil-string-inflection evil-surround web-mode org mocha go-mode wgrep docker dockerfile-mode poly-markdown polymode discover-js2-refactor js2-highlight-vars js2-mode magit-gitflow treemacs-projectile edit-indirect org-sticky-header smartparens org-presie org-mind-map org-jira avy plantuml-mode sparkline spaceline slim-mode scala-mode2 puppet-mode project-explorer pcsv noctilux-theme neotree markdown-mode+ keyfreq js2-refactor js-doc highlight-symbol helm-projectile helm-ls-git helm-helm-commands helm-gtags helm-git-grep helm-git helm-dired-recent-dirs helm-c-yasnippet helm-c-moccur haml-mode graphviz-dot-mode golden-ratio git-messenger git-gutter-fringe flatui-theme expand-region direx diminish cperl-mode cider anzu))
- '(recentf-menu-filter nil)
+ '(recentf-menu-filter 'recentf-arrange-by-dir)
  '(revert-without-query '(".*"))
  '(safe-local-variable-values
    '((jpl/tide-mode-format-before-save)
