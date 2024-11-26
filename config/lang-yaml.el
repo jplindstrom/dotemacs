@@ -5,7 +5,6 @@
 
 
 (defun yaml-setup-yaml-lsp ()
-  (setq lsp-pylsp-server-command '("pylsp" "-v"))
   (setq read-process-output-max 8192)
 
   ;; Run this to install the LSP server
