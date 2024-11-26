@@ -53,6 +53,11 @@
 (beacon-mode 1)
 
 
+(if (not (version<= "29.0" emacs-version))
+    (pixel-scroll-precision-mode))
+
+
+
 
 ;; (require 'spaceline-config)
 ;; (spaceline-spacemacs-theme)
