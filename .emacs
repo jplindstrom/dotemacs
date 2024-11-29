@@ -256,6 +256,7 @@
  '(ediff-even-diff-B ((t (:extend t :background "light gray"))))
  '(ediff-fine-diff-A ((t (:background "coral2" :foreground "#2c3e50" :weight bold))))
  '(ediff-fine-diff-B ((t (:background "DarkSeaGreen2" :foreground "#2c3e50" :slant italic))))
+ '(ediff-odd-diff-B ((t (:extend t :background "LightBlue2"))))
  '(font-lock-builtin-face ((t (:foreground "#16a085" :underline t :weight bold))))
  '(highlight ((t (:background "light steel blue"))))
  '(hl-line ((t (:extend t :underline "black"))))
