@@ -233,6 +233,14 @@
  '(web-mode-enable-auto-pairing nil))
 
 
+;; Fix
+;; treemacs--process-file-events produces errors in case of
+;; transient files, even gitignored ones. Hiding gitignored files
+;; appears to work around the timer error.
+;; https://github.com/Alexander-Miller/treemacs/issues/749#issuecomment-1962363871
+(setq treemacs-hide-gitignored-files-mode t)
+
+
 
 ;; org-special-keyword is old org-drawer
 
